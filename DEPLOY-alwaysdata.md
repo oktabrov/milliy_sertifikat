@@ -70,7 +70,7 @@ REQUIRED_CHANNELS=@your_channel
 - **Command:**
 
   ```
-  /home/<account>/www/testbot/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port $PORT
+  /home/<account>/www/testbot/venv/bin/uvicorn app.main:app --host $IP --port $PORT
   ```
 
 - **Working directory:** `/home/<account>/www/testbot`

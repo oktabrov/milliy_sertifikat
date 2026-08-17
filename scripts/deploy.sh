@@ -49,11 +49,26 @@ if [ ! -x "$APP_DIR/venv/bin/python" ]; then
 fi
 
 info "Installing dependencies"
-"$APP_DIR/venv/bin/pip" install --quiet --upgrade pip
-"$APP_DIR/venv/bin/pip" install --quiet -r requirements.txt
-"$APP_DIR/venv/bin/pip" install --quiet asyncpg   # PostgreSQL driver
+# --no-cache-dir matters: pip's wheel cache in ~/.cache counts against the quota.
+"$APP_DIR/venv/bin/pip" install --quiet --no-cache-dir -r requirements.txt
 
-info "Disk used by the virtualenv: $(du -sh "$APP_DIR/venv" | cut -f1) (free tier allows 100M total)"
+# Only pull the PostgreSQL driver when the config actually asks for it; it is
+# 2.7 MB that a SQLite deployment has no use for.
+if grep -qE '^DATABASE_URL=.*postgresql' "$APP_DIR/.env" 2>/dev/null; then
+  info "PostgreSQL detected in .env; installing asyncpg"
+  "$APP_DIR/venv/bin/pip" install --quiet --no-cache-dir asyncpg
+fi
+
+info "Reclaiming space"
+# Bytecode caches roughly double the virtualenv. PYTHONDONTWRITEBYTECODE in the
+# site command stops them coming back; imports are marginally slower, which
+# matters far less than the quota.
+find "$APP_DIR/venv" -name '__pycache__' -type d -exec rm -rf {} + 2>/dev/null || true
+rm -rf "$HOME/.cache/pip" 2>/dev/null || true
+
+USED=$(du -sh "$APP_DIR/venv" | cut -f1)
+info "Virtualenv now uses $USED (free plan allows 100M for the whole account)"
+info "Total account usage: $(du -sh "$HOME" 2>/dev/null | cut -f1)"
 
 # --- Configuration ----------------------------------------------------------
 
@@ -134,7 +149,7 @@ Remaining steps, in the alwaysdata admin panel:
 
   Web -> Sites -> Add a site
     Type              User program
-    Command           $APP_DIR/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port \$PORT
+    Command           $APP_DIR/venv/bin/python -B -m uvicorn app.main:app --host \$IP --port \$PORT
     Working directory $APP_DIR
     Addresses         <account>.alwaysdata.net
 
