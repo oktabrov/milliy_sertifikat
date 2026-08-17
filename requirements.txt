@@ -1,16 +1,22 @@
 # Production dependencies. Deliberately small: alwaysdata's free plan allows
-# 100 MB of disk in total, and a virtualenv gets there faster than you would
-# think. Measured sizes are in DEPLOY-alwaysdata.md.
+# 100 MB of disk in total. Measured sizes are in DEPLOY-alwaysdata.md.
 #
-# Storage is plain JSON files (app/store/), so there is no database driver and
-# no ORM here — that alone is about 20 MB saved.
+# Only three direct dependencies. Storage is plain JSON files (app/store/), so
+# there is no database driver and no ORM, and configuration is parsed by hand
+# in app/config.py rather than by pydantic-settings.
 
 aiogram>=3.13,<4
 fastapi>=0.115
 uvicorn>=0.30
-pydantic>=2.9
-pydantic-settings>=2.4
 
+# Pulled in transitively and not removable:
+#   pydantic + pydantic-core (6.1 MB) — aiogram requires pydantic<2.14,>=2.4.1;
+#     every Telegram type is a pydantic model, so it cannot be dropped without
+#     replacing aiogram itself. FastAPI reuses it for request validation, which
+#     is why FastAPI's own marginal cost is only ~900 KB.
+#   aiohttp (2.0 MB)  — aiogram's HTTP client.
+#   starlette (332 KB) — FastAPI's ASGI foundation.
+#
 # Deliberately NOT uvicorn[standard]: uvloop, websockets and httptools add
 # about 7 MB and buy nothing here — the app is I/O-bound on Telegram's API and
 # the free tier gives a quarter of a CPU. Add it back on a paid plan.

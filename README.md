@@ -149,11 +149,11 @@ cloudflared tunnel --url http://localhost:8080
 .venv/bin/python -m pytest
 ```
 
-111 tests covering the Rasch engine (difficulty recovery against known values),
+131 tests covering the Rasch engine (difficulty recovery against known values),
 the three-scenario tables, answer normalisation, `initData` verification
 including forgery attempts, the JSON store's durability and concurrency
-guarantees, multiple accepted answers, and the full create → answer → score API
-flow.
+guarantees, multiple accepted answers, configuration precedence, and the full
+create → answer → score API flow.
 
 ---
 
@@ -193,6 +193,17 @@ directly testable.
 Three JSON files under `DATA_DIR`: `users.json`, `tests.json`, `attempts.json`.
 No database, no ORM, no driver — which is also why the production virtualenv is
 19 MB rather than 96 MB.
+
+### Why pydantic is still here
+
+It is not used for storage, and configuration is parsed by hand in
+`app/config.py`. It stays because **aiogram requires it** —
+`pydantic<2.14,>=2.4.1` — and every Telegram type is a pydantic model, so it
+cannot go without replacing the Telegram library itself. That is 6.1 MB of the
+19 MB and it is not removable.
+
+Since pydantic is present regardless, FastAPI reuses it for request validation,
+which makes FastAPI's own marginal cost about 900 KB.
 
 The obvious hazard with JSON files is losing a write: two students submit in the
 same second, both read the attempt list, both append, both save, and one result

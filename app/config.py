@@ -1,21 +1,96 @@
-"""Runtime configuration, read from the environment or a local .env file."""
+"""Runtime configuration, read from the environment or a local .env file.
+
+Deliberately hand-rolled rather than pydantic-settings: this is thirty lines of
+parsing against a 296 KB dependency, and pydantic itself is already in the tree
+only because aiogram requires it.
+
+Precedence is real environment variables first, then `.env`, then the default.
+The check is `in`, not truthiness — an explicitly empty `WEBHOOK_BASE=` must
+override a value in `.env`, which a simple `or` chain would silently ignore.
+"""
 
 from __future__ import annotations
 
+import os
+from dataclasses import dataclass, field
 from functools import lru_cache
-
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pathlib import Path
 
 from app.scoring.scenarios import BallScale
 
+ENV_FILE = Path(__file__).resolve().parent.parent / ".env"
 
-class Settings(BaseSettings):
-    model_config = SettingsConfigDict(
-        env_file=".env",
-        env_file_encoding="utf-8",
-        extra="ignore",
-    )
+_TRUTHY = {"1", "true", "yes", "on"}
+_FALSY = {"0", "false", "no", "off", ""}
 
+
+def _read_env_file(path: Path) -> dict[str, str]:
+    """Parse a `.env` file: KEY=value, `#` comments, optional surrounding quotes."""
+    values: dict[str, str] = {}
+    if not path.exists():
+        return values
+    try:
+        content = path.read_text(encoding="utf-8")
+    except OSError:
+        return values
+
+    for line in content.splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip()
+        value = value.strip()
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+            value = value[1:-1]
+        if key:
+            values[key] = value
+    return values
+
+
+class _Source:
+    def __init__(self, env_file: Path) -> None:
+        self._file = _read_env_file(env_file)
+
+    def raw(self, key: str) -> str | None:
+        if key in os.environ:
+            return os.environ[key]
+        if key in self._file:
+            return self._file[key]
+        return None
+
+    def text(self, key: str, default: str) -> str:
+        value = self.raw(key)
+        return default if value is None else value
+
+    def flag(self, key: str, default: bool) -> bool:
+        value = self.raw(key)
+        if value is None:
+            return default
+        lowered = value.strip().lower()
+        if lowered in _TRUTHY:
+            return True
+        if lowered in _FALSY:
+            return False
+        return default
+
+    def number(self, key: str, default: int) -> int:
+        value = self.raw(key)
+        try:
+            return int(str(value).strip())
+        except (TypeError, ValueError):
+            return default
+
+    def decimal(self, key: str, default: float) -> float:
+        value = self.raw(key)
+        try:
+            return float(str(value).strip())
+        except (TypeError, ValueError):
+            return default
+
+
+@dataclass(frozen=True)
+class Settings:
     bot_token: str
 
     # Public HTTPS origin, e.g. https://youraccount.alwaysdata.net
@@ -29,9 +104,7 @@ class Settings(BaseSettings):
     # Directory holding users.json, tests.json and attempts.json.
     data_dir: str = "./data"
 
-    # Comma-separated Telegram user ids.
     admin_ids: str = ""
-    # Comma-separated @usernames a student must join before answering.
     required_channels: str = ""
 
     help_video_url: str = ""
@@ -96,6 +169,33 @@ class Settings(BaseSettings):
         )
 
 
+def load_settings(env_file: Path | None = None) -> Settings:
+    source = _Source(env_file or ENV_FILE)
+
+    bot_token = source.text("BOT_TOKEN", "")
+    if not bot_token:
+        # Fail at startup rather than on the first Telegram call, so a
+        # half-configured deployment never looks healthy.
+        raise RuntimeError("BOT_TOKEN is not set (put it in .env or the environment)")
+
+    return Settings(
+        bot_token=bot_token,
+        webhook_base=source.text("WEBHOOK_BASE", ""),
+        webhook_secret=source.text("WEBHOOK_SECRET", "change-me"),
+        use_polling=source.flag("USE_POLLING", False),
+        data_dir=source.text("DATA_DIR", "./data"),
+        admin_ids=source.text("ADMIN_IDS", ""),
+        required_channels=source.text("REQUIRED_CHANNELS", ""),
+        help_video_url=source.text("HELP_VIDEO_URL", ""),
+        support_username=source.text("SUPPORT_USERNAME", ""),
+        min_real_submissions=source.number("MIN_REAL_SUBMISSIONS", 20),
+        cohort_size=source.number("COHORT_SIZE", 10_000),
+        ball_midpoint=source.decimal("BALL_MIDPOINT", 50.0),
+        ball_slope=source.decimal("BALL_SLOPE", 16.0),
+        ball_bands=source.text("BALL_BANDS", "70:A+,65:A,60:B+,55:B,50:C+,46:C"),
+    )
+
+
 @lru_cache
 def get_settings() -> Settings:
-    return Settings()
+    return load_settings()
