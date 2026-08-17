@@ -9,6 +9,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request,
 from pydantic import BaseModel, Field
 
 from app.api.auth import WebAppUser, require_web_app_user
+from app.api.gate import require_membership
 from app.bot import texts
 from app.bot.keyboards import see_result_inline
 from app.services.scoring_service import record_attempt, recalibrate
@@ -67,6 +68,7 @@ def _load_test(store: Store, code: str) -> Test:
 @router.get("/test/{code}", response_model=TestOut)
 async def get_test(
     code: str,
+    request: Request,
     web_app_user: WebAppUser = Depends(require_web_app_user),
 ) -> TestOut:
     """Test metadata and the shape of the answer sheet.
@@ -74,6 +76,8 @@ async def get_test(
     Correct answers are never included — the sheet only needs to know how many
     options each question has.
     """
+    await require_membership(request, web_app_user.id)
+
     store = get_store()
     test = _load_test(store, code)
 
@@ -109,6 +113,8 @@ async def submit_attempt(
     background: BackgroundTasks,
     web_app_user: WebAppUser = Depends(require_web_app_user),
 ) -> SubmitOut:
+    await require_membership(request, web_app_user.id)
+
     store = get_store()
     test = _load_test(store, payload.code)
 

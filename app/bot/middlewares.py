@@ -17,12 +17,14 @@ from app.store.json_store import get_store
 
 logger = logging.getLogger(__name__)
 
-# Commands that must work even for someone who has not joined the channels yet,
-# otherwise a new user can get stuck with no way back. The channel commands are
-# exempt too: an admin who mistypes a channel would otherwise be locked out of
-# the very commands needed to correct it.
+# The only commands reachable without joining. Everything else — including
+# /start and name registration — is gated, so an unsubscribed user can never
+# reach a Mini App button in the first place.
+#
+# The channel commands stay open so an admin who adds a wrong channel is not
+# locked out of the commands needed to remove it. They check `is_admin`
+# themselves, so this exemption grants an ordinary user nothing.
 _GATE_EXEMPT_COMMANDS = (
-    "/start",
     "/info",
     "/kanallar",
     "/kanal_qoshish",
@@ -56,9 +58,13 @@ class StoreMiddleware(BaseMiddleware):
 
 
 class ChannelGateMiddleware(BaseMiddleware):
-    """Blocks handlers until the user has joined every required channel.
+    """Blocks every handler until the user has joined *all* required channels.
 
-    Does nothing when REQUIRED_CHANNELS is empty.
+    Does nothing when no channels are configured.
+
+    Admins are gated exactly like everyone else. Exempting them was convenient
+    but meant the owner could never see what a student sees, and made the gate
+    untestable from the account most likely to be testing it.
     """
 
     async def __call__(
@@ -68,8 +74,7 @@ class ChannelGateMiddleware(BaseMiddleware):
         data: dict[str, Any],
     ) -> Any:
         store = data.get("store") or get_store()
-        channels = channel_service.current(store)
-        if not channels:
+        if not channel_service.current(store):
             return await handler(event, data)
 
         if isinstance(event, Message):
@@ -81,11 +86,10 @@ class ChannelGateMiddleware(BaseMiddleware):
                 return await handler(event, data)
 
         user = data.get("user")
-        if user is None or user.is_admin:
-            # Admins are never gated; they may need to fix the gate itself.
+        if user is None:
             return await handler(event, data)
 
-        missing = await missing_channels(data["bot"], user.id, channels)
+        missing = await channel_service.missing_for(data["bot"], store, user.id)
         if not missing:
             return await handler(event, data)
 
@@ -93,25 +97,7 @@ class ChannelGateMiddleware(BaseMiddleware):
         if isinstance(event, Message):
             await event.answer(texts.MUST_JOIN, reply_markup=markup)
         elif isinstance(event, CallbackQuery):
-            await event.answer()
+            await event.answer(texts.STILL_NOT_JOINED, show_alert=True)
             if event.message:
                 await event.message.answer(texts.MUST_JOIN, reply_markup=markup)
         return None
-
-
-async def missing_channels(bot, user_id: int, channels: list[str]) -> list[str]:
-    """Channels from `channels` the user has not joined.
-
-    A channel we cannot query (bot not an admin there, wrong handle) is treated
-    as joined — a misconfiguration should not lock everybody out.
-    """
-    missing = []
-    for channel in channels:
-        try:
-            member = await bot.get_chat_member(chat_id=channel, user_id=user_id)
-        except Exception:
-            logger.warning("Cannot check membership for %s; skipping gate", channel)
-            continue
-        if member.status in ("left", "kicked"):
-            missing.append(channel)
-    return missing

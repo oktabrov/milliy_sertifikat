@@ -10,6 +10,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request,
 from pydantic import BaseModel, Field, field_validator
 
 from app.api.auth import WebAppUser, require_web_app_user
+from app.api.gate import require_membership
 from app.bot import texts
 from app.store.json_store import Store, get_store
 
@@ -172,6 +173,7 @@ async def create_test(
     background: BackgroundTasks,
     web_app_user: WebAppUser = Depends(require_web_app_user),
 ) -> CreateTestOut:
+    await require_membership(request, web_app_user.id)
     _validate_answer_key(payload.questions)
 
     store = get_store()

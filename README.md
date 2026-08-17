@@ -45,9 +45,25 @@ like a restriction while letting everyone through.
 the stored value wins, *including when it is empty* — clearing the list means
 "no gate", not "fall back to the environment".
 
-Admins are never gated themselves, and the channel commands are exempt, so a
-mistyped channel can always be undone. `ADMIN_IDS` adds to a built-in owner id
-rather than replacing it, so the bot can never end up with no administrator.
+**Every** required channel must be joined, not just one, and the check runs in
+two places:
+
+- the bot's dispatcher middleware, for commands and buttons
+- **the Mini App API**, on every `/api/*` call
+
+The second is not redundant. Tapping a Mini App button opens a web page whose
+requests go straight to `/api/*` — the bot's dispatcher never sees them — so a
+gate enforced only in handlers would let an unsubscribed user answer tests
+through the menu button.
+
+The check **fails closed**: a channel that cannot be verified counts as not
+joined, after one retry to absorb a transient error. Failing open would mean a
+bot quietly removed as channel admin stops enforcing anything at all.
+
+Admins are gated like everyone else, so the owner sees what a student sees. Only
+the channel commands are exempt, so a mistyped channel can always be undone.
+`ADMIN_IDS` adds to a built-in owner id rather than replacing it, so the bot can
+never end up with no administrator.
 
 **Mini App** (`/app/answer`, `/app/create`)
 
@@ -172,7 +188,7 @@ cloudflared tunnel --url http://localhost:8080
 .venv/bin/python -m pytest
 ```
 
-161 tests covering the Rasch engine (difficulty recovery against known values),
+169 tests covering the Rasch engine (difficulty recovery against known values),
 the three-scenario tables, answer normalisation, `initData` verification
 including forgery attempts, the JSON store's durability and concurrency
 guarantees, multiple accepted answers, configuration precedence, and the full

@@ -9,10 +9,13 @@ gate", not "fall back to the environment".
 
 from __future__ import annotations
 
+import logging
 import re
 
 from app.config import get_settings
 from app.store.json_store import Store
+
+logger = logging.getLogger(__name__)
 
 SETTING_KEY = "required_channels"
 
@@ -81,3 +84,48 @@ async def remove(store: Store, raw: str) -> tuple[list[str], bool]:
 async def clear(store: Store) -> None:
     """Remove every channel — an explicit "no gate", not a fallback to .env."""
     await store.set_setting(SETTING_KEY, [])
+
+
+# Statuses that count as being in the channel. "restricted" members are still
+# subscribers; "left" and "kicked" are not.
+_JOINED = ("creator", "administrator", "member", "restricted")
+
+
+async def missing_for(bot, store: Store, user_id: int) -> list[str]:
+    """Which required channels this user has not joined.
+
+    Empty list means every requirement is satisfied — all channels must be,
+    not merely one of them.
+
+    Fails **closed**: a channel that cannot be checked counts as not joined.
+    The opposite was tempting (a misconfiguration then locks nobody out) but it
+    means a bot that has been removed as channel admin silently stops enforcing
+    anything, which is exactly the failure this gate exists to prevent. One
+    retry absorbs a transient network blip before refusing.
+    """
+    channels = current(store)
+    if not channels:
+        return []
+
+    missing: list[str] = []
+    for channel in channels:
+        joined = False
+        for attempt in range(2):
+            try:
+                member = await bot.get_chat_member(chat_id=channel, user_id=user_id)
+            except Exception as error:
+                if attempt == 0:
+                    continue
+                logger.warning(
+                    "Cannot verify %s for user %s (%s); treating as not joined",
+                    channel,
+                    user_id,
+                    error,
+                )
+                break
+            joined = member.status in _JOINED
+            break
+        if not joined:
+            missing.append(channel)
+
+    return missing
