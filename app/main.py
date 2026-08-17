@@ -33,6 +33,29 @@ logger = logging.getLogger(__name__)
 WEB_DIR = Path(__file__).parent / "web"
 
 
+async def _supervised_polling(bot, dispatcher) -> None:
+    """Keep long polling alive across transient network failures.
+
+    `start_polling` raises out of its task on a dropped connection — which
+    happens routinely when a second instance starts and Telegram closes the
+    first one's `getUpdates`. Unsupervised, the task dies, nothing notices, and
+    the bot goes quiet while the web server keeps answering happily.
+
+    Only relevant to local development; production uses the webhook.
+    """
+    backoff = 1.0
+    while True:
+        try:
+            await dispatcher.start_polling(bot, handle_signals=False)
+            return  # A clean return means someone asked polling to stop.
+        except asyncio.CancelledError:
+            raise
+        except Exception:
+            logger.exception("Polling stopped unexpectedly; retrying in %.0fs", backoff)
+            await asyncio.sleep(backoff)
+            backoff = min(backoff * 2, 60.0)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     settings = get_settings()
@@ -56,7 +79,7 @@ async def lifespan(app: FastAPI):
         # refuses to deliver updates over long polling.
         with contextlib.suppress(Exception):
             await bot.delete_webhook(drop_pending_updates=True)
-        polling_task = asyncio.create_task(dispatcher.start_polling(bot))
+        polling_task = asyncio.create_task(_supervised_polling(bot, dispatcher))
         logger.info("Bot started in long-polling mode")
     elif settings.webhook_url:
         try:
