@@ -148,9 +148,28 @@ so the process fails loudly instead of running half-configured.
 it shows a TLS or 404 error, `WEBHOOK_BASE` or `WEBHOOK_SECRET` does not match
 what the site is actually serving.
 
-**The Mini App button does nothing.** Telegram silently drops `web_app` buttons
-whose URL is not HTTPS. Confirm `WEBHOOK_BASE` starts with `https://` and send
-`/ms` again to rebuild the keyboard.
+**The Mini App button does nothing, or opens an old address.** Reply keyboards
+persist in a chat until they are replaced, and the Mini App URL is baked into
+the button at the moment it is sent. After changing `WEBHOOK_BASE`, every user
+still holds a button pointing at the previous address. Send `/ms` (or `/start`)
+to rebuild it. Telegram also silently drops `web_app` buttons whose URL is not
+HTTPS, so check `WEBHOOK_BASE` starts with `https://`.
+
+**Checking the deployment without SSH.** `/healthz` reports whether the bot can
+actually receive updates, not just whether the web server is up:
+
+```bash
+curl https://<account>.alwaysdata.net/healthz
+```
+
+```json
+{"status":"ok","mode":"webhook","bot_ready":true,
+ "miniapp_base":"https://<account>.alwaysdata.net/app"}
+```
+
+`"status":"degraded"` with HTTP 503 means the site is serving but the bot is
+deaf; `webhook_error` says why. Check `miniapp_base` matches your real domain —
+if it does not, that is the value going into every Mini App button.
 
 **Disk quota on the free plan.** The 100 MB limit is why nothing here depends on
 numpy, scipy, an ORM or a database driver. If you add packages, check

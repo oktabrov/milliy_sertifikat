@@ -149,7 +149,7 @@ cloudflared tunnel --url http://localhost:8080
 .venv/bin/python -m pytest
 ```
 
-131 tests covering the Rasch engine (difficulty recovery against known values),
+133 tests covering the Rasch engine (difficulty recovery against known values),
 the three-scenario tables, answer normalisation, `initData` verification
 including forgery attempts, the JSON store's durability and concurrency
 guarantees, multiple accepted answers, configuration precedence, and the full

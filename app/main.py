@@ -56,6 +56,47 @@ async def _supervised_polling(bot, dispatcher) -> None:
             backoff = min(backoff * 2, 60.0)
 
 
+async def _register_webhook(app: FastAPI, bot, dispatcher, settings) -> None:
+    """Register the webhook, retrying until it sticks.
+
+    A single attempt is not enough. Telegram rejects a webhook whose host it
+    cannot resolve — a typo in WEBHOOK_BASE, DNS that has not propagated yet, a
+    domain added to the site a minute later — and the old behaviour was to log
+    the failure once and carry on. The web server then answered `/healthz` with
+    200 while the bot received nothing at all, which is the worst possible
+    failure shape: healthy-looking and completely dead.
+
+    So: keep trying, and record the outcome where `/healthz` can report it.
+    """
+    delay = 5.0
+    while True:
+        try:
+            await bot.set_webhook(
+                settings.webhook_url,
+                drop_pending_updates=True,
+                allowed_updates=dispatcher.resolve_used_update_types(),
+            )
+        except asyncio.CancelledError:
+            raise
+        except Exception as error:
+            app.state.webhook_ok = False
+            app.state.webhook_error = str(error)
+            logger.error(
+                "Could not register the webhook at %s — retrying in %.0fs. %s",
+                settings.webhook_base,
+                delay,
+                error,
+            )
+            await asyncio.sleep(delay)
+            delay = min(delay * 2, 300.0)
+            continue
+
+        app.state.webhook_ok = True
+        app.state.webhook_error = None
+        logger.info("Webhook registered at %s", settings.webhook_url)
+        return
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     settings = get_settings()
@@ -66,8 +107,11 @@ async def lifespan(app: FastAPI):
     dispatcher = create_dispatcher()
     app.state.bot = bot
     app.state.dispatcher = dispatcher
+    app.state.webhook_ok = None
+    app.state.webhook_error = None
 
     polling_task: asyncio.Task | None = None
+    webhook_task: asyncio.Task | None = None
 
     try:
         await set_bot_commands(bot)
@@ -82,25 +126,18 @@ async def lifespan(app: FastAPI):
         polling_task = asyncio.create_task(_supervised_polling(bot, dispatcher))
         logger.info("Bot started in long-polling mode")
     elif settings.webhook_url:
-        try:
-            await bot.set_webhook(
-                settings.webhook_url,
-                drop_pending_updates=True,
-                allowed_updates=dispatcher.resolve_used_update_types(),
-            )
-            logger.info("Webhook registered at %s", settings.webhook_url)
-        except Exception:
-            logger.exception("Could not register the webhook")
+        webhook_task = asyncio.create_task(_register_webhook(app, bot, dispatcher, settings))
     else:
         logger.warning("Neither USE_POLLING nor WEBHOOK_BASE is set; the bot will not receive updates")
 
     try:
         yield
     finally:
-        if polling_task is not None:
-            polling_task.cancel()
-            with contextlib.suppress(asyncio.CancelledError):
-                await polling_task
+        for task in (polling_task, webhook_task):
+            if task is not None:
+                task.cancel()
+                with contextlib.suppress(asyncio.CancelledError):
+                    await task
         with contextlib.suppress(Exception):
             await bot.session.close()
 
@@ -114,8 +151,42 @@ app.mount("/app/static", StaticFiles(directory=WEB_DIR / "static"), name="static
 
 
 @app.get("/healthz")
-async def healthz() -> dict[str, str]:
-    return {"status": "ok"}
+async def healthz(request: Request) -> JSONResponse:
+    """Health and configuration, diagnosable without SSH.
+
+    Reports whether the bot is actually reachable, not merely whether the web
+    server is up — a 200 that says nothing about the bot is how a dead bot went
+    unnoticed behind a healthy-looking site.
+
+    Deliberately omits the webhook path: it contains WEBHOOK_SECRET, and this
+    endpoint is public. The Mini App base is already public, since it ships
+    inside every keyboard button.
+    """
+    settings = get_settings()
+    state = request.app.state
+
+    if settings.use_polling:
+        mode = "polling"
+        bot_ready = True
+    else:
+        mode = "webhook"
+        bot_ready = bool(getattr(state, "webhook_ok", False))
+
+    body: dict[str, object] = {
+        "status": "ok" if bot_ready else "degraded",
+        "mode": mode,
+        "bot_ready": bot_ready,
+        "miniapp_base": settings.miniapp_base or None,
+    }
+
+    error = getattr(state, "webhook_error", None)
+    if error:
+        body["webhook_error"] = error
+    if not settings.use_polling and not settings.webhook_base:
+        body["webhook_error"] = "WEBHOOK_BASE is not set"
+
+    # 503 so an uptime check notices a bot that cannot receive updates.
+    return JSONResponse(body, status_code=200 if bot_ready else 503)
 
 
 @app.get("/app/answer")

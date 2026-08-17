@@ -42,9 +42,51 @@ async def client(tmp_path):
 
 
 @pytest.mark.asyncio
-async def test_health(client):
+async def test_health_reports_a_bot_that_cannot_receive_updates(client):
+    """Neither polling nor a webhook base is configured in tests.
+
+    That is a bot which cannot receive anything, and the endpoint must say so
+    rather than answering a cheerful 200 — the exact failure that hid a dead
+    bot behind a healthy-looking site in production.
+    """
     response = await client.get("/healthz")
-    assert response.status_code == 200
+    assert response.status_code == 503
+    body = response.json()
+    assert body["status"] == "degraded"
+    assert body["bot_ready"] is False
+    assert body["mode"] == "webhook"
+    assert body["webhook_error"] == "WEBHOOK_BASE is not set"
+
+
+@pytest.mark.asyncio
+async def test_health_is_ok_once_the_webhook_registers(client):
+    from app.main import app
+
+    app.state.webhook_ok = True
+    app.state.webhook_error = None
+    try:
+        response = await client.get("/healthz")
+        assert response.status_code == 200
+        assert response.json()["status"] == "ok"
+        assert response.json()["bot_ready"] is True
+    finally:
+        app.state.webhook_ok = False
+
+
+@pytest.mark.asyncio
+async def test_health_never_leaks_the_webhook_secret(client):
+    """The path contains WEBHOOK_SECRET and this endpoint is public."""
+    from app.config import get_settings
+
+    from app.main import app
+
+    app.state.webhook_ok = True
+    try:
+        body = (await client.get("/healthz")).text
+    finally:
+        app.state.webhook_ok = False
+    assert get_settings().webhook_secret not in body
+    assert "/webhook/" not in body
 
 
 @pytest.mark.asyncio
