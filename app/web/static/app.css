@@ -1,0 +1,377 @@
+:root {
+  --bg: #f2f3f5;
+  --card: #ffffff;
+  --ink: #16181c;
+  --muted: #7b828c;
+  --accent: #2f6fed;
+  --accent-ink: #ffffff;
+  --chip: #e9ecf1;
+  --chip-ink: #3a3f47;
+  --line: #e2e5ea;
+  --focus: #d99b62;
+  --ok: #2ea44f;
+  --danger: #d64545;
+  --radius: 12px;
+}
+
+/* Telegram hands the page its own palette; honour it when present so the
+   sheet does not glare white inside a dark client. */
+body.tg-dark {
+  --bg: #17191c;
+  --card: #212328;
+  --ink: #f1f2f4;
+  --muted: #9aa0a8;
+  --chip: #2c2f35;
+  --chip-ink: #d8dbe0;
+  --line: #33363c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0 0 96px;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --- Code entry ----------------------------------------------------------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: var(--bg);
+  z-index: 20;
+}
+
+.dialog {
+  width: 100%;
+  max-width: 340px;
+  background: var(--card);
+  border-radius: 16px;
+  padding: 24px 20px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.dialog h1 {
+  margin: 0 0 18px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.dialog label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 15px;
+  font-family: inherit;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--focus);
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--ok);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.btn-accent {
+  background: var(--accent);
+}
+
+.error {
+  margin-top: 12px;
+  color: var(--danger);
+  font-size: 14px;
+  min-height: 18px;
+}
+
+/* --- Sheet ---------------------------------------------------------------- */
+
+.sheet {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 12px;
+}
+
+.sheet-title {
+  margin: 8px 0 14px;
+  text-align: center;
+  color: var(--accent);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.subject-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.subject-row span {
+  color: var(--muted);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.subject-row select {
+  width: auto;
+  min-width: 130px;
+  padding: 4px 8px;
+  font-size: 13px;
+}
+
+.q {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.q-label {
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.q-hint {
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.options {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 8px;
+}
+
+.opt {
+  padding: 11px 0;
+  border: 0;
+  border-radius: 8px;
+  background: var(--chip);
+  color: var(--chip-ink);
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.opt[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.part {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.part-label {
+  width: 22px;
+  flex: none;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-height: 44px;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  font-size: 16px;
+}
+
+.field:focus-within,
+.field.focused {
+  border-color: var(--focus);
+}
+
+.field input.plain-field {
+  border: 0;
+  padding: 6px 0;
+  background: transparent;
+}
+
+math-field {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 17px;
+}
+
+math-field::part(virtual-keyboard-toggle) {
+  color: var(--muted);
+}
+
+/* MathLive 0.9x adds a context-menu button next to the keyboard toggle; the
+   reference sheet only offers the keyboard, so hide it. */
+math-field::part(menu-toggle) {
+  display: none;
+}
+
+.progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  background: var(--card);
+  border-top: 1px solid var(--line);
+  z-index: 10;
+}
+
+.progress .count {
+  margin-bottom: 8px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.progress .btn {
+  margin-top: 0;
+}
+
+/* --- Done ----------------------------------------------------------------- */
+
+.done {
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 22px 20px;
+  background: var(--card);
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+  text-align: center;
+}
+
+.done h2 {
+  margin: 0 0 10px;
+  color: var(--ok);
+  font-size: 17px;
+}
+
+.done p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.result-table {
+  width: 100%;
+  margin: 14px 0 4px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.result-table th,
+.result-table td {
+  padding: 7px 6px;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+}
+
+.result-table th:first-child,
+.result-table td:first-child {
+  text-align: left;
+}
+
+.result-table th {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.result-table td.grade {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* --- Builder -------------------------------------------------------------- */
+
+.builder-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.builder-row > div {
+  flex: 1;
+}
+
+.builder-row label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0 14px;
+}
+
+.toolbar .btn {
+  margin-top: 0;
+}

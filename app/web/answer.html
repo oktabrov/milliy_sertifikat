@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Test tekshirish</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathlive@0.101.0/dist/mathlive.min.js"></script>
+    <link rel="stylesheet" href="/app/static/app.css" />
+  </head>
+  <body>
+    <!-- Step 1: the test code prompt -->
+    <div class="overlay" id="code-step">
+      <div class="dialog">
+        <h1>Test ma'lumotlarini kiriting</h1>
+        <label for="code-input">Test kodi:</label>
+        <input id="code-input" type="text" inputmode="numeric" autocomplete="off" />
+        <button class="btn" id="code-submit">Davom etish</button>
+        <div class="error" id="code-error"></div>
+      </div>
+    </div>
+
+    <!-- Step 2: the answer sheet -->
+    <div class="sheet hidden" id="sheet-step">
+      <div class="sheet-title" id="sheet-title"></div>
+      <div class="subject-row" id="subject-row">
+        <span>Fanni tanlang:</span>
+        <select id="subject-select"></select>
+      </div>
+      <div id="questions"></div>
+    </div>
+
+    <div class="progress hidden" id="progress-bar">
+      <div class="count" id="progress-count"></div>
+      <button class="btn btn-accent" id="submit-btn">Javoblarni yuborish</button>
+      <div class="error" id="submit-error"></div>
+    </div>
+
+    <!-- Step 3: confirmation -->
+    <div class="overlay hidden" id="done-step">
+      <div class="done">
+        <h2>✅ Sizning natijangiz qabul qilindi!</h2>
+        <p>
+          Ushbu sahifadan chiqib <b>Natijalarim</b> bo'limi orqali natijangiz haqida
+          batafsil ma'lumot olishingiz mumkin.
+        </p>
+        <div id="result-summary"></div>
+        <button class="btn" id="close-btn">Chiqish</button>
+      </div>
+    </div>
+
+    <script type="module" src="/app/static/answer.js"></script>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+"""End-to-end API: author a test, answer it, get three results back."""
+
+from __future__ import annotations
+
+import os
+from pathlib import Path
+
+import pytest
+import pytest_asyncio
+from httpx import ASGITransport, AsyncClient
+
+from tests.conftest import TEST_BOT_TOKEN
+from tests.test_auth import make_init_data
+
+DB_FILE = Path("./test_tmp.db")
+
+
+def auth_headers(user_id: int = 42, first_name: str = "Sardor") -> dict[str, str]:
+    init_data = make_init_data({"id": user_id, "first_name": first_name}, token=TEST_BOT_TOKEN)
+    return {"Authorization": f"tma {init_data}"}
+
+
+def sample_payload(code: str | None = None) -> dict:
+    questions = [
+        {"number": number, "type": "mc", "options": 4, "answer": "A"} for number in range(1, 9)
+    ]
+    questions.append({"number": 9, "type": "open", "parts": {"a": "50/3", "b": "2"}})
+    return {
+        "title": "Test №1",
+        "subjects": ["Matematika", "Fizika"],
+        "questions": questions,
+        "code": code,
+    }
+
+
+@pytest_asyncio.fixture
+async def client():
+    if DB_FILE.exists():
+        DB_FILE.unlink()
+
+    from app.db.base import engine, init_models
+    from app.main import app
+
+    await init_models()
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as async_client:
+        yield async_client
+    await engine.dispose()
+    if DB_FILE.exists():
+        DB_FILE.unlink()
+
+
+@pytest.mark.asyncio
+async def test_health(client):
+    response = await client.get("/healthz")
+    assert response.status_code == 200
+
+
+@pytest.mark.asyncio
+async def test_api_requires_valid_init_data(client):
+    response = await client.get("/api/test/1234")
+    assert response.status_code == 401
+
+    response = await client.get("/api/test/1234", headers={"Authorization": "tma forged=1&hash=00"})
+    assert response.status_code == 401
+
+
+@pytest.mark.asyncio
+async def test_create_then_answer_a_test(client):
+    created = await client.post("/api/test", json=sample_payload("777"), headers=auth_headers())
+    assert created.status_code == 201, created.text
+    assert created.json()["code"] == "777"
+    assert created.json()["question_count"] == 9
+
+    # The sheet must describe the questions without leaking the answer key.
+    fetched = await client.get("/api/test/777", headers=auth_headers())
+    assert fetched.status_code == 200
+    body = fetched.json()
+    assert body["title"] == "Test №1"
+    assert body["subjects"] == ["Matematika", "Fizika"]
+    assert body["already_submitted"] is False
+    assert "answer" not in str(body)
+    assert body["questions"][-1] == {"number": 9, "type": "open", "options": 4, "parts": ["a", "b"]}
+
+    answers = {str(number): "A" for number in range(1, 7)}
+    answers["9a"] = r"\frac{50}{3}"
+    answers["9b"] = "2 ta"
+
+    submitted = await client.post(
+        "/api/attempt",
+        json={"code": "777", "subject": "Matematika", "answers": answers},
+        headers=auth_headers(),
+    )
+    assert submitted.status_code == 200, submitted.text
+    result = submitted.json()
+
+    # 6 of 8 multiple choice, plus both open parts.
+    assert result["raw_correct"] == 8
+    assert result["total_items"] == 10
+
+    scenarios = result["scenarios"]
+    assert [row["key"] for row in scenarios] == ["weak", "normal", "strong"]
+    assert [row["label_uz"] for row in scenarios] == ["Zaif guruh", "O'rtacha guruh", "Kuchli guruh"]
+    balls = [row["ball"] for row in scenarios]
+    assert balls == sorted(balls, reverse=True)
+
+
+@pytest.mark.asyncio
+async def test_second_submission_is_refused(client):
+    await client.post("/api/test", json=sample_payload("778"), headers=auth_headers())
+    payload = {"code": "778", "answers": {"1": "A"}}
+
+    first = await client.post("/api/attempt", json=payload, headers=auth_headers())
+    assert first.status_code == 200
+
+    second = await client.post("/api/attempt", json=payload, headers=auth_headers())
+    assert second.status_code == 409
+
+    fetched = await client.get("/api/test/778", headers=auth_headers())
+    assert fetched.json()["already_submitted"] is True
+
+
+@pytest.mark.asyncio
+async def test_unknown_code_is_a_404(client):
+    response = await client.get("/api/test/000999", headers=auth_headers())
+    assert response.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_duplicate_code_is_refused(client):
+    first = await client.post("/api/test", json=sample_payload("779"), headers=auth_headers())
+    assert first.status_code == 201
+    second = await client.post("/api/test", json=sample_payload("779"), headers=auth_headers())
+    assert second.status_code == 409
+
+
+@pytest.mark.asyncio
+async def test_code_is_generated_when_omitted(client):
+    response = await client.post("/api/test", json=sample_payload(None), headers=auth_headers())
+    assert response.status_code == 201
+    assert response.json()["code"].isdigit()
+
+
+@pytest.mark.asyncio
+async def test_a_test_without_an_answer_key_is_refused(client):
+    payload = sample_payload("781")
+    payload["questions"][0]["answer"] = ""
+    response = await client.post("/api/test", json=payload, headers=auth_headers())
+    assert response.status_code == 400
+    assert "1-savol" in response.json()["error"]
+
+
+@pytest.mark.asyncio
+async def test_multi_letter_answer_key_is_refused(client):
+    """"AB" is a substring of "ABCD"; membership must be per-letter."""
+    payload = sample_payload("784")
+    payload["questions"][0]["answer"] = "AB"
+    response = await client.post("/api/test", json=payload, headers=auth_headers())
+    assert response.status_code == 400
+
+
+@pytest.mark.asyncio
+async def test_answer_outside_the_option_range_is_refused(client):
+    payload = sample_payload("785")
+    payload["questions"][0]["answer"] = "F"  # only 4 options exist
+    response = await client.post("/api/test", json=payload, headers=auth_headers())
+    assert response.status_code == 400
+
+
+@pytest.mark.asyncio
+async def test_open_question_without_an_answer_is_refused(client):
+    payload = sample_payload("782")
+    payload["questions"][-1]["parts"] = {"a": "", "b": ""}
+    response = await client.post("/api/test", json=payload, headers=auth_headers())
+    assert response.status_code == 400
+
+
+@pytest.mark.asyncio
+async def test_two_students_can_answer_the_same_test(client):
+    await client.post("/api/test", json=sample_payload("783"), headers=auth_headers(user_id=1))
+
+    strong = await client.post(
+        "/api/attempt",
+        json={"code": "783", "answers": {str(n): "A" for n in range(1, 9)}},
+        headers=auth_headers(user_id=2, first_name="Aziz"),
+    )
+    weak = await client.post(
+        "/api/attempt",
+        json={"code": "783", "answers": {"1": "A"}},
+        headers=auth_headers(user_id=3, first_name="Bek"),
+    )
+
+    assert strong.status_code == 200
+    assert weak.status_code == 200
+    assert strong.json()["raw_correct"] == 8
+    assert weak.json()["raw_correct"] == 1
+    # Within one cohort, the better performance must score higher.
+    assert strong.json()["scenarios"][1]["ball"] > weak.json()["scenarios"][1]["ball"]

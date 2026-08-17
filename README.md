@@ -1,0 +1,170 @@
+# Milliy sertifikat test bot
+
+A Telegram bot and Mini App for running Uzbek national-certificate style tests:
+students enter a test code, fill in an answer sheet (35 multiple-choice
+questions plus a short-answer block with a maths keyboard), and get a result
+scored with a **Rasch (RASH) model against three simulated cohorts**.
+
+Interface language is Uzbek (Latin).
+
+---
+
+## What it does
+
+**Bot**
+
+| Command / button | Behaviour |
+|---|---|
+| `/start` | Asks for name and surname in Latin script, then greets the student |
+| `/edit` | Change the stored name |
+| `/info` | How the bot works and how results are calculated |
+| `/ms` | Milliy sertifikat section: **Test tekshirish**, **Test yaratish**, **Mening natijalarim**, **Mening testlarim** |
+| `/testlarim` | Tests you authored, with participant counts and close/reopen buttons |
+| `/natijalarim` | Your results |
+| `/stats`, `/broadcast` | Admin only |
+
+Optional channel-subscription gate: set `REQUIRED_CHANNELS` and students must
+join before answering.
+
+**Mini App** (`/app/answer`, `/app/create`)
+
+- Test-code prompt, then the answer sheet: `Test №6 – 45 ta savol`
+- Multiple choice with 2–6 options per question, tap to select, tap again to clear
+- Short-answer questions with parts **a)** and **b)**, using
+  [MathLive](https://mathlive.io) for the four-tab maths keyboard
+  (`123` / `∞≠∈` / `abc` / `αβγ`) — answers are stored as LaTeX
+- A test builder for teachers that produces a shareable test code
+
+---
+
+## Scoring: three cohorts, three results
+
+A real sitting has 50–100 students, which is far too few to calibrate 45–55
+items or quote a percentile honestly. So every student is scored against three
+**synthetic reference cohorts of 10,000** virtual participants:
+
+| Scenario | Uzbek label | Ability distribution |
+|---|---|---|
+| `weak` | Zaif guruh | N(−1.2, 1) — most did poorly |
+| `normal` | O'rtacha guruh | N(0.0, 1) — most did about average |
+| `strong` | Kuchli guruh | N(+1.2, 1) — most did very well |
+
+Each cohort is calibrated separately with JMLE, anchored so the *cohort's* mean
+ability sits at zero. That anchoring is what produces question complexity "in
+three types" — the same item comes out harder in a weak field and easier in a
+strong one, because difficulty is only ever identified relative to the people
+who sat the test. Measured on a 45-item paper:
+
+```
+weak    mean item difficulty  +1.25 logits   (items look harder)
+normal  mean item difficulty   0.00 logits
+strong  mean item difficulty  -1.23 logits   (items look easier)
+```
+
+A student scoring 30 of 55 therefore sees:
+
+```
+Stsenariy        Ball   Foiz    Daraja
+Zaif guruh        74     91.4%    A+
+O'rtacha guruh    54     59.2%    C+
+Kuchli guruh      34     18.4%    —
+```
+
+The three numbers bracket where the student would land depending on how strong
+the national field turns out to be.
+
+**What the simulation does and does not buy you.** It does not discover
+difficulty it was not given: recovered difficulties equal the seeded ones plus
+the anchoring shift, up to sampling noise. What it provides is a smooth, stable
+raw-score → ball → percentile mapping computed at N=10,000 instead of N=50, and
+the cohort-strength bracketing above. Once `MIN_REAL_SUBMISSIONS` (default 20)
+students have actually sat a test, item difficulties are re-estimated from
+their real responses, the tables are rebuilt, and every earlier attempt is
+rescored.
+
+Implementation notes:
+
+- Pure Python, no numpy or scipy — alwaysdata's free tier gives 100 MB of disk
+- Under the dichotomous Rasch model everyone with the same raw score gets the
+  same ability, so a 10,000 × 55 matrix collapses to 56 raw-score groups and
+  JMLE iterates over those. All three tables build in ~0.2 s.
+- JMLE over-disperses item difficulty on short tests (measured slope 1.19 at 8
+  items, 1.03 at 45); the standard `(L−1)/L` correction is applied.
+
+---
+
+## Running it locally
+
+```bash
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+cp .env.example .env      # then put your BOT_TOKEN in it
+```
+
+Set `USE_POLLING=true` in `.env` and start the app:
+
+```bash
+.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8080
+```
+
+The bot long-polls and the Mini App is served from the same process at
+`http://127.0.0.1:8080/app/answer`.
+
+The Mini App buttons need an HTTPS origin — Telegram refuses `web_app` buttons
+over plain HTTP. For local testing against real Telegram, expose the port and
+set `WEBHOOK_BASE` to the tunnel URL:
+
+```bash
+cloudflared tunnel --url http://localhost:8080
+```
+
+### Tests
+
+```bash
+.venv/bin/python -m pytest
+```
+
+81 tests covering the Rasch engine (difficulty recovery against known values),
+the three-scenario tables, answer normalisation, `initData` verification
+including forgery attempts, and the full create → answer → score API flow.
+
+---
+
+## Deploying
+
+See [DEPLOY-alwaysdata.md](DEPLOY-alwaysdata.md). In production the bot runs in
+**webhook** mode inside the same ASGI app that serves the Mini App, so there is
+one process, one port and one certificate.
+
+---
+
+## Layout
+
+```
+app/
+  main.py                  ASGI app: webhook + API + static
+  config.py                environment settings
+  db/models.py             users, tests, attempts
+  bot/                     handlers, keyboards, Uzbek strings
+  api/                     initData auth, test + submission endpoints
+  scoring/
+    rasch.py               1-PL model, JMLE, ability estimation
+    scenarios.py           the three synthetic cohorts
+    grader.py              answer normalisation and grading
+  services/                where the database meets the model
+  web/                     Mini App
+tests/
+```
+
+`app/scoring/*` knows nothing about SQLAlchemy or Telegram, which is what makes
+it directly testable.
+
+---
+
+## Security notes
+
+- `.env` is gitignored; the bot token must never be committed
+- Every Mini App API call verifies Telegram's `initData` HMAC — a forged or
+  stale payload is rejected, which is the only thing stopping someone
+  submitting answers as another student
+- Answer keys are never sent to the answer sheet
+- Open answers are evaluated with a whitelisted AST walker, never `eval`

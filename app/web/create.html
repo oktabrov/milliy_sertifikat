@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Test yaratish</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathlive@0.101.0/dist/mathlive.min.js"></script>
+    <link rel="stylesheet" href="/app/static/app.css" />
+  </head>
+  <body>
+    <!-- Step 1: the shape of the paper -->
+    <div class="overlay" id="setup-step">
+      <div class="dialog">
+        <h1>Yangi test yaratish</h1>
+
+        <label for="title-input">Test nomi:</label>
+        <input id="title-input" type="text" value="Test №1" autocomplete="off" />
+
+        <div class="builder-row" style="margin-top: 12px">
+          <div>
+            <label for="mc-count">Yopiq savollar</label>
+            <input id="mc-count" type="number" min="0" max="100" value="35" />
+          </div>
+          <div>
+            <label for="mc-options">Variantlar</label>
+            <input id="mc-options" type="number" min="2" max="6" value="4" />
+          </div>
+          <div>
+            <label for="open-count">Ochiq savollar</label>
+            <input id="open-count" type="number" min="0" max="40" value="10" />
+          </div>
+        </div>
+
+        <label for="subjects-input">Fanlar (vergul bilan):</label>
+        <input id="subjects-input" type="text" value="Matematika" autocomplete="off" />
+
+        <label for="code-input" style="margin-top: 10px">Test kodi (ixtiyoriy):</label>
+        <input id="code-input" type="text" inputmode="numeric" placeholder="avtomatik" autocomplete="off" />
+
+        <button class="btn" id="setup-submit">Davom etish</button>
+        <div class="error" id="setup-error"></div>
+      </div>
+    </div>
+
+    <!-- Step 2: the answer key -->
+    <div class="sheet hidden" id="key-step">
+      <div class="sheet-title" id="key-title"></div>
+      <p style="text-align: center; color: var(--muted); font-size: 13px; margin-top: -6px">
+        Har bir savol uchun to‘g‘ri javobni belgilang
+      </p>
+      <div id="key-questions"></div>
+    </div>
+
+    <div class="progress hidden" id="key-progress">
+      <div class="count" id="key-count"></div>
+      <button class="btn btn-accent" id="save-btn">Testni saqlash</button>
+      <div class="error" id="save-error"></div>
+    </div>
+
+    <!-- Step 3: the code -->
+    <div class="overlay hidden" id="done-step">
+      <div class="done">
+        <h2>✅ Test yaratildi!</h2>
+        <p id="done-text"></p>
+        <button class="btn" id="close-btn">Chiqish</button>
+      </div>
+    </div>
+
+    <script type="module" src="/app/static/create.js"></script>
+  </body>
+</html>
