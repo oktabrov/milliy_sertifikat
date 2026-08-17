@@ -23,6 +23,28 @@ Interface language is Uzbek (Latin).
 | `/natijalarim` | Your results |
 | `/stats`, `/broadcast` | Admin only |
 
+### Administrators
+
+| Command | |
+|---|---|
+| `/id` | anyone can look up their own Telegram id |
+| `/adminlar` | list admins and where each came from |
+| `/admin_qoshish 123456789` | add an admin |
+| `/admin_ochirish 123456789` | remove one |
+
+To promote someone: they send `/id` to the bot, give you the number, you run
+`/admin_qoshish <number>`. They are notified straight away. Forwarding one of
+their messages and replying `/admin_qoshish` also works, unless their privacy
+settings hide the original sender.
+
+Admins come from three places and `/adminlar` labels each:
+
+- **owner** — the built-in id, permanent, so the bot can never be left with no
+  administrator
+- **env** — `ADMIN_IDS` in `.env`, the deploy-time record; removing one means
+  editing that file
+- **runtime** — added with `/admin_qoshish`, removable the same way
+
 ### Required channels
 
 Students can be made to join one or more channels before answering. Admins
@@ -188,7 +210,7 @@ cloudflared tunnel --url http://localhost:8080
 .venv/bin/python -m pytest
 ```
 
-169 tests covering the Rasch engine (difficulty recovery against known values),
+179 tests covering the Rasch engine (difficulty recovery against known values),
 the three-scenario tables, answer normalisation, `initData` verification
 including forgery attempts, the JSON store's durability and concurrency
 guarantees, multiple accepted answers, configuration precedence, and the full

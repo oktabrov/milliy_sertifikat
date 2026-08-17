@@ -65,7 +65,9 @@ INFO = (
     "/info — shu ma'lumot\n\n"
     "<b>Adminlar uchun:</b>\n"
     "/kanallar — majburiy kanallar ro'yxati\n"
+    "/adminlar — adminlar ro'yxati\n"
     "/stats — statistika\n\n"
+    "Har kim <code>/id</code> orqali o'z ID raqamini bilib olishi mumkin.\n\n"
     "<b>Natijalar qanday hisoblanadi?</b>\n"
     "Natijangiz RASH (Rasch) modeli asosida 3 xil stsenariyda beriladi:\n"
     "• <b>Zaif guruh</b> — qatnashchilarning ko'pchiligi past natija ko'rsatganda\n"
@@ -217,3 +219,69 @@ CHANNEL_NOT_IN_LIST = "❗️<b>{channel}</b> ro'yxatda yo'q."
 CHANNELS_CLEARED = "🗑 Barcha majburiy kanallar o'chirildi. Endi cheklov yo'q."
 
 BTN_REMOVE_CHANNEL = "🗑 {channel}"
+
+# --- Admin management ---------------------------------------------------------
+
+MY_ID = (
+    "🆔 Sizning Telegram ID raqamingiz:\n\n<code>{user_id}</code>\n\n"
+    "Admin bo'lish uchun shu raqamni administratorga yuboring."
+)
+
+ADMINS_HEADER = "👮 <b>Adminlar</b> ({count} ta)\n"
+
+ADMIN_ROW = "{index}. <code>{user_id}</code>{name} — {origin}"
+
+ADMIN_ORIGINS = {
+    "owner": "asosiy admin (o'chirib bo'lmaydi)",
+    "env": "sozlamalardan (.env)",
+    "runtime": "qo'shilgan",
+}
+
+ADMINS_USAGE = (
+    "\n\n<b>Buyruqlar:</b>\n"
+    "<code>/admin_qoshish 123456789</code> — admin qo'shish\n"
+    "<code>/admin_ochirish 123456789</code> — adminni o'chirish\n\n"
+    "ID raqamni bilish uchun o'sha odam botga <code>/id</code> buyrug'ini "
+    "yuborsin. Yoki uning xabarini shu yerga forward qilib, javob sifatida "
+    "<code>/admin_qoshish</code> yozing."
+)
+
+ADMIN_ADD_USAGE = (
+    "Foydalanish: <code>/admin_qoshish 123456789</code>\n\n"
+    "Yoki foydalanuvchining xabarini forward qiling va unga javob berib "
+    "<code>/admin_qoshish</code> yozing."
+)
+
+ADMIN_REMOVE_USAGE = "Foydalanish: <code>/admin_ochirish 123456789</code>"
+
+ADMIN_BAD_ID = (
+    "❗️<code>{value}</code> — ID raqam noto'g'ri. Faqat raqam yuboring, "
+    "masalan <code>123456789</code>."
+)
+
+ADMIN_FORWARD_HIDDEN = (
+    "❗️Bu foydalanuvchi maxfiylik sozlamalari tufayli forward qilingan "
+    "xabarda ko'rinmaydi. Undan <code>/id</code> buyrug'i orqali ID so'rang."
+)
+
+ADMIN_ADDED = "✅ <code>{user_id}</code> admin qilib qo'shildi. Jami {count} ta admin."
+
+ADMIN_ALREADY = "ℹ️ <code>{user_id}</code> allaqachon admin."
+
+ADMIN_REMOVED = "🗑 <code>{user_id}</code> adminlikdan olindi. Qolgan adminlar: {count} ta."
+
+ADMIN_NOT_FOUND = "❗️<code>{user_id}</code> adminlar ro'yxatida yo'q."
+
+ADMIN_CANNOT_REMOVE_OWNER = "❗️Asosiy adminni o'chirib bo'lmaydi."
+
+ADMIN_CANNOT_REMOVE_ENV = (
+    "❗️<code>{user_id}</code> <b>.env</b> faylidagi <code>ADMIN_IDS</code> "
+    "orqali qo'shilgan. Uni o'chirish uchun serverdagi faylni tahrirlang."
+)
+
+ADMIN_NOTIFIED = (
+    "🎉 Sizga admin huquqi berildi!\n\n"
+    "/kanallar — majburiy kanallar\n"
+    "/adminlar — adminlar ro'yxati\n"
+    "/stats — statistika"
+)

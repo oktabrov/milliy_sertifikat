@@ -18,6 +18,8 @@ BOT_COMMANDS = [
     BotCommand(command="testlarim", description="Testlaringiz haqida ma'lumotlar"),
     BotCommand(command="natijalarim", description="Sizning natijalaringiz"),
     BotCommand(command="kanallar", description="Majburiy kanallar (admin)"),
+    BotCommand(command="adminlar", description="Adminlar ro'yxati (admin)"),
+    BotCommand(command="id", description="Telegram ID raqamingiz"),
 ]
 
 

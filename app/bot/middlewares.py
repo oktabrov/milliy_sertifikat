@@ -11,7 +11,7 @@ from aiogram.types import CallbackQuery, Message, TelegramObject, User as TgUser
 
 from app.bot import texts
 from app.bot.keyboards import join_channels_inline
-from app.config import get_settings
+from app.services import admins as admin_service
 from app.services import channels as channel_service
 from app.store.json_store import get_store
 
@@ -30,6 +30,10 @@ _GATE_EXEMPT_COMMANDS = (
     "/kanal_qoshish",
     "/kanal_ochirish",
     "/kanal_tozalash",
+    "/id",
+    "/adminlar",
+    "/admin_qoshish",
+    "/admin_ochirish",
 )
 
 
@@ -51,7 +55,7 @@ class StoreMiddleware(BaseMiddleware):
             data["user"] = await store.ensure_user(
                 tg_user.id,
                 username=tg_user.username,
-                is_admin=tg_user.id in get_settings().admin_id_list,
+                is_admin=admin_service.is_admin(store, tg_user.id),
             )
 
         return await handler(event, data)
