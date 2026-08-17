@@ -189,6 +189,12 @@ async def healthz(request: Request) -> JSONResponse:
     return JSONResponse(body, status_code=200 if bot_ready else 503)
 
 
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon() -> FileResponse:
+    """Browsers request this unprompted; answering it keeps the logs clean."""
+    return FileResponse(WEB_DIR / "static" / "favicon.svg", media_type="image/svg+xml")
+
+
 @app.get("/app/answer")
 async def answer_page() -> FileResponse:
     return FileResponse(WEB_DIR / "answer.html")
