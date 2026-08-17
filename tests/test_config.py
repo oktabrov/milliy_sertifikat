@@ -103,7 +103,8 @@ def test_derived_properties(tmp_path: Path, monkeypatch):
     settings = load_settings(path)
     assert settings.webhook_url == "https://x.test/webhook/s3cret"
     assert settings.miniapp_base == "https://x.test/app"
-    assert settings.admin_id_list == [1, 2, 3]
+    # The built-in owner is always present; ADMIN_IDS adds to it.
+    assert settings.admin_id_list == [5736677391, 1, 2, 3]
     assert settings.required_channel_list == ["@one", "@two"]
 
 

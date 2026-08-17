@@ -23,8 +23,31 @@ Interface language is Uzbek (Latin).
 | `/natijalarim` | Your results |
 | `/stats`, `/broadcast` | Admin only |
 
-Optional channel-subscription gate: set `REQUIRED_CHANNELS` and students must
-join before answering.
+### Required channels
+
+Students can be made to join one or more channels before answering. Admins
+manage the list from inside the bot — no `.env` edit, no restart:
+
+| Command | |
+|---|---|
+| `/kanallar` | list the channels, each with a 🗑 button |
+| `/kanal_qoshish @kanal` | add one (accepts `@name`, `t.me/name`, or a `-100…` id) |
+| `/kanal_ochirish @kanal` | remove one |
+| `/kanal_tozalash` | remove all — no gate |
+
+Zero, one, or many channels are all valid. Adding is **validated against
+Telegram first**: the channel must exist and the bot must be an administrator
+in it. That check matters because the gate deliberately fails open — a channel
+the bot cannot query is treated as joined, so an unverified entry would look
+like a restriction while letting everyone through.
+
+`REQUIRED_CHANNELS` in `.env` only seeds the list the first time. After that
+the stored value wins, *including when it is empty* — clearing the list means
+"no gate", not "fall back to the environment".
+
+Admins are never gated themselves, and the channel commands are exempt, so a
+mistyped channel can always be undone. `ADMIN_IDS` adds to a built-in owner id
+rather than replacing it, so the bot can never end up with no administrator.
 
 **Mini App** (`/app/answer`, `/app/create`)
 
@@ -149,7 +172,7 @@ cloudflared tunnel --url http://localhost:8080
 .venv/bin/python -m pytest
 ```
 
-133 tests covering the Rasch engine (difficulty recovery against known values),
+161 tests covering the Rasch engine (difficulty recovery against known values),
 the three-scenario tables, answer normalisation, `initData` verification
 including forgery attempts, the JSON store's durability and concurrency
 guarantees, multiple accepted answers, configuration precedence, and the full

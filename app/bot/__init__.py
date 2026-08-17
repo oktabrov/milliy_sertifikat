@@ -17,6 +17,7 @@ BOT_COMMANDS = [
     BotCommand(command="ms", description="Milliy sertifikat bo'limi"),
     BotCommand(command="testlarim", description="Testlaringiz haqida ma'lumotlar"),
     BotCommand(command="natijalarim", description="Sizning natijalaringiz"),
+    BotCommand(command="kanallar", description="Majburiy kanallar (admin)"),
 ]
 
 
@@ -28,7 +29,7 @@ def create_bot() -> Bot:
 
 
 def create_dispatcher() -> Dispatcher:
-    from app.bot.handlers import admin, info, ms, mytests, results, start
+    from app.bot.handlers import admin, channels, fallback, info, ms, mytests, results, start
 
     dispatcher = Dispatcher(storage=MemoryStorage())
 
@@ -44,6 +45,9 @@ def create_dispatcher() -> Dispatcher:
     dispatcher.include_router(results.router)
     dispatcher.include_router(mytests.router)
     dispatcher.include_router(admin.router)
+    dispatcher.include_router(channels.router)
+    # Last: it claims any text nothing else wanted, and re-sends the keyboard.
+    dispatcher.include_router(fallback.router)
 
     return dispatcher
 

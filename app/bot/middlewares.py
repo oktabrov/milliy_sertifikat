@@ -12,13 +12,23 @@ from aiogram.types import CallbackQuery, Message, TelegramObject, User as TgUser
 from app.bot import texts
 from app.bot.keyboards import join_channels_inline
 from app.config import get_settings
+from app.services import channels as channel_service
 from app.store.json_store import get_store
 
 logger = logging.getLogger(__name__)
 
 # Commands that must work even for someone who has not joined the channels yet,
-# otherwise a new user can get stuck with no way back.
-_GATE_EXEMPT_COMMANDS = ("/start", "/info")
+# otherwise a new user can get stuck with no way back. The channel commands are
+# exempt too: an admin who mistypes a channel would otherwise be locked out of
+# the very commands needed to correct it.
+_GATE_EXEMPT_COMMANDS = (
+    "/start",
+    "/info",
+    "/kanallar",
+    "/kanal_qoshish",
+    "/kanal_ochirish",
+    "/kanal_tozalash",
+)
 
 
 class StoreMiddleware(BaseMiddleware):
@@ -57,7 +67,8 @@ class ChannelGateMiddleware(BaseMiddleware):
         event: TelegramObject,
         data: dict[str, Any],
     ) -> Any:
-        channels = get_settings().required_channel_list
+        store = data.get("store") or get_store()
+        channels = channel_service.current(store)
         if not channels:
             return await handler(event, data)
 
@@ -66,11 +77,12 @@ class ChannelGateMiddleware(BaseMiddleware):
             if any(text.startswith(command) for command in _GATE_EXEMPT_COMMANDS):
                 return await handler(event, data)
         elif isinstance(event, CallbackQuery):
-            if (event.data or "").startswith("join:"):
+            if (event.data or "").startswith(("join:", "chan:")):
                 return await handler(event, data)
 
         user = data.get("user")
-        if user is None:
+        if user is None or user.is_admin:
+            # Admins are never gated; they may need to fix the gate itself.
             return await handler(event, data)
 
         missing = await missing_channels(data["bot"], user.id, channels)

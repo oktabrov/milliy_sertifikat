@@ -85,6 +85,8 @@ class Store:
         self._users: dict[int, User] = {}
         self._tests: dict[int, Test] = {}
         self._attempts: dict[int, Attempt] = {}
+        # Runtime configuration an admin can change without a redeploy.
+        self._settings: dict[str, Any] = {}
 
         self._next_test_id = 1
         self._next_attempt_id = 1
@@ -102,6 +104,10 @@ class Store:
     @property
     def _attempts_path(self) -> Path:
         return self.data_dir / "attempts.json"
+
+    @property
+    def _settings_path(self) -> Path:
+        return self.data_dir / "settings.json"
 
     async def load(self) -> None:
         """Read every collection into memory. Call once at startup."""
@@ -122,6 +128,17 @@ class Store:
             for record in _read_json(self._attempts_path)
             if "id" in record
         }
+
+        # settings.json is a single object, not a list like the others.
+        self._settings = {}
+        if self._settings_path.exists():
+            try:
+                with self._settings_path.open(encoding="utf-8") as stream:
+                    loaded = json.load(stream)
+                if isinstance(loaded, dict):
+                    self._settings = loaded
+            except (json.JSONDecodeError, OSError):
+                logger.exception("Could not read %s; using defaults", self._settings_path)
 
         self._next_test_id = max(self._tests, default=0) + 1
         self._next_attempt_id = max(self._attempts, default=0) + 1
@@ -160,9 +177,18 @@ class Store:
                 user = User(id=user_id, username=username, is_admin=is_admin)
                 self._users[user_id] = user
                 self._flush_users()
-            elif username is not None and user.username != username:
-                user.username = username
-                self._flush_users()
+            else:
+                # Refresh both: a user created before an ADMIN_IDS change would
+                # otherwise keep the stale flag for ever.
+                changed = False
+                if username is not None and user.username != username:
+                    user.username = username
+                    changed = True
+                if user.is_admin != is_admin:
+                    user.is_admin = is_admin
+                    changed = True
+                if changed:
+                    self._flush_users()
             return user
 
     async def save_user(self, user: User) -> None:
@@ -288,6 +314,24 @@ class Store:
 
     def count_attempts(self, test_id: int) -> int:
         return sum(1 for attempt in self._attempts.values() if attempt.test_id == test_id)
+
+    # --- runtime settings ----------------------------------------------------
+
+    def get_setting(self, key: str, default: Any = None) -> Any:
+        return self._settings.get(key, default)
+
+    def has_setting(self, key: str) -> bool:
+        """Distinguishes "never configured" from "configured to nothing".
+
+        An admin who removes every required channel must not silently fall back
+        to whatever REQUIRED_CHANNELS says in .env.
+        """
+        return key in self._settings
+
+    async def set_setting(self, key: str, value: Any) -> None:
+        async with self._lock:
+            self._settings[key] = value
+            _write_atomic(self._settings_path, self._settings)
 
     # --- misc ----------------------------------------------------------------
 

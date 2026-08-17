@@ -63,6 +63,9 @@ INFO = (
     "/testlarim — siz yaratgan testlar\n"
     "/natijalarim — sizning natijalaringiz\n"
     "/info — shu ma'lumot\n\n"
+    "<b>Adminlar uchun:</b>\n"
+    "/kanallar — majburiy kanallar ro'yxati\n"
+    "/stats — statistika\n\n"
     "<b>Natijalar qanday hisoblanadi?</b>\n"
     "Natijangiz RASH (Rasch) modeli asosida 3 xil stsenariyda beriladi:\n"
     "• <b>Zaif guruh</b> — qatnashchilarning ko'pchiligi past natija ko'rsatganda\n"
@@ -126,7 +129,11 @@ TEST_CLOSED_OK = "🔒 <b>{title}</b> testi yopildi. Endi yangi javoblar qabul q
 
 TEST_REOPENED = "🔓 <b>{title}</b> testi qayta ochildi."
 
-UNKNOWN = "Tushunmadim. /info buyrug'i orqali ko'rsatmalarni ko'ring."
+UNKNOWN = (
+    "Tushunmadim 🤔\n\n"
+    "Quyidagi tugmalardan birini tanlang yoki /info buyrug'i orqali "
+    "ko'rsatmalarni ko'ring."
+)
 
 ADMIN_ONLY = "❗️Bu buyruq faqat adminlar uchun."
 
@@ -159,3 +166,54 @@ BTN_CLOSE_TEST = "🔒 Yopish"
 BTN_REOPEN_TEST = "🔓 Ochish"
 
 STATUS_LABELS = {"open": "ochiq", "closed": "yopiq"}
+
+# --- Required channels (admin) ------------------------------------------------
+
+CHANNELS_HEADER = "📢 <b>Majburiy kanallar</b>\n\nHozircha {count} ta kanal:"
+
+CHANNELS_EMPTY = (
+    "📢 <b>Majburiy kanallar</b>\n\n"
+    "Hozircha majburiy kanal yo'q — botdan hamma bemalol foydalana oladi."
+)
+
+CHANNELS_USAGE = (
+    "\n\n<b>Buyruqlar:</b>\n"
+    "<code>/kanal_qoshish @kanal</code> — kanal qo'shish\n"
+    "<code>/kanal_ochirish @kanal</code> — kanalni o'chirish\n"
+    "<code>/kanal_tozalash</code> — barcha kanallarni o'chirish"
+)
+
+CHANNEL_ADD_USAGE = (
+    "Foydalanish: <code>/kanal_qoshish @kanal</code>\n\n"
+    "Kanal manzilini @nom, t.me/nom yoki -100... ko'rinishida yuboring."
+)
+
+CHANNEL_REMOVE_USAGE = "Foydalanish: <code>/kanal_ochirish @kanal</code>"
+
+CHANNEL_BAD_FORMAT = (
+    "❗️<code>{value}</code> — kanal manzili noto'g'ri.\n"
+    "@nom, t.me/nom yoki -100... ko'rinishida yuboring."
+)
+
+CHANNEL_NOT_FOUND = (
+    "❗️<b>{channel}</b> topilmadi.\n"
+    "Kanal nomi to'g'ri ekanini va kanal ochiq ekanini tekshiring."
+)
+
+CHANNEL_BOT_NOT_ADMIN = (
+    "❗️Bot <b>{channel}</b> kanalida administrator emas.\n\n"
+    "Botni kanalga administrator qilib qo'shing, so'ng qayta urinib ko'ring. "
+    "Aks holda bot kimning a'zo ekanini tekshira olmaydi."
+)
+
+CHANNEL_ADDED = "✅ <b>{channel}</b> qo'shildi. Endi {count} ta majburiy kanal bor."
+
+CHANNEL_ALREADY = "ℹ️ <b>{channel}</b> allaqachon ro'yxatda."
+
+CHANNEL_REMOVED = "🗑 <b>{channel}</b> o'chirildi. Qolgan kanallar: {count} ta."
+
+CHANNEL_NOT_IN_LIST = "❗️<b>{channel}</b> ro'yxatda yo'q."
+
+CHANNELS_CLEARED = "🗑 Barcha majburiy kanallar o'chirildi. Endi cheklov yo'q."
+
+BTN_REMOVE_CHANNEL = "🗑 {channel}"
