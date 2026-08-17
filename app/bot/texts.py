@@ -45,6 +45,8 @@ HOW_TO_CREATE = (
     "2️⃣ Test nomi, savollar soni va fanlarni kiriting.\n"
     "3️⃣ Har bir savol uchun to'g'ri javobni belgilang.\n"
     "4️⃣ Ochiq savollar uchun <b>a)</b> va <b>b)</b> javoblarini yozing.\n"
+    "   Bir javobning bir necha ko'rinishini qo'shish uchun "
+    "<b>+ Yana javob qo'shish</b> tugmasini bosing (masalan 3/4 va 0.75).\n"
     "5️⃣ <b>Testni saqlash</b> tugmasini bosing.\n\n"
     "✅ Bot sizga <b>test kodini</b> beradi. Shu kodni o'quvchilarga yuboring."
 )

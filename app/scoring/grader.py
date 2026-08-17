@@ -232,15 +232,41 @@ def answers_match(submitted: str | None, expected: str | None) -> bool:
     return math.isclose(left_number, right_number, rel_tol=NUMERIC_TOLERANCE, abs_tol=1e-12)
 
 
+def accepted_list(value: Any) -> list[str]:
+    """Normalise an answer key entry into a list of accepted answers.
+
+    Authors may record several equivalent forms of the same answer — `3/4`,
+    `0.75`, `\\frac{3}{4}` — because no amount of canonicalisation catches every
+    way a student might legitimately write one. A bare string is still accepted
+    so answer keys written before this existed keep working.
+    """
+    if value is None:
+        return []
+    if isinstance(value, str):
+        return [value] if value.strip() else []
+    if isinstance(value, (list, tuple)):
+        return [str(item).strip() for item in value if str(item).strip()]
+    return [str(value)]
+
+
 @dataclass
 class Item:
-    """One scorable slot. An open question with parts a and b yields two items."""
+    """One scorable slot. An open question with parts a and b yields two items.
+
+    `accepted` holds every answer the author counts as correct: exactly one
+    letter for multiple choice, one or more forms for an open answer.
+    """
 
     key: str
     number: int
     part: str | None
     kind: str
-    expected: str
+    accepted: list[str]
+
+    @property
+    def expected(self) -> str:
+        """First accepted answer. Convenience for messages and debugging."""
+        return self.accepted[0] if self.accepted else ""
 
 
 def build_items(questions: Iterable[dict[str, Any]]) -> list[Item]:
@@ -250,20 +276,27 @@ def build_items(questions: Iterable[dict[str, Any]]) -> list[Item]:
         number = int(question["number"])
         if question.get("type") == "open":
             for part in ("a", "b"):
-                expected = (question.get("parts") or {}).get(part)
-                if expected in (None, ""):
+                accepted = accepted_list((question.get("parts") or {}).get(part))
+                if not accepted:
                     continue
                 items.append(
-                    Item(key=f"{number}{part}", number=number, part=part, kind="open", expected=str(expected))
+                    Item(
+                        key=f"{number}{part}",
+                        number=number,
+                        part=part,
+                        kind="open",
+                        accepted=accepted,
+                    )
                 )
         else:
+            letter = str(question.get("answer", "")).strip().upper()
             items.append(
                 Item(
                     key=str(number),
                     number=number,
                     part=None,
                     kind="mc",
-                    expected=str(question.get("answer", "")).strip().upper(),
+                    accepted=[letter] if letter else [],
                 )
             )
     return items
@@ -288,14 +321,19 @@ class AttemptResult:
 
 
 def grade_answers(items: list[Item], submitted: dict[str, Any]) -> tuple[int, dict[str, bool]]:
-    """Score each item. MC is a letter match, open goes through `answers_match`."""
+    """Score each item.
+
+    Multiple choice is a letter match. An open answer is correct when it matches
+    *any* of the forms the author accepted — the student writes one answer, the
+    author may have listed several equivalent ways of writing it.
+    """
     per_item: dict[str, bool] = {}
     for item in items:
         value = submitted.get(item.key)
         if item.kind == "mc":
-            correct = str(value or "").strip().upper() == item.expected
+            correct = bool(item.accepted) and str(value or "").strip().upper() == item.accepted[0]
         else:
-            correct = answers_match(value, item.expected)
+            correct = any(answers_match(value, option) for option in item.accepted)
         per_item[item.key] = correct
     return sum(per_item.values()), per_item
 

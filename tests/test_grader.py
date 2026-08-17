@@ -169,3 +169,67 @@ def test_tables_for_test_ignores_mismatched_observed_length():
     )
     tables = tables_for_test(items, observed=[0.0, 0.1], size=800)
     assert len(tables["normal"].rows) == 6
+
+
+# --- Several accepted answers per open part ----------------------------------
+
+
+def test_accepted_list_normalises_every_shape():
+    from app.scoring.grader import accepted_list
+
+    assert accepted_list("3/4") == ["3/4"]
+    assert accepted_list(["3/4", "0.75"]) == ["3/4", "0.75"]
+    assert accepted_list(["3/4", "  ", ""]) == ["3/4"]
+    assert accepted_list(None) == []
+    assert accepted_list("") == []
+    assert accepted_list([]) == []
+
+
+def test_build_items_keeps_every_accepted_answer():
+    items = build_items(
+        [{"number": 36, "type": "open", "parts": {"a": ["3/4", "0.75", r"\frac{3}{4}"]}}]
+    )
+    assert [item.key for item in items] == ["36a"]
+    assert items[0].accepted == ["3/4", "0.75", r"\frac{3}{4}"]
+    assert items[0].expected == "3/4"
+
+
+def test_build_items_still_accepts_a_bare_string():
+    """Answer keys written before multiple answers existed must keep working."""
+    items = build_items([{"number": 36, "type": "open", "parts": {"a": "50/3"}}])
+    assert items[0].accepted == ["50/3"]
+
+
+def test_any_accepted_answer_counts_as_correct():
+    items = build_items(
+        [{"number": 1, "type": "open", "parts": {"a": ["3/4", "0.75", "0,75"]}}]
+    )
+    for submitted in ("3/4", "0.75", "0,75", r"\frac{3}{4}"):
+        raw, _ = grade_answers(items, {"1a": submitted})
+        assert raw == 1, f"{submitted!r} should have been accepted"
+
+
+def test_a_wrong_answer_is_still_wrong_with_several_accepted():
+    items = build_items([{"number": 1, "type": "open", "parts": {"a": ["3/4", "0.75"]}}])
+    assert grade_answers(items, {"1a": "4/3"})[0] == 0
+    assert grade_answers(items, {"1a": ""})[0] == 0
+    assert grade_answers(items, {})[0] == 0
+
+
+def test_accepted_answers_cover_forms_no_canonicaliser_would_match():
+    """The real reason this feature exists: text and algebraic variants."""
+    items = build_items(
+        [{"number": 2, "type": "open", "parts": {"a": ["ortadi", "oshadi", "kattalashadi"]}}]
+    )
+    assert grade_answers(items, {"2a": "oshadi"})[0] == 1
+    assert grade_answers(items, {"2a": "kamayadi"})[0] == 0
+
+
+def test_an_empty_accepted_list_yields_no_item():
+    items = build_items([{"number": 3, "type": "open", "parts": {"a": [], "b": ["2"]}}])
+    assert [item.key for item in items] == ["3b"]
+
+
+def test_multiple_choice_with_no_key_is_never_correct():
+    items = build_items([{"number": 1, "type": "mc", "options": 4, "answer": ""}])
+    assert grade_answers(items, {"1": "A"})[0] == 0

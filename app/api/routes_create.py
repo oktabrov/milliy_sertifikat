@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import logging
 import random
+from typing import Any
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
 from pydantic import BaseModel, Field, field_validator
@@ -16,6 +17,8 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api", tags=["create"])
 
 MAX_QUESTIONS = 120
+# Per part. Generous, but stops an author pasting a novel into the answer key.
+MAX_ACCEPTED_ANSWERS = 20
 
 
 class QuestionIn(BaseModel):
@@ -23,7 +26,8 @@ class QuestionIn(BaseModel):
     type: str = "mc"
     options: int = 4
     answer: str | None = None
-    parts: dict[str, str] = Field(default_factory=dict)
+    # Each part maps to every answer the author accepts: {"a": ["3/4", "0.75"]}.
+    parts: dict[str, list[str]] = Field(default_factory=dict)
 
     @field_validator("type")
     @classmethod
@@ -31,6 +35,28 @@ class QuestionIn(BaseModel):
         if value not in ("mc", "open"):
             raise ValueError("type must be 'mc' or 'open'")
         return value
+
+    @field_validator("parts", mode="before")
+    @classmethod
+    def coerce_parts(cls, value: Any) -> Any:
+        """Accept a bare string per part as well as a list.
+
+        Keeps answer keys authored before multiple accepted answers existed
+        working, and tolerates a client that sends a single value.
+        """
+        if not isinstance(value, dict):
+            return value
+        coerced: dict[str, list[str]] = {}
+        for key, entry in value.items():
+            if isinstance(entry, str):
+                coerced[key] = [entry]
+            elif isinstance(entry, (list, tuple)):
+                coerced[key] = [str(item) for item in entry]
+            elif entry is None:
+                coerced[key] = []
+            else:
+                coerced[key] = [str(entry)]
+        return coerced
 
     @field_validator("options")
     @classmethod
@@ -107,12 +133,36 @@ def _validate_answer_key(questions: list[QuestionIn]) -> None:
                     f"{question.number}-savol uchun to'g'ri javob tanlanmagan",
                 )
         else:
-            filled = {key: value for key, value in question.parts.items() if str(value).strip()}
+            filled = _clean_parts(question.parts)
             if not filled:
                 raise HTTPException(
                     status.HTTP_400_BAD_REQUEST,
-                    f"{question.number}-savol uchun javob yozilmagan",
+                    f"{question.number}-savol uchun kamida bitta javob yozing",
                 )
+            for part, options in filled.items():
+                if len(options) > MAX_ACCEPTED_ANSWERS:
+                    raise HTTPException(
+                        status.HTTP_400_BAD_REQUEST,
+                        f"{question.number}-savol {part}) uchun javoblar soni "
+                        f"{MAX_ACCEPTED_ANSWERS} tadan oshmasligi kerak",
+                    )
+
+
+def _clean_parts(parts: dict[str, list[str]]) -> dict[str, list[str]]:
+    """Drop blank answers and duplicates, keeping the author's order."""
+    cleaned: dict[str, list[str]] = {}
+    for part, options in parts.items():
+        seen: set[str] = set()
+        kept: list[str] = []
+        for option in options:
+            text = str(option).strip()
+            if not text or text in seen:
+                continue
+            seen.add(text)
+            kept.append(text)
+        if kept:
+            cleaned[part] = kept
+    return cleaned
 
 
 @router.post("/test", response_model=CreateTestOut, status_code=status.HTTP_201_CREATED)
@@ -144,12 +194,9 @@ async def create_test(
                 }
             )
         else:
-            parts = {
-                key: str(value).strip()
-                for key, value in question.parts.items()
-                if str(value).strip()
-            }
-            questions.append({"number": question.number, "type": "open", "parts": parts})
+            questions.append(
+                {"number": question.number, "type": "open", "parts": _clean_parts(question.parts)}
+            )
 
     try:
         test = await store.create_test(

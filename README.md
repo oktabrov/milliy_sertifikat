@@ -35,6 +35,30 @@ join before answering.
   (`123` / `∞≠∈` / `abc` / `αβγ`) — answers are stored as LaTeX
 - A test builder for teachers that produces a shareable test code
 
+### Several accepted answers per question
+
+Students write the same value in different ways — `3/4`, `0.75`, `\frac{3}{4}`.
+Normalisation catches the numeric cases, but not text or algebraic variants
+(`ortadi` vs `oshadi`), so the author decides.
+
+When building a test, each open part starts with one answer field and a
+**"+ Yana javob qo'shish"** button. Add as many accepted forms as you like, up
+to 20 per part; at least one is required, and extra rows can be removed. Blank
+and duplicate entries are dropped on save.
+
+A student's answer counts as correct if it matches **any** accepted form. The
+answer sheet is unchanged — the student still sees exactly one field per part,
+and the key is never sent to the browser.
+
+Stored as:
+
+```json
+{"number": 36, "type": "open", "parts": {"a": ["3/4", "0.75"], "b": ["2"]}}
+```
+
+A bare string is still read as a single accepted answer, so keys authored
+before this feature keep working.
+
 ---
 
 ## Scoring: three cohorts, three results
@@ -125,10 +149,11 @@ cloudflared tunnel --url http://localhost:8080
 .venv/bin/python -m pytest
 ```
 
-96 tests covering the Rasch engine (difficulty recovery against known values),
+111 tests covering the Rasch engine (difficulty recovery against known values),
 the three-scenario tables, answer normalisation, `initData` verification
 including forgery attempts, the JSON store's durability and concurrency
-guarantees, and the full create → answer → score API flow.
+guarantees, multiple accepted answers, and the full create → answer → score API
+flow.
 
 ---
 

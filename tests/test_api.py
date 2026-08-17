@@ -187,3 +187,112 @@ async def test_two_students_can_answer_the_same_test(client):
     assert weak.json()["raw_correct"] == 1
     # Within one cohort, the better performance must score higher.
     assert strong.json()["scenarios"][1]["ball"] > weak.json()["scenarios"][1]["ball"]
+
+
+# --- Several accepted answers per open part ----------------------------------
+
+
+def payload_with_accepted(code: str, accepted) -> dict:
+    return {
+        "title": "Test №2",
+        "subjects": ["Matematika"],
+        "code": code,
+        "questions": [
+            {"number": 1, "type": "mc", "options": 4, "answer": "A"},
+            {"number": 2, "type": "open", "parts": {"a": accepted}},
+        ],
+    }
+
+
+@pytest.mark.asyncio
+async def test_any_accepted_form_is_marked_correct(client):
+    await client.post(
+        "/api/test",
+        json=payload_with_accepted("900", ["3/4", "0.75", "\\frac{3}{4}"]),
+        headers=auth_headers(user_id=1),
+    )
+
+    # Three students, three ways of writing the same answer, all correct.
+    for index, written in enumerate(["0.75", "3/4", "\\frac{3}{4}"], start=10):
+        response = await client.post(
+            "/api/attempt",
+            json={"code": "900", "answers": {"1": "A", "2a": written}},
+            headers=auth_headers(user_id=index),
+        )
+        assert response.status_code == 200, response.text
+        assert response.json()["raw_correct"] == 2, f"{written!r} should have been accepted"
+
+
+@pytest.mark.asyncio
+async def test_a_form_the_author_did_not_list_is_wrong(client):
+    await client.post(
+        "/api/test",
+        json=payload_with_accepted("901", ["ortadi", "oshadi"]),
+        headers=auth_headers(user_id=1),
+    )
+    response = await client.post(
+        "/api/attempt",
+        json={"code": "901", "answers": {"1": "A", "2a": "kamayadi"}},
+        headers=auth_headers(user_id=20),
+    )
+    assert response.json()["raw_correct"] == 1
+
+
+@pytest.mark.asyncio
+async def test_a_single_string_is_still_accepted_by_the_api(client):
+    """A client sending one value rather than a list must still work."""
+    response = await client.post(
+        "/api/test", json=payload_with_accepted("902", "50/3"), headers=auth_headers(user_id=1)
+    )
+    assert response.status_code == 201
+
+
+@pytest.mark.asyncio
+async def test_an_open_part_needs_at_least_one_answer(client):
+    response = await client.post(
+        "/api/test", json=payload_with_accepted("903", []), headers=auth_headers(user_id=1)
+    )
+    assert response.status_code == 400
+    assert "2-savol" in response.json()["error"]
+
+    response = await client.post(
+        "/api/test", json=payload_with_accepted("904", ["  ", ""]), headers=auth_headers(user_id=1)
+    )
+    assert response.status_code == 400
+
+
+@pytest.mark.asyncio
+async def test_blanks_and_duplicates_are_dropped_from_the_key(client):
+    await client.post(
+        "/api/test",
+        json=payload_with_accepted("905", ["3/4", "  ", "3/4", "0.75"]),
+        headers=auth_headers(user_id=1),
+    )
+    from app.store.json_store import get_store
+
+    stored = get_store().get_test_by_code("905")
+    assert stored.questions[1]["parts"]["a"] == ["3/4", "0.75"]
+
+
+@pytest.mark.asyncio
+async def test_too_many_accepted_answers_is_refused(client):
+    response = await client.post(
+        "/api/test",
+        json=payload_with_accepted("906", [str(n) for n in range(30)]),
+        headers=auth_headers(user_id=1),
+    )
+    assert response.status_code == 400
+
+
+@pytest.mark.asyncio
+async def test_the_answer_key_never_reaches_the_student(client):
+    """Several accepted answers must not leak any more than one did."""
+    await client.post(
+        "/api/test",
+        json=payload_with_accepted("907", ["3/4", "0.75"]),
+        headers=auth_headers(user_id=1),
+    )
+    body = (await client.get("/api/test/907", headers=auth_headers(user_id=30))).json()
+    assert "0.75" not in str(body)
+    assert "3/4" not in str(body)
+    assert body["questions"][1] == {"number": 2, "type": "open", "options": 4, "parts": ["a"]}

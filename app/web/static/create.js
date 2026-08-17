@@ -18,7 +18,11 @@ const state = {
   choices: new Map(), // "12" -> "A"
 };
 
-/* The full answer key: chosen letters plus whatever is in the math fields. */
+/* The full answer key.
+
+   Multiple choice maps to a single letter. Each open part maps to an ARRAY of
+   every accepted answer, in the order the author entered them — a student who
+   matches any one of them is marked correct. */
 function collectKey() {
   const key = {};
   state.choices.forEach((value, name) => {
@@ -28,7 +32,10 @@ function collectKey() {
     const name = element.dataset.key;
     if (!name) return;
     const value = readAnswerField(element).trim();
-    if (value) key[name] = value;
+    if (!value) return;
+    if (!Array.isArray(key[name])) key[name] = [];
+    // Same answer typed twice is the author's slip, not two accepted forms.
+    if (!key[name].includes(value)) key[name].push(value);
   });
   return key;
 }
@@ -146,6 +153,41 @@ function buildChoiceKey(question) {
   return card;
 }
 
+const MAX_ACCEPTED_ANSWERS = 20;
+
+/* One input row. Several rows can share a key: each is another accepted form
+   of the same answer. */
+function buildAnswerRow(key, { removable }) {
+  const row = document.createElement('div');
+  row.className = 'answer-row';
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'field';
+
+  const field = document.createElement('math-field');
+  field.dataset.key = key;
+  field.setAttribute('virtual-keyboard-mode', 'onfocus');
+  field.addEventListener('input', updateCount);
+  field.addEventListener('blur', updateCount);
+  wrapper.appendChild(field);
+  row.appendChild(wrapper);
+
+  if (removable) {
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'row-remove';
+    remove.textContent = '×';
+    remove.title = 'Bu javobni o‘chirish';
+    remove.addEventListener('click', () => {
+      row.remove();
+      updateCount();
+    });
+    row.appendChild(remove);
+  }
+
+  return row;
+}
+
 function buildOpenKey(question) {
   const card = document.createElement('div');
   card.className = 'q';
@@ -153,43 +195,59 @@ function buildOpenKey(question) {
   const label = document.createElement('div');
   label.className = 'q-label';
   label.innerHTML =
-    `${question.number}-savol: <span class="q-hint">to‘g‘ri javoblarni yozing ` +
-    `(b) bo‘sh qolishi mumkin)</span>`;
+    `${question.number}-savol: <span class="q-hint">to‘g‘ri javobni yozing. ` +
+    `Bir xil javobning turli ko‘rinishlarini qo‘shishingiz mumkin ` +
+    `(masalan 3/4, 0.75) — o‘quvchi shulardan birini yozsa, javob to‘g‘ri ` +
+    `hisoblanadi. b) bo‘sh qolishi mumkin.</span>`;
   card.appendChild(label);
 
   ['a', 'b'].forEach((part) => {
-    const row = document.createElement('div');
-    row.className = 'part';
+    const key = `${question.number}${part}`;
+
+    const block = document.createElement('div');
+    block.className = 'part-block';
 
     const tag = document.createElement('div');
     tag.className = 'part-label';
     tag.textContent = `${part})`;
-    row.appendChild(tag);
+    block.appendChild(tag);
 
-    const wrapper = document.createElement('div');
-    wrapper.className = 'field';
+    const rows = document.createElement('div');
+    rows.className = 'answer-rows';
+    // The first row is never removable, so a part always keeps one input.
+    rows.appendChild(buildAnswerRow(key, { removable: false }));
+    block.appendChild(rows);
 
-    const field = document.createElement('math-field');
-    field.dataset.key = `${question.number}${part}`;
-    field.setAttribute('virtual-keyboard-mode', 'onfocus');
-    field.addEventListener('input', updateCount);
-    field.addEventListener('blur', updateCount);
+    const add = document.createElement('button');
+    add.type = 'button';
+    add.className = 'add-answer';
+    add.textContent = '+ Yana javob qo‘shish';
+    add.addEventListener('click', () => {
+      if (rows.querySelectorAll('math-field, input.plain-field').length >= MAX_ACCEPTED_ANSWERS) {
+        return;
+      }
+      const row = buildAnswerRow(key, { removable: true });
+      rows.appendChild(row);
+      const field = row.querySelector('math-field, input.plain-field');
+      if (field && field.focus) field.focus();
+      updateCount();
+    });
+    block.appendChild(add);
 
-    wrapper.appendChild(field);
-    row.appendChild(wrapper);
-    card.appendChild(row);
+    card.appendChild(block);
   });
 
   return card;
 }
 
-/* An open question counts as answered once part a) is filled; b) is optional. */
+/* An open question counts as answered once part a) has at least one accepted
+   answer; b) is optional, and extra accepted forms are always optional. */
 function missingQuestions(key = collectKey()) {
-  return state.questions.filter((question) =>
-    question.type === 'mc'
-      ? !key[String(question.number)]
-      : !key[`${question.number}a`]
-  );
+  return state.questions.filter((question) => {
+    if (question.type === 'mc') return !key[String(question.number)];
+    const accepted = key[`${question.number}a`];
+    return !accepted || accepted.length === 0;
+  });
 }
 
 function updateCount() {
@@ -225,10 +283,11 @@ async function saveTest() {
         answer: key[String(question.number)],
       };
     }
+    // Each part carries every accepted form: {"a": ["3/4", "0.75"]}.
     const parts = {};
     ['a', 'b'].forEach((part) => {
-      const value = key[`${question.number}${part}`];
-      if (value) parts[part] = value;
+      const accepted = key[`${question.number}${part}`];
+      if (accepted && accepted.length) parts[part] = accepted;
     });
     return { number: question.number, type: 'open', parts };
   });
