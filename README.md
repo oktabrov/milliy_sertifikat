@@ -100,6 +100,8 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 cp .env.example .env      # then put your BOT_TOKEN in it
 ```
 
+There is no database to install. Storage is three JSON files under `DATA_DIR`.
+
 Set `USE_POLLING=true` in `.env` and start the app:
 
 ```bash
@@ -123,9 +125,10 @@ cloudflared tunnel --url http://localhost:8080
 .venv/bin/python -m pytest
 ```
 
-81 tests covering the Rasch engine (difficulty recovery against known values),
+96 tests covering the Rasch engine (difficulty recovery against known values),
 the three-scenario tables, answer normalisation, `initData` verification
-including forgery attempts, and the full create → answer → score API flow.
+including forgery attempts, the JSON store's durability and concurrency
+guarantees, and the full create → answer → score API flow.
 
 ---
 
@@ -143,20 +146,48 @@ one process, one port and one certificate.
 app/
   main.py                  ASGI app: webhook + API + static
   config.py                environment settings
-  db/models.py             users, tests, attempts
+  store/
+    models.py              User, Test, Attempt dataclasses
+    json_store.py          atomic, lock-guarded JSON persistence
   bot/                     handlers, keyboards, Uzbek strings
   api/                     initData auth, test + submission endpoints
   scoring/
     rasch.py               1-PL model, JMLE, ability estimation
     scenarios.py           the three synthetic cohorts
     grader.py              answer normalisation and grading
-  services/                where the database meets the model
+  services/                where storage meets the model
   web/                     Mini App
 tests/
 ```
 
-`app/scoring/*` knows nothing about SQLAlchemy or Telegram, which is what makes
-it directly testable.
+`app/scoring/*` knows nothing about storage or Telegram, which is what makes it
+directly testable.
+
+## Storage
+
+Three JSON files under `DATA_DIR`: `users.json`, `tests.json`, `attempts.json`.
+No database, no ORM, no driver — which is also why the production virtualenv is
+19 MB rather than 96 MB.
+
+The obvious hazard with JSON files is losing a write: two students submit in the
+same second, both read the attempt list, both append, both save, and one result
+disappears silently. Two things prevent it:
+
+- **Atomic writes.** Each save goes to a temporary file in the same directory,
+  is fsynced, then moved into place with `os.replace`. A crash mid-write leaves
+  the previous file intact, never a truncated one.
+- **A serialising lock.** Every mutation holds an `asyncio.Lock` across the
+  whole read-modify-write cycle, so the interleaving above cannot occur. There
+  is a test that fires 50 simultaneous submissions and asserts all 50 survive a
+  reload, and another that double-taps submit and asserts exactly one attempt is
+  created.
+
+**Run a single worker.** The lock serialises within one event loop; two worker
+processes would each hold their own copy of the data and clobber each other. The
+deployment command in DEPLOY-alwaysdata.md starts one.
+
+Back up by copying the directory — `data/` is gitignored, since it holds real
+student answers.
 
 ---
 

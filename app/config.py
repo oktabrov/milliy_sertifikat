@@ -26,7 +26,8 @@ class Settings(BaseSettings):
     # Long polling is for local development only; alwaysdata runs the webhook.
     use_polling: bool = False
 
-    database_url: str = "sqlite+aiosqlite:///./testbot.db"
+    # Directory holding users.json, tests.json and attempts.json.
+    data_dir: str = "./data"
 
     # Comma-separated Telegram user ids.
     admin_ids: str = ""

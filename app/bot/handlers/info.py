@@ -10,7 +10,7 @@ from app.bot import texts
 from app.bot.keyboards import join_channels_inline
 from app.bot.middlewares import missing_channels
 from app.config import get_settings
-from app.db.models import User
+from app.store.models import User
 
 router = Router(name="info")
 

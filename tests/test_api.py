@@ -2,17 +2,12 @@
 
 from __future__ import annotations
 
-import os
-from pathlib import Path
-
 import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
 
 from tests.conftest import TEST_BOT_TOKEN
 from tests.test_auth import make_init_data
-
-DB_FILE = Path("./test_tmp.db")
 
 
 def auth_headers(user_id: int = 42, first_name: str = "Sardor") -> dict[str, str]:
@@ -34,20 +29,16 @@ def sample_payload(code: str | None = None) -> dict:
 
 
 @pytest_asyncio.fixture
-async def client():
-    if DB_FILE.exists():
-        DB_FILE.unlink()
-
-    from app.db.base import engine, init_models
+async def client(tmp_path):
+    """A fresh store per test, so tests cannot see each other's data."""
     from app.main import app
+    from app.store.json_store import init_store, reset_store
 
-    await init_models()
+    await init_store(tmp_path)
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as async_client:
         yield async_client
-    await engine.dispose()
-    if DB_FILE.exists():
-        DB_FILE.unlink()
+    reset_store()
 
 
 @pytest.mark.asyncio

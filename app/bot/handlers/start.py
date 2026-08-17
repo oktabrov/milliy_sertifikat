@@ -9,11 +9,11 @@ from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import Message
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot import texts
 from app.bot.keyboards import intro_inline, ms_keyboard
-from app.db.models import User
+from app.store.json_store import Store
+from app.store.models import User
 
 router = Router(name="start")
 
@@ -27,7 +27,7 @@ class Registration(StatesGroup):
 
 
 @router.message(CommandStart())
-async def cmd_start(message: Message, state: FSMContext, user: User, session: AsyncSession) -> None:
+async def cmd_start(message: Message, state: FSMContext, user: User) -> None:
     await state.clear()
     if user.full_name:
         await message.answer(
@@ -46,9 +46,7 @@ async def cmd_edit(message: Message, state: FSMContext) -> None:
 
 
 @router.message(Registration.waiting_for_name, F.text)
-async def receive_name(
-    message: Message, state: FSMContext, user: User, session: AsyncSession
-) -> None:
+async def receive_name(message: Message, state: FSMContext, user: User, store: Store) -> None:
     name = " ".join((message.text or "").split())
 
     if len(name) < 5:
@@ -60,7 +58,7 @@ async def receive_name(
 
     was_registered = bool(user.full_name)
     user.full_name = name.title()
-    await session.commit()
+    await store.save_user(user)
     await state.clear()
 
     if was_registered:

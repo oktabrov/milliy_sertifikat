@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from app.bot import texts
-from app.db.models import Attempt, Test
+from app.store.models import Attempt, Test
 
 
 def render_result(attempt: Attempt, test: Test, student_name: str) -> str:

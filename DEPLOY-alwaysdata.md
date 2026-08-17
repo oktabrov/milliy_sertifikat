@@ -10,14 +10,15 @@ satisfies Telegram's HTTPS requirement for both the webhook and the Mini App.
 
 ---
 
-## 1. Create the database
+## 1. Storage: nothing to set up
 
-In the admin panel: **Databases → PostgreSQL → Add a database**.
+There is no database. Users, tests and attempts live in three JSON files under
+`DATA_DIR` (default `./data`), written atomically and guarded by a lock so
+simultaneous submissions cannot overwrite one another.
 
-Note the name, user and password. The host is `postgresql-<account>.alwaysdata.net`.
-
-SQLite also works and needs no setup, but PostgreSQL is the better choice as
-soon as more than a handful of students submit at once.
+One consequence to respect: **run a single worker.** Two uvicorn processes would
+each hold their own copy in memory and clobber each other's writes. The command
+below starts one.
 
 ---
 
@@ -37,9 +38,16 @@ alwaysdata ships several Python versions; pick 3.11 or newer.
 ```bash
 python3.11 -m venv ~/www/testbot/venv
 ~/www/testbot/venv/bin/pip install --upgrade pip
-~/www/testbot/venv/bin/pip install -r requirements.txt
-~/www/testbot/venv/bin/pip install asyncpg      # for PostgreSQL
+~/www/testbot/venv/bin/pip install --no-cache-dir -r requirements.txt
 ```
+
+Measured footprint, which matters against the free plan's quota:
+
+| | Size |
+|---|---|
+| virtualenv as installed | 46 MB |
+| after `scripts/deploy.sh` strips pip and bytecode caches | **19 MB** |
+| application code | 0.4 MB |
 
 ## 4. Environment file
 
@@ -55,7 +63,7 @@ BOT_TOKEN=<from @BotFather>
 WEBHOOK_BASE=https://<account>.alwaysdata.net
 WEBHOOK_SECRET=<a long random string>
 USE_POLLING=false
-DATABASE_URL=postgresql+asyncpg://<user>:<password>@postgresql-<account>.alwaysdata.net/<database>
+DATA_DIR=./data
 ADMIN_IDS=<your Telegram user id>
 REQUIRED_CHANNELS=@your_channel
 ```
@@ -70,7 +78,7 @@ REQUIRED_CHANNELS=@your_channel
 - **Command:**
 
   ```
-  /home/<account>/www/testbot/venv/bin/uvicorn app.main:app --host $IP --port $PORT
+  /home/<account>/www/testbot/venv/bin/python -B -m uvicorn app.main:app --host $IP --port $PORT
   ```
 
 - **Working directory:** `/home/<account>/www/testbot`
@@ -116,14 +124,17 @@ design rather than locking everyone out.
 ## Updating
 
 ```bash
-cd ~/www/testbot && git pull
-~/www/testbot/venv/bin/pip install -r requirements.txt
+bash ~/www/testbot/scripts/deploy.sh
 ```
 
-Then restart the site from the panel.
+Then restart the site from the panel. The script pulls, reinstalls, reclaims
+space and re-validates the configuration.
 
-New tables are created automatically at startup. Changing an existing column
-needs a migration — add Alembic when that first happens.
+Back up your data by copying the three files:
+
+```bash
+tar czf ~/testbot-backup-$(date +%F).tar.gz -C ~/www/testbot data
+```
 
 ---
 
@@ -142,9 +153,9 @@ whose URL is not HTTPS. Confirm `WEBHOOK_BASE` starts with `https://` and send
 `/ms` again to rebuild the keyboard.
 
 **Disk quota on the free plan.** The 100 MB limit is why nothing here depends on
-numpy or scipy. If you add packages, `du -sh ~/www/testbot/venv` before you
-commit to them.
+numpy, scipy, an ORM or a database driver. If you add packages, check
+`du -sh ~/www/testbot/venv` before committing to them.
 
 **Cold restarts lose FSM state.** Registration state lives in memory, so a
 student mid-`/start` has to send `/start` again after a restart. Everything
-persistent — users, tests, attempts, results — is in the database.
+persistent — users, tests, attempts, results — is in the JSON files.

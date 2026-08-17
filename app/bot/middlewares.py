@@ -1,4 +1,4 @@
-"""Middlewares: database session, user record, channel-subscription gate."""
+"""Middlewares: user record, channel-subscription gate."""
 
 from __future__ import annotations
 
@@ -8,13 +8,11 @@ from typing import Any
 
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message, TelegramObject, User as TgUser
-from sqlalchemy import select
 
 from app.bot import texts
 from app.bot.keyboards import join_channels_inline
 from app.config import get_settings
-from app.db.base import SessionLocal
-from app.db.models import User
+from app.store.json_store import get_store
 
 logger = logging.getLogger(__name__)
 
@@ -23,8 +21,8 @@ logger = logging.getLogger(__name__)
 _GATE_EXEMPT_COMMANDS = ("/start", "/info")
 
 
-class DatabaseMiddleware(BaseMiddleware):
-    """Opens one session per update and puts the User row in the handler data."""
+class StoreMiddleware(BaseMiddleware):
+    """Puts the store and the current user in the handler data."""
 
     async def __call__(
         self,
@@ -32,28 +30,19 @@ class DatabaseMiddleware(BaseMiddleware):
         event: TelegramObject,
         data: dict[str, Any],
     ) -> Any:
+        store = get_store()
+        data["store"] = store
+        data["user"] = None
+
         tg_user: TgUser | None = data.get("event_from_user")
+        if tg_user is not None and not tg_user.is_bot:
+            data["user"] = await store.ensure_user(
+                tg_user.id,
+                username=tg_user.username,
+                is_admin=tg_user.id in get_settings().admin_id_list,
+            )
 
-        async with SessionLocal() as session:
-            data["session"] = session
-            data["user"] = None
-
-            if tg_user is not None and not tg_user.is_bot:
-                user = await session.get(User, tg_user.id)
-                if user is None:
-                    user = User(
-                        id=tg_user.id,
-                        username=tg_user.username,
-                        is_admin=tg_user.id in get_settings().admin_id_list,
-                    )
-                    session.add(user)
-                    await session.commit()
-                elif user.username != tg_user.username:
-                    user.username = tg_user.username
-                    await session.commit()
-                data["user"] = user
-
-            return await handler(event, data)
+        return await handler(event, data)
 
 
 class ChannelGateMiddleware(BaseMiddleware):

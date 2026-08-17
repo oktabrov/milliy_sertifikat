@@ -9,7 +9,8 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 
-*.db
-*.sqlite3
+# Student data — never commit real answers or results.
+data/
+*.json.tmp
 
 .DS_Store

@@ -7,13 +7,10 @@ import random
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
 from pydantic import BaseModel, Field, field_validator
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.auth import WebAppUser, require_web_app_user
 from app.bot import texts
-from app.db.base import get_session
-from app.db.models import Test, User
+from app.store.json_store import Store, get_store
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api", tags=["create"])
@@ -73,25 +70,25 @@ class CreateTestOut(BaseModel):
     question_count: int
 
 
-async def _unique_code(session: AsyncSession, preferred: str | None) -> str:
-    """Short numeric code, like the four- and single-digit ones teachers share."""
+def _pick_code(store: Store, preferred: str | None) -> str:
+    """Short numeric code, like the ones teachers share.
+
+    Only a candidate — `Store.create_test` re-checks uniqueness under its lock,
+    which is what actually prevents two teachers claiming the same code.
+    """
     if preferred:
         candidate = preferred.strip()
         if not candidate.isdigit() or not 1 <= len(candidate) <= 8:
-            raise HTTPException(status.HTTP_400_BAD_REQUEST, "Test kodi 1-8 xonali son bo'lishi kerak")
-        taken = (
-            await session.execute(select(Test.id).where(Test.code == candidate))
-        ).scalar_one_or_none()
-        if taken is not None:
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST, "Test kodi 1-8 xonali son bo'lishi kerak"
+            )
+        if store.get_test_by_code(candidate) is not None:
             raise HTTPException(status.HTTP_409_CONFLICT, "Bu kod band. Boshqa kod tanlang")
         return candidate
 
     for _ in range(40):
         candidate = str(random.randint(1000, 9999))
-        taken = (
-            await session.execute(select(Test.id).where(Test.code == candidate))
-        ).scalar_one_or_none()
-        if taken is None:
+        if store.get_test_by_code(candidate) is None:
             return candidate
     raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, "Kod yaratib bo'lmadi, qayta urining")
 
@@ -124,21 +121,16 @@ async def create_test(
     request: Request,
     background: BackgroundTasks,
     web_app_user: WebAppUser = Depends(require_web_app_user),
-    session: AsyncSession = Depends(get_session),
 ) -> CreateTestOut:
     _validate_answer_key(payload.questions)
 
-    user = await session.get(User, web_app_user.id)
-    if user is None:
-        user = User(
-            id=web_app_user.id,
-            full_name=web_app_user.full_name or None,
-            username=web_app_user.username,
-        )
-        session.add(user)
-        await session.commit()
+    store = get_store()
+    user = await store.ensure_user(web_app_user.id, username=web_app_user.username)
+    if not user.full_name and web_app_user.full_name:
+        user.full_name = web_app_user.full_name
+        await store.save_user(user)
 
-    code = await _unique_code(session, payload.code)
+    code = _pick_code(store, payload.code)
 
     questions = []
     for question in sorted(payload.questions, key=lambda item: item.number):
@@ -159,16 +151,18 @@ async def create_test(
             }
             questions.append({"number": question.number, "type": "open", "parts": parts})
 
-    test = Test(
-        code=code,
-        title=payload.title,
-        owner_id=user.id,
-        subjects=[subject.strip() for subject in payload.subjects if subject.strip()],
-        questions=questions,
-        status="open",
-    )
-    session.add(test)
-    await session.commit()
+    try:
+        test = await store.create_test(
+            code=code,
+            title=payload.title,
+            owner_id=user.id,
+            subjects=[subject.strip() for subject in payload.subjects if subject.strip()],
+            questions=questions,
+        )
+    except ValueError:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, "Bu kod band. Boshqa kod tanlang"
+        ) from None
 
     bot = getattr(request.app.state, "bot", None)
     if bot is not None:

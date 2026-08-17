@@ -8,7 +8,7 @@ from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import BotCommand
 
-from app.bot.middlewares import ChannelGateMiddleware, DatabaseMiddleware
+from app.bot.middlewares import ChannelGateMiddleware, StoreMiddleware
 from app.config import get_settings
 
 BOT_COMMANDS = [
@@ -32,10 +32,10 @@ def create_dispatcher() -> Dispatcher:
 
     dispatcher = Dispatcher(storage=MemoryStorage())
 
-    # Order matters: the database middleware populates `user`, which the
-    # channel gate then reads.
+    # Order matters: the store middleware populates `user`, which the channel
+    # gate then reads.
     for observer in (dispatcher.message, dispatcher.callback_query):
-        observer.middleware(DatabaseMiddleware())
+        observer.middleware(StoreMiddleware())
         observer.middleware(ChannelGateMiddleware())
 
     dispatcher.include_router(start.router)

@@ -7,15 +7,13 @@ from typing import Any
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
 from pydantic import BaseModel, Field
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.auth import WebAppUser, require_web_app_user
 from app.bot import texts
 from app.bot.keyboards import see_result_inline
-from app.db.base import SessionLocal, get_session
-from app.db.models import Attempt, Test, User
 from app.services.scoring_service import record_attempt, recalibrate
+from app.store.json_store import Store, get_store
+from app.store.models import Test
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api", tags=["test"])
@@ -59,10 +57,8 @@ class SubmitOut(BaseModel):
     scenarios: list[ScenarioOut]
 
 
-async def _load_test(session: AsyncSession, code: str) -> Test:
-    test = (
-        await session.execute(select(Test).where(Test.code == code.strip()))
-    ).scalar_one_or_none()
+def _load_test(store: Store, code: str) -> Test:
+    test = store.get_test_by_code(code)
     if test is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Bunday kodli test topilmadi")
     return test
@@ -72,30 +68,20 @@ async def _load_test(session: AsyncSession, code: str) -> Test:
 async def get_test(
     code: str,
     web_app_user: WebAppUser = Depends(require_web_app_user),
-    session: AsyncSession = Depends(get_session),
 ) -> TestOut:
     """Test metadata and the shape of the answer sheet.
 
     Correct answers are never included — the sheet only needs to know how many
     options each question has.
     """
-    test = await _load_test(session, code)
-
-    existing = (
-        await session.execute(
-            select(Attempt.id).where(
-                Attempt.test_id == test.id, Attempt.user_id == web_app_user.id
-            )
-        )
-    ).scalar_one_or_none()
+    store = get_store()
+    test = _load_test(store, code)
 
     questions = []
     for question in test.questions or []:
         if question.get("type") == "open":
             parts = sorted((question.get("parts") or {}).keys())
-            questions.append(
-                QuestionOut(number=int(question["number"]), type="open", parts=parts)
-            )
+            questions.append(QuestionOut(number=int(question["number"]), type="open", parts=parts))
         else:
             questions.append(
                 QuestionOut(
@@ -111,7 +97,7 @@ async def get_test(
         subjects=test.subjects or [],
         question_count=len(questions),
         status=test.status,
-        already_submitted=existing is not None,
+        already_submitted=store.get_attempt(test.id, web_app_user.id) is not None,
         questions=questions,
     )
 
@@ -122,32 +108,26 @@ async def submit_attempt(
     request: Request,
     background: BackgroundTasks,
     web_app_user: WebAppUser = Depends(require_web_app_user),
-    session: AsyncSession = Depends(get_session),
 ) -> SubmitOut:
-    test = await _load_test(session, payload.code)
+    store = get_store()
+    test = _load_test(store, payload.code)
 
     if test.status != "open":
         raise HTTPException(status.HTTP_409_CONFLICT, "Bu test yopilgan")
 
-    user = await session.get(User, web_app_user.id)
-    if user is None:
-        user = User(
-            id=web_app_user.id,
-            full_name=web_app_user.full_name or None,
-            username=web_app_user.username,
-        )
-        session.add(user)
-        await session.commit()
+    user = await store.ensure_user(web_app_user.id, username=web_app_user.username)
+    if not user.full_name and web_app_user.full_name:
+        user.full_name = web_app_user.full_name
+        await store.save_user(user)
 
-    already = (
-        await session.execute(
-            select(Attempt.id).where(Attempt.test_id == test.id, Attempt.user_id == user.id)
-        )
-    ).scalar_one_or_none()
-    if already is not None:
-        raise HTTPException(status.HTTP_409_CONFLICT, "Siz bu testga allaqachon javob bergansiz")
-
-    attempt = await record_attempt(session, test, user.id, payload.subject, payload.answers)
+    try:
+        attempt = await record_attempt(store, test, user.id, payload.subject, payload.answers)
+    except ValueError:
+        # The store re-checks under its lock, so a duplicate that slipped past
+        # an earlier read still lands here rather than creating a second row.
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, "Siz bu testga allaqachon javob bergansiz"
+        ) from None
 
     bot = getattr(request.app.state, "bot", None)
     if bot is not None:
@@ -157,23 +137,21 @@ async def submit_attempt(
     return SubmitOut(
         raw_correct=attempt.raw_correct,
         total_items=attempt.total_items,
-        scenarios=[ScenarioOut(**row) for row in _scenario_rows(attempt)],
+        scenarios=[ScenarioOut(**row) for row in _scenario_rows(attempt.results)],
     )
 
 
-def _scenario_rows(attempt: Attempt) -> list[dict[str, Any]]:
-    rows = []
-    for row in attempt.results or []:
-        rows.append(
-            {
-                "key": row["key"],
-                "label_uz": row["label_uz"],
-                "ball": row["ball"],
-                "percentile": row["percentile"],
-                "grade": row["grade"],
-            }
-        )
-    return rows
+def _scenario_rows(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [
+        {
+            "key": row["key"],
+            "label_uz": row["label_uz"],
+            "ball": row["ball"],
+            "percentile": row["percentile"],
+            "grade": row["grade"],
+        }
+        for row in results or []
+    ]
 
 
 async def _notify_submitted(bot, chat_id: int, code: str) -> None:
@@ -188,15 +166,11 @@ async def _notify_submitted(bot, chat_id: int, code: str) -> None:
 
 
 async def _recalibrate_later(test_id: int) -> None:
-    """Re-derive item difficulty from real responses once enough have arrived.
-
-    Runs in its own session because the request's session is closed by the time
-    background tasks execute.
-    """
+    """Re-derive item difficulty from real responses once enough have arrived."""
     try:
-        async with SessionLocal() as session:
-            test = await session.get(Test, test_id)
-            if test is not None:
-                await recalibrate(session, test)
+        store = get_store()
+        test = store.get_test(test_id)
+        if test is not None:
+            await recalibrate(store, test)
     except Exception:
         logger.exception("Recalibration failed for test id %s", test_id)

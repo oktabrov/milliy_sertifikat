@@ -1,21 +1,19 @@
-# Production dependencies. Kept deliberately small: alwaysdata's free plan
-# allows 100 MB of disk in total, and a virtualenv gets there faster than you
-# would think. Measured sizes are in DEPLOY-alwaysdata.md.
+# Production dependencies. Deliberately small: alwaysdata's free plan allows
+# 100 MB of disk in total, and a virtualenv gets there faster than you would
+# think. Measured sizes are in DEPLOY-alwaysdata.md.
+#
+# Storage is plain JSON files (app/store/), so there is no database driver and
+# no ORM here — that alone is about 20 MB saved.
 
 aiogram>=3.13,<4
 fastapi>=0.115
 uvicorn>=0.30
-sqlalchemy[asyncio]>=2.0
-aiosqlite>=0.20
 pydantic>=2.9
 pydantic-settings>=2.4
 
 # Deliberately NOT uvicorn[standard]: uvloop, websockets and httptools add
 # about 7 MB and buy nothing here — the app is I/O-bound on Telegram's API and
 # the free tier gives a quarter of a CPU. Add it back on a paid plan.
-
-# PostgreSQL. Not needed for SQLite; costs ~2.7 MB.
-# asyncpg>=0.29
 
 # Test-only, never installed in production (adds ~21 MB):
 #   pytest pytest-asyncio httpx

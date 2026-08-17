@@ -8,32 +8,28 @@ import logging
 from aiogram import Router
 from aiogram.filters import Command, CommandObject
 from aiogram.types import Message
-from sqlalchemy import func, select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot import texts
-from app.db.models import Attempt, Test, User
+from app.store.json_store import Store
+from app.store.models import User
 
 logger = logging.getLogger(__name__)
 router = Router(name="admin")
 
 
 @router.message(Command("stats"))
-async def cmd_stats(message: Message, session: AsyncSession, user: User) -> None:
+async def cmd_stats(message: Message, store: Store, user: User) -> None:
     if not user.is_admin:
         await message.answer(texts.ADMIN_ONLY)
         return
 
-    users = await session.scalar(select(func.count(User.id)))
-    tests = await session.scalar(select(func.count(Test.id)))
-    attempts = await session.scalar(select(func.count(Attempt.id)))
-
+    users, tests, attempts = store.stats()
     await message.answer(texts.ADMIN_STATS.format(users=users, tests=tests, attempts=attempts))
 
 
 @router.message(Command("broadcast"))
 async def cmd_broadcast(
-    message: Message, command: CommandObject, session: AsyncSession, user: User
+    message: Message, command: CommandObject, store: Store, user: User
 ) -> None:
     if not user.is_admin:
         await message.answer(texts.ADMIN_ONLY)
@@ -44,11 +40,11 @@ async def cmd_broadcast(
         await message.answer(texts.BROADCAST_USAGE)
         return
 
-    ids = (await session.execute(select(User.id).where(User.is_blocked.is_(False)))).scalars().all()
+    recipients = [record.id for record in store.all_users() if not record.is_blocked]
 
     sent = 0
     failed = 0
-    for index, chat_id in enumerate(ids):
+    for index, chat_id in enumerate(recipients):
         try:
             await message.bot.send_message(chat_id, body)
             sent += 1

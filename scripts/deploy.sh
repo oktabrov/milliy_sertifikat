@@ -52,13 +52,6 @@ info "Installing dependencies"
 # --no-cache-dir matters: pip's wheel cache in ~/.cache counts against the quota.
 "$APP_DIR/venv/bin/pip" install --quiet --no-cache-dir -r requirements.txt
 
-# Only pull the PostgreSQL driver when the config actually asks for it; it is
-# 2.7 MB that a SQLite deployment has no use for.
-if grep -qE '^DATABASE_URL=.*postgresql' "$APP_DIR/.env" 2>/dev/null; then
-  info "PostgreSQL detected in .env; installing asyncpg"
-  "$APP_DIR/venv/bin/pip" install --quiet --no-cache-dir asyncpg
-fi
-
 info "Reclaiming space"
 # Bytecode caches roughly double the virtualenv. PYTHONDONTWRITEBYTECODE in the
 # site command stops them coming back; imports are marginally slower, which
@@ -82,7 +75,7 @@ if [ ! -f "$APP_DIR/.env" ]; then
   warn "  BOT_TOKEN       from @BotFather"
   warn "  WEBHOOK_BASE    https://<account>.alwaysdata.net"
   warn "  WEBHOOK_SECRET  a long random string, e.g. $(head -c 18 /dev/urandom | base64 | tr -d '/+=')"
-  warn "  DATABASE_URL    postgresql+asyncpg://<user>:<pass>@postgresql-<account>.alwaysdata.net/<db>"
+  warn "  DATA_DIR        ./data   (JSON files live here; no database needed)"
   warn "  USE_POLLING     false"
   echo
   info "Then re-run this script to verify the configuration."
@@ -114,9 +107,6 @@ if not settings.webhook_base.startswith("https://"):
     problems.append("WEBHOOK_BASE must be an https:// URL")
 if settings.webhook_secret in ("", "change-me", "change-me-to-something-random"):
     problems.append("WEBHOOK_SECRET is still the placeholder")
-if settings.database_url.startswith("sqlite"):
-    print("  WARN  DATABASE_URL is SQLite; PostgreSQL is recommended in production")
-
 for problem in problems:
     print(f"  FAIL  {problem}")
 if problems:
@@ -124,19 +114,20 @@ if problems:
 
 print(f"  OK    webhook  -> {settings.webhook_url}")
 print(f"  OK    mini app -> {settings.miniapp_base}/answer")
-print(f"  OK    database -> {settings.database_url.split('@')[-1]}")
+print(f"  OK    data dir -> {settings.data_dir}")
 PY
 
-info "Checking the database connection and creating any missing tables"
+info "Checking the data directory is readable and writable"
 "$APP_DIR/venv/bin/python" - <<'PY'
 import asyncio, sys
 sys.path.insert(0, ".")
-from app.db.base import engine, init_models
+from app.config import get_settings
+from app.store.json_store import init_store
 
 async def main():
-    await init_models()
-    await engine.dispose()
-    print("  OK    schema is up to date")
+    store = await init_store(get_settings().data_dir)
+    users, tests, attempts = store.stats()
+    print(f"  OK    {users} users, {tests} tests, {attempts} attempts on disk")
 
 asyncio.run(main())
 PY

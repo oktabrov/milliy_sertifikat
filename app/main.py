@@ -22,7 +22,7 @@ from fastapi.staticfiles import StaticFiles
 from app.api import routes_create, routes_test
 from app.bot import create_bot, create_dispatcher, set_bot_commands
 from app.config import get_settings
-from app.db.base import engine, init_models
+from app.store.json_store import init_store
 
 logging.basicConfig(
     level=logging.INFO,
@@ -60,7 +60,7 @@ async def _supervised_polling(bot, dispatcher) -> None:
 async def lifespan(app: FastAPI):
     settings = get_settings()
 
-    await init_models()
+    await init_store(settings.data_dir)
 
     bot = create_bot()
     dispatcher = create_dispatcher()
@@ -103,7 +103,6 @@ async def lifespan(app: FastAPI):
                 await polling_task
         with contextlib.suppress(Exception):
             await bot.session.close()
-        await engine.dispose()
 
 
 app = FastAPI(title="Milliy sertifikat test bot", lifespan=lifespan, docs_url=None, redoc_url=None)
