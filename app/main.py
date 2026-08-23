@@ -150,6 +150,22 @@ app.include_router(routes_create.router)
 app.mount("/app/static", StaticFiles(directory=WEB_DIR / "static"), name="static")
 
 
+@app.middleware("http")
+async def revalidate_mini_app(request: Request, call_next):
+    """Make the Mini App always check back after a deploy.
+
+    Without an explicit Cache-Control, Telegram's in-app browser caches the
+    pages heuristically and keeps showing a form long after the server has
+    moved on — which reads as "my change did not deploy". `no-cache` still
+    allows the cached copy, but every load revalidates against the ETag, so
+    updates appear on the very next open at the cost of tiny 304 replies.
+    """
+    response = await call_next(request)
+    if request.url.path.startswith("/app"):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
+
+
 @app.get("/healthz")
 async def healthz(request: Request) -> JSONResponse:
     """Health and configuration, diagnosable without SSH.
