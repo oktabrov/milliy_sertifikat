@@ -18,8 +18,12 @@ const state = {
   choices: new Map(), // "12" -> "A"
 };
 
-/* In the Milliy sertifikat format questions 33–35 always carry six options
-   (A–F), whatever the "Variantlar" field says about the rest of the paper. */
+/* The paper shape is fixed, matching the Milliy sertifikat format: 35 closed
+   questions then 10 open ones. Closed questions carry four options each,
+   except questions 33-35 which always have six (A-F). */
+const CLOSED_QUESTIONS = 35;
+const OPEN_QUESTIONS = 10;
+const OPTIONS_PER_QUESTION = 4;
 const SIX_OPTION_QUESTIONS = new Set([33, 34, 35]);
 
 /* The full answer key.
@@ -57,24 +61,8 @@ function buildKeySheet() {
   error.textContent = '';
 
   const title = el('title-input').value.trim();
-  const mcCount = parseInt(el('mc-count').value, 10) || 0;
-  const options = parseInt(el('mc-options').value, 10) || 4;
-  const openCount = parseInt(el('open-count').value, 10) || 0;
-
   if (title.length < 3) {
     error.textContent = 'Test nomini kiriting (kamida 3 ta belgi).';
-    return;
-  }
-  if (mcCount + openCount === 0) {
-    error.textContent = 'Kamida bitta savol kerak.';
-    return;
-  }
-  if (mcCount + openCount > 120) {
-    error.textContent = 'Savollar soni 120 tadan oshmasligi kerak.';
-    return;
-  }
-  if (options < 2 || options > 6) {
-    error.textContent = 'Variantlar soni 2 va 6 orasida bo‘lishi kerak.';
     return;
   }
 
@@ -86,13 +74,15 @@ function buildKeySheet() {
     .filter(Boolean);
 
   state.questions = [];
-  for (let index = 0; index < mcCount; index += 1) {
+  for (let index = 0; index < CLOSED_QUESTIONS; index += 1) {
     const number = index + 1;
-    const optionCount = SIX_OPTION_QUESTIONS.has(number) ? Math.max(options, 6) : options;
+    const optionCount = SIX_OPTION_QUESTIONS.has(number)
+      ? Math.max(OPTIONS_PER_QUESTION, 6)
+      : OPTIONS_PER_QUESTION;
     state.questions.push({ number, type: 'mc', options: optionCount });
   }
-  for (let index = 0; index < openCount; index += 1) {
-    state.questions.push({ number: mcCount + index + 1, type: 'open' });
+  for (let index = 0; index < OPEN_QUESTIONS; index += 1) {
+    state.questions.push({ number: CLOSED_QUESTIONS + index + 1, type: 'open' });
   }
 
   renderKeySheet();

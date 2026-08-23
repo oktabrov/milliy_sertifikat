@@ -108,9 +108,10 @@ never end up with no administrator.
 **Mini App** (`/app/answer`, `/app/create`)
 
 - Test-code prompt, then the answer sheet: `Test №6 – 45 ta savol`
-- Multiple choice with 2–6 options per question, tap to select, tap again to clear
-  — in the default Milliy sertifikat shape, questions **33–35 always get six
-  options (A–F)** whatever the "Variantlar" field says about the rest of the paper
+- Fixed paper shape: **35 closed questions with four options each, questions
+  33–35 with six (A–F), then 10 short-answer questions** — the builder asks
+  only for a title, subjects and an optional code
+- Multiple-choice options are tap to select, tap again to clear
 - Short-answer questions with parts **a)** and **b)**, using
   [MathLive](https://mathlive.io) for the four-tab maths keyboard
   (`123` / `∞≠∈` / `abc` / `αβγ`) — answers are stored as LaTeX

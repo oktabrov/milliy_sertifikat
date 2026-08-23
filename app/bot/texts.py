@@ -52,7 +52,8 @@ HOW_TO_ANSWER = (
 HOW_TO_CREATE = (
     "📘 <b>Yangi test qanday yaratiladi?</b>\n\n"
     "1️⃣ <b>Test yaratish</b> tugmasini bosing.\n"
-    "2️⃣ Test nomi, savollar soni va fanlarni kiriting.\n"
+    "2️⃣ Test nomi va fanlarni kiriting. Format qat'iy: 1–32 — 4 variant, "
+    "33–35 — 6 variant (A–F), 36–45 — ochiq savollar.\n"
     "3️⃣ Har bir savol uchun to'g'ri javobni belgilang.\n"
     "4️⃣ Ochiq savollar uchun <b>a)</b> va <b>b)</b> javoblarini yozing.\n"
     "   Bir javobning bir necha ko'rinishini qo'shish uchun "

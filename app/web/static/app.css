@@ -405,25 +405,6 @@ math-field::part(menu-toggle) {
   color: var(--accent);
 }
 
-/* --- Builder -------------------------------------------------------------- */
-
-.builder-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.builder-row > div {
-  flex: 1;
-}
-
-.builder-row label {
-  display: block;
-  margin-bottom: 4px;
-  color: var(--muted);
-  font-size: 12.5px;
-}
-
 .toolbar {
   display: flex;
   gap: 8px;
