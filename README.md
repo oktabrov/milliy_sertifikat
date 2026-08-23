@@ -22,6 +22,7 @@ Interface language is Uzbek (Latin).
 | `/testlarim` | Tests you authored, with participant counts and close/reopen buttons |
 | `/natijalarim` | Your results |
 | `/stats`, `/broadcast` | Admin only |
+| `/special` | Admin only — lists every admin-only command |
 
 ### Administrators
 
@@ -44,6 +45,19 @@ Admins come from three places and `/adminlar` labels each:
 - **env** — `ADMIN_IDS` in `.env`, the deploy-time record; removing one means
   editing that file
 - **runtime** — added with `/admin_qoshish`, removable the same way
+
+### Intro video
+
+The **"Botda test ishlash va yaratish(+video)"** button is configured entirely
+through `.env`:
+
+- `HELP_VIDEO_URL` — any link (YouTube, Google Drive, …); the button becomes a
+  URL button and opens it directly
+- `HELP_VIDEO_FILE_ID` — the `file_id` of a video already uploaded to Telegram;
+  pressing the button sends the video into the chat
+
+`HELP_VIDEO_URL` wins when both are set. With neither set, the button replies
+"📹 Video hozircha qo'shilmagan."
 
 ### Required channels
 
@@ -91,6 +105,8 @@ never end up with no administrator.
 
 - Test-code prompt, then the answer sheet: `Test №6 – 45 ta savol`
 - Multiple choice with 2–6 options per question, tap to select, tap again to clear
+  — in the default Milliy sertifikat shape, questions **33–35 always get six
+  options (A–F)** whatever the "Variantlar" field says about the rest of the paper
 - Short-answer questions with parts **a)** and **b)**, using
   [MathLive](https://mathlive.io) for the four-tab maths keyboard
   (`123` / `∞≠∈` / `abc` / `αβγ`) — answers are stored as LaTeX

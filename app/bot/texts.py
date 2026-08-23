@@ -31,7 +31,8 @@ HOW_TO_ANSWER = (
     "1️⃣ <b>Test tekshirish</b> tugmasini bosing.\n"
     "2️⃣ Ochilgan oynaga <b>test kodini</b> kiriting va <b>Davom etish</b> tugmasini bosing.\n"
     "3️⃣ Yuqoridan <b>fanni tanlang</b>.\n"
-    "4️⃣ Yopiq testlarda (1-35) <b>A, B, C, D</b> variantlaridan birini bosing.\n"
+    "4️⃣ Yopiq testlarda <b>A, B, C, D</b> variantlaridan birini bosing.\n"
+    "   33, 34 va 35-savollarda esa <b>A, B, C, D, E, F</b> variantlari bo'ladi.\n"
     "5️⃣ Ochiq testlarda (36-45) javobni <b>a)</b> va <b>b)</b> katakchalariga yozing.\n"
     "   Formulalar uchun maxsus matematik klaviaturadan foydalaning.\n"
     "6️⃣ Oxirida <b>Javoblarni yuborish</b> tugmasini bosing.\n\n"
@@ -64,6 +65,7 @@ INFO = (
     "/natijalarim — sizning natijalaringiz\n"
     "/info — shu ma'lumot\n\n"
     "<b>Adminlar uchun:</b>\n"
+    "/special — admin buyruqlari ro'yxati\n"
     "/kanallar — majburiy kanallar ro'yxati\n"
     "/adminlar — adminlar ro'yxati\n"
     "/stats — statistika\n\n"
@@ -285,3 +287,9 @@ ADMIN_NOTIFIED = (
     "/adminlar — adminlar ro'yxati\n"
     "/stats — statistika"
 )
+
+# --- Admin command list (/special) ---------------------------------------------
+
+SPECIAL_HEADER = "🛡 <b>Admin buyruqlari</b>\n\n"
+
+SPECIAL_ROW = "<code>{command}</code> — {description}"

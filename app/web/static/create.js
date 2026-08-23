@@ -18,6 +18,10 @@ const state = {
   choices: new Map(), // "12" -> "A"
 };
 
+/* In the Milliy sertifikat format questions 33–35 always carry six options
+   (A–F), whatever the "Variantlar" field says about the rest of the paper. */
+const SIX_OPTION_QUESTIONS = new Set([33, 34, 35]);
+
 /* The full answer key.
 
    Multiple choice maps to a single letter. Each open part maps to an ARRAY of
@@ -83,7 +87,9 @@ function buildKeySheet() {
 
   state.questions = [];
   for (let index = 0; index < mcCount; index += 1) {
-    state.questions.push({ number: index + 1, type: 'mc', options });
+    const number = index + 1;
+    const optionCount = SIX_OPTION_QUESTIONS.has(number) ? Math.max(options, 6) : options;
+    state.questions.push({ number, type: 'mc', options: optionCount });
   }
   for (let index = 0; index < openCount; index += 1) {
     state.questions.push({ number: mcCount + index + 1, type: 'open' });
