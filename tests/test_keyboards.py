@@ -60,6 +60,15 @@ def test_a_non_https_base_yields_plain_buttons(monkeypatch, base):
         assert button.web_app is None
 
 
+def test_the_intro_buttons_live_in_the_reply_keyboard():
+    """/start must need only one message: a message can carry either inline or
+    reply markup, so keeping the intro buttons inline meant a second bubble."""
+    found = {button.text for button in buttons(keyboards.ms_keyboard())}
+    assert keyboards.texts.BTN_HOW_TO_ANSWER in found
+    assert keyboards.texts.BTN_HOW_TO_CREATE in found
+    assert keyboards.texts.BTN_HELP_VIDEO in found
+
+
 def test_the_fallback_router_is_registered_last():
     """It claims any unmatched text. Registered earlier, it would swallow
     name registration and every button the other routers handle."""

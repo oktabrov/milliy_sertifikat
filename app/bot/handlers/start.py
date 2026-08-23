@@ -11,7 +11,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import Message
 
 from app.bot import texts
-from app.bot.keyboards import intro_inline, ms_keyboard
+from app.bot.keyboards import ms_keyboard
 from app.store.json_store import Store
 from app.store.models import User
 
@@ -27,13 +27,12 @@ class Registration(StatesGroup):
 
 
 @router.message(CommandStart())
-async def cmd_start(message: Message, state: FSMContext, user: User, store: Store) -> None:
+async def cmd_start(message: Message, state: FSMContext, user: User) -> None:
     await state.clear()
     if user.full_name:
         await message.answer(
-            texts.GREETING.format(name=user.full_name), reply_markup=intro_inline(store)
+            texts.GREETING.format(name=user.full_name), reply_markup=ms_keyboard()
         )
-        await message.answer(texts.MS_SECTION, reply_markup=ms_keyboard())
         return
     await state.set_state(Registration.waiting_for_name)
     await message.answer(texts.ASK_NAME)
@@ -67,5 +66,6 @@ async def receive_name(message: Message, state: FSMContext, user: User, store: S
         )
         return
 
-    await message.answer(texts.GREETING.format(name=user.full_name), reply_markup=intro_inline(store))
-    await message.answer(texts.MS_SECTION, reply_markup=ms_keyboard())
+    await message.answer(
+        texts.GREETING.format(name=user.full_name), reply_markup=ms_keyboard()
+    )

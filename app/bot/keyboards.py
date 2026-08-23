@@ -12,29 +12,14 @@ from aiogram.types import (
 
 from app.bot import texts
 from app.config import get_settings
-from app.services import video as video_service
-
-
-def intro_inline(store) -> InlineKeyboardMarkup:
-    """The three buttons shown right after registration.
-
-    A video link set at runtime (or in .env) turns the third button into a URL
-    button; with only a file_id the button stays a callback and the bot sends
-    the video itself.
-    """
-    rows = [
-        [InlineKeyboardButton(text=texts.BTN_HOW_TO_ANSWER, callback_data="how:answer")],
-        [InlineKeyboardButton(text=texts.BTN_HOW_TO_CREATE, callback_data="how:create")],
-        [InlineKeyboardButton(text=texts.BTN_HELP_VIDEO, callback_data="how:video")],
-    ]
-    url, _ = video_service.current(store)
-    if url:
-        rows[2] = [InlineKeyboardButton(text=texts.BTN_HELP_VIDEO, url=url)]
-    return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
 def ms_keyboard() -> ReplyKeyboardMarkup:
     """The Milliy sertifikat section keyboard.
+
+    The three intro buttons (how to answer, how to create, the video) live at
+    the top of this keyboard rather than in a separate inline message, so a
+    fresh /start needs to send only one bubble.
 
     "Test tekshirish" and "Test yaratish" open the Mini App directly. Telegram
     only allows web_app buttons over HTTPS, so when WEBHOOK_BASE is unset (local
@@ -57,6 +42,9 @@ def ms_keyboard() -> ReplyKeyboardMarkup:
 
     return ReplyKeyboardMarkup(
         keyboard=[
+            [KeyboardButton(text=texts.BTN_HOW_TO_ANSWER)],
+            [KeyboardButton(text=texts.BTN_HOW_TO_CREATE)],
+            [KeyboardButton(text=texts.BTN_HELP_VIDEO)],
             [check_button],
             [create_button],
             [KeyboardButton(text=texts.BTN_MY_RESULTS)],
