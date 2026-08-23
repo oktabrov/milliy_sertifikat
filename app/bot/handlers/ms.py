@@ -9,7 +9,7 @@ from aiogram.filters import Command
 from aiogram.types import Message
 
 from app.bot import texts
-from app.bot.keyboards import ms_keyboard
+from app.bot.keyboards import miniapp_url, ms_keyboard
 from app.config import get_settings
 
 router = Router(name="ms")
@@ -34,7 +34,7 @@ async def cmd_ms(message: Message) -> None:
     text = texts.MS_SECTION
     fresh_start = (time.monotonic() - _PROCESS_STARTED) < _FRESH_START_SECONDS
     if fresh_start and settings.miniapp_base.startswith("https://"):
-        text += texts.WAKE_NOTICE.format(url=f"{settings.miniapp_base}/answer")
+        text += texts.WAKE_NOTICE.format(url=miniapp_url("answer"))
     await message.answer(text, reply_markup=ms_keyboard())
 
 

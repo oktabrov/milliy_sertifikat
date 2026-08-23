@@ -7,10 +7,15 @@ is replaced. These pin that behaviour.
 
 from __future__ import annotations
 
+import re
+
 import pytest
 
 from app.bot import create_dispatcher, keyboards
 from app.config import Settings
+
+# Mini App buttons carry a cache-busting stamp that changes per process boot.
+_URL_SHAPE = r"^{base}/app/{page}\?v=\d+$"
 
 
 def settings_with(**overrides) -> Settings:
@@ -33,8 +38,15 @@ def test_https_base_produces_mini_app_buttons(monkeypatch):
 
     assert found["Test tekshirish"].web_app is not None
     assert found["Test yaratish"].web_app is not None
-    assert found["Test tekshirish"].web_app.url == "https://umrbek1.alwaysdata.net/app/answer"
-    assert found["Test yaratish"].web_app.url == "https://umrbek1.alwaysdata.net/app/create"
+    # The stamp forces Telegram's in-app browser past its cache on every deploy.
+    assert re.match(
+        _URL_SHAPE.format(base=r"https://umrbek1\.alwaysdata\.net", page="answer"),
+        found["Test tekshirish"].web_app.url,
+    )
+    assert re.match(
+        _URL_SHAPE.format(base=r"https://umrbek1\.alwaysdata\.net", page="create"),
+        found["Test yaratish"].web_app.url,
+    )
     # These two are ordinary buttons; the bot answers them itself.
     assert found["Mening natijalarim"].web_app is None
     assert found["Mening testlarim"].web_app is None
@@ -45,7 +57,10 @@ def test_a_trailing_slash_does_not_double_up(monkeypatch):
         keyboards, "get_settings", lambda: settings_with(webhook_base="https://x.test/")
     )
     found = {button.text: button for button in buttons(keyboards.ms_keyboard())}
-    assert found["Test tekshirish"].web_app.url == "https://x.test/app/answer"
+    assert re.match(
+        _URL_SHAPE.format(base=r"https://x\.test", page="answer"),
+        found["Test tekshirish"].web_app.url,
+    )
 
 
 @pytest.mark.parametrize("base", ["", "http://insecure.test"])

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import time
+
 from aiogram.types import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
@@ -12,6 +14,19 @@ from aiogram.types import (
 
 from app.bot import texts
 from app.config import get_settings
+
+# Cache-busting stamp baked into every Mini App URL. It changes whenever the
+# process restarts - i.e. on every deploy - so Telegram's in-app browser,
+# which caches pages by URL and ignores servers that say nothing about cache
+# lifetime, is forced to download the new version instead of showing an old
+# one. The cost is one extra download per user per deploy.
+MINIAPP_VERSION = str(int(time.time()))
+
+
+def miniapp_url(page: str) -> str:
+    """The public URL of a Mini App page, stamped for a fresh fetch."""
+    base = get_settings().miniapp_base
+    return f"{base}/{page}?v={MINIAPP_VERSION}"
 
 
 def ms_keyboard() -> ReplyKeyboardMarkup:
@@ -31,10 +46,10 @@ def ms_keyboard() -> ReplyKeyboardMarkup:
 
     if base.startswith("https://"):
         check_button = KeyboardButton(
-            text=texts.BTN_CHECK_TEST, web_app=WebAppInfo(url=f"{base}/answer")
+            text=texts.BTN_CHECK_TEST, web_app=WebAppInfo(url=miniapp_url("answer"))
         )
         create_button = KeyboardButton(
-            text=texts.BTN_CREATE_TEST, web_app=WebAppInfo(url=f"{base}/create")
+            text=texts.BTN_CREATE_TEST, web_app=WebAppInfo(url=miniapp_url("create"))
         )
     else:
         check_button = KeyboardButton(text=texts.BTN_CHECK_TEST)
