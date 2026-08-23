@@ -100,7 +100,7 @@ export function warnOutsideTelegram() {
       return;
     }
     notice.textContent =
-      'Telegram sessiyasi yuklanmoqda… Agar bu xabar yo'qolmasa, ' +
+      'Telegram sessiyasi yuklanmoqda\u2026 Agar bu xabar yo\u2019qolmasa, ' +
       'sahifani yopib, bot menyusidagi «Test tekshirish» yoki ' +
       '«Test yaratish» tugmasini bosing.';
     notice.classList.add('visible');
@@ -158,7 +158,7 @@ export async function api(path, options = {}) {
       (payload && (payload.error || payload.detail)) ||
       (response.status === 401
         ? 'Avtorizatsiya xatosi. Mini ilovani bot orqali oching.'
-        : 'Server xatosi. Qayta urinib ko'ring.');
+        : 'Server xatosi. Qayta urinib ko\u2019ring.');
     throw new Error(typeof message === 'string' ? message : JSON.stringify(message));
   }
   return payload;
