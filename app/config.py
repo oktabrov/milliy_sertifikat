@@ -112,6 +112,7 @@ class Settings:
     required_channels: str = ""
 
     help_video_url: str = ""
+    help_video_file_id: str = ""
     support_username: str = ""
 
     # Re-calibrate item difficulty from real responses once this many students
@@ -196,6 +197,7 @@ def load_settings(env_file: Path | None = None) -> Settings:
         admin_ids=source.text("ADMIN_IDS", ""),
         required_channels=source.text("REQUIRED_CHANNELS", ""),
         help_video_url=source.text("HELP_VIDEO_URL", ""),
+        help_video_file_id=source.text("HELP_VIDEO_FILE_ID", ""),
         support_username=source.text("SUPPORT_USERNAME", ""),
         min_real_submissions=source.number("MIN_REAL_SUBMISSIONS", 20),
         cohort_size=source.number("COHORT_SIZE", 10_000),

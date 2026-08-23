@@ -45,6 +45,8 @@ async def help_video(query: CallbackQuery) -> None:
         return
     if settings.help_video_url:
         await query.message.answer(settings.help_video_url)
+    elif settings.help_video_file_id:
+        await query.message.answer_video(settings.help_video_file_id)
     else:
         await query.message.answer(texts.HELP_VIDEO_MISSING)
 
