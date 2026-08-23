@@ -26,6 +26,15 @@ NAME_UPDATED = "✅ Ismingiz o'zgartirildi: <b>{name}</b>"
 
 MS_SECTION = "Milliy sertifikat bo'limi\n\nKerakli tugmani bosing"
 
+# Shown right after the process (re)started: the site had been stopped and this
+# message arrived during or just after the wake-up, so the student's keyboard
+# may predate a WEBHOOK_BASE change or a stale Mini App page.
+WAKE_NOTICE = (
+    "\n\n⚠️ <i>Bot hozir qayta ishga tushdi — u vaqtincha to'xtatib turilgandi. "
+    'Agar tugmalar ishlamasa, testni havola orqali oching: '
+    '<a href="{url}">Mini ilova</a></i>'
+)
+
 HOW_TO_ANSWER = (
     "📗 <b>Testga qanday javob beriladi?</b>\n\n"
     "1️⃣ <b>Test tekshirish</b> tugmasini bosing.\n"

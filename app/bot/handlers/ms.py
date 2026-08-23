@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import time
+
 from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram.types import Message
@@ -17,10 +19,23 @@ _NO_HTTPS_HINT = (
     "Administrator <code>WEBHOOK_BASE</code> qiymatini sozlashi kerak."
 )
 
+# A webhook delivery can only be processed by a running process, so a stopped
+# site is never observable in here. A very fresh process, however, means the
+# site was just woken up (idle stop, deploy or crash) and this message arrived
+# during or right after the wake-up — worth pointing at the Mini App URL
+# directly in case the student's keyboard is stale.
+_PROCESS_STARTED = time.monotonic()
+_FRESH_START_SECONDS = 120.0
+
 
 @router.message(Command("ms"))
 async def cmd_ms(message: Message) -> None:
-    await message.answer(texts.MS_SECTION, reply_markup=ms_keyboard())
+    settings = get_settings()
+    text = texts.MS_SECTION
+    fresh_start = (time.monotonic() - _PROCESS_STARTED) < _FRESH_START_SECONDS
+    if fresh_start and settings.miniapp_base.startswith("https://"):
+        text += texts.WAKE_NOTICE.format(url=f"{settings.miniapp_base}/answer")
+    await message.answer(text, reply_markup=ms_keyboard())
 
 
 @router.message(F.text.in_({texts.BTN_CHECK_TEST, texts.BTN_CREATE_TEST}))
