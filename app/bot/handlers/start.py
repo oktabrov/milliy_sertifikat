@@ -11,7 +11,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import Message
 
 from app.bot import texts
-from app.bot.keyboards import intro_inline, ms_keyboard
+from app.bot.keyboards import intro_inline
 from app.store.json_store import Store
 from app.store.models import User
 
@@ -31,11 +31,7 @@ async def cmd_start(message: Message, state: FSMContext, user: User) -> None:
     await state.clear()
     if user.full_name:
         await message.answer(
-            texts.GREETING.format(name=user.full_name), reply_markup=ms_keyboard()
-        )
-        await message.answer(
-            "\u2b07\ufe0f Quyidagi tugmalardan birini tanlang:",
-            reply_markup=intro_inline(),
+            texts.GREETING.format(name=user.full_name), reply_markup=intro_inline()
         )
         return
     await state.set_state(Registration.waiting_for_name)
@@ -66,14 +62,10 @@ async def receive_name(message: Message, state: FSMContext, user: User, store: S
 
     if was_registered:
         await message.answer(
-            texts.NAME_UPDATED.format(name=user.full_name), reply_markup=ms_keyboard()
+            texts.NAME_UPDATED.format(name=user.full_name), reply_markup=intro_inline()
         )
         return
 
     await message.answer(
-        texts.GREETING.format(name=user.full_name), reply_markup=ms_keyboard()
-    )
-    await message.answer(
-        "\u2b07\ufe0f Quyidagi tugmalardan birini tanlang:",
-        reply_markup=intro_inline(),
+        texts.GREETING.format(name=user.full_name), reply_markup=intro_inline()
     )
