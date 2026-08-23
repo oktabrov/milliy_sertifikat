@@ -11,6 +11,7 @@ from aiogram.types import Message
 
 from app.bot import texts
 from app.services import admins as admin_service
+from app.services import video as video_service
 from app.store.json_store import Store
 from app.store.models import User
 
@@ -26,6 +27,8 @@ ADMIN_COMMANDS = [
     ("/adminlar", "adminlar ro'yxati"),
     ("/admin_qoshish ID", "yangi admin qo'shish"),
     ("/admin_ochirish ID", "adminlikdan olish"),
+    ("/video", "videoni o'rnatish (javob sifatida yoki havola bilan)"),
+    ("/video_ochirish", "videoni o'chirish"),
     ("/stats", "statistika"),
     ("/broadcast matn", "barcha foydalanuvchilarga xabar yuborish"),
 ]
@@ -53,6 +56,63 @@ async def cmd_stats(message: Message, store: Store, user: User) -> None:
 
     users, tests, attempts = store.stats()
     await message.answer(texts.ADMIN_STATS.format(users=users, tests=tests, attempts=attempts))
+
+
+def _replied_video_file_id(message: Message) -> str | None:
+    """file_id of the video being replied to, if there is one.
+
+    Covers both shapes people send in: an ordinary video and a video attached
+    as a file. Animations (GIFs) are not videos to Telegram, so they are
+    rejected rather than stored as something send_video cannot play.
+    """
+    replied = message.reply_to_message
+    if replied is None:
+        return None
+    if replied.video is not None:
+        return replied.video.file_id
+    document = replied.document
+    if document is not None and (document.mime_type or "").startswith("video/"):
+        return document.file_id
+    return None
+
+
+@router.message(Command("video"))
+async def set_help_video(
+    message: Message, command: CommandObject, store: Store, user: User
+) -> None:
+    """Point the intro button at a video: reply with /video, or pass a link."""
+    if not user.is_admin:
+        await message.answer(texts.ADMIN_ONLY)
+        return
+
+    args = (command.args or "").strip()
+
+    if args.lower().startswith(("http://", "https://")):
+        await video_service.set_url(store, args)
+        await message.answer(texts.VIDEO_URL_SAVED.format(button=texts.BTN_HELP_VIDEO))
+        return
+
+    if args:
+        await message.answer(texts.VIDEO_USAGE)
+        return
+
+    file_id = _replied_video_file_id(message)
+    if file_id is None:
+        await message.answer(texts.VIDEO_USAGE)
+        return
+
+    await video_service.set_file_id(store, file_id)
+    await message.answer(texts.VIDEO_SAVED.format(button=texts.BTN_HELP_VIDEO))
+
+
+@router.message(Command("video_ochirish"))
+async def clear_help_video(message: Message, store: Store, user: User) -> None:
+    if not user.is_admin:
+        await message.answer(texts.ADMIN_ONLY)
+        return
+
+    await video_service.clear(store)
+    await message.answer(texts.VIDEO_REMOVED)
 
 
 @router.message(Command("broadcast"))

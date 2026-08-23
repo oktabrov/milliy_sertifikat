@@ -34,6 +34,8 @@ _GATE_EXEMPT_COMMANDS = (
     "/adminlar",
     "/admin_qoshish",
     "/admin_ochirish",
+    "/video",
+    "/video_ochirish",
 )
 
 

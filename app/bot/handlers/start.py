@@ -27,11 +27,11 @@ class Registration(StatesGroup):
 
 
 @router.message(CommandStart())
-async def cmd_start(message: Message, state: FSMContext, user: User) -> None:
+async def cmd_start(message: Message, state: FSMContext, user: User, store: Store) -> None:
     await state.clear()
     if user.full_name:
         await message.answer(
-            texts.GREETING.format(name=user.full_name), reply_markup=intro_inline()
+            texts.GREETING.format(name=user.full_name), reply_markup=intro_inline(store)
         )
         await message.answer(texts.MS_SECTION, reply_markup=ms_keyboard())
         return
@@ -67,5 +67,5 @@ async def receive_name(message: Message, state: FSMContext, user: User, store: S
         )
         return
 
-    await message.answer(texts.GREETING.format(name=user.full_name), reply_markup=intro_inline())
+    await message.answer(texts.GREETING.format(name=user.full_name), reply_markup=intro_inline(store))
     await message.answer(texts.MS_SECTION, reply_markup=ms_keyboard())

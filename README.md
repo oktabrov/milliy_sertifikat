@@ -48,16 +48,20 @@ Admins come from three places and `/adminlar` labels each:
 
 ### Intro video
 
-The **"Botda test ishlash va yaratish(+video)"** button is configured entirely
-through `.env`:
+The **"Botda test ishlash va yaratish(+video)"** button is managed by admins
+inside the bot — no `.env` edit, no restart:
 
-- `HELP_VIDEO_URL` — any link (YouTube, Google Drive, …); the button becomes a
-  URL button and opens it directly
-- `HELP_VIDEO_FILE_ID` — the `file_id` of a video already uploaded to Telegram;
-  pressing the button sends the video into the chat
+| Command | |
+|---|---|
+| `/video` | shows how to add one |
+| `/video` (reply to a video) | store that video; pressing the button sends it into the chat |
+| `/video https://…` | point the button at a link instead; it opens directly |
+| `/video_ochirish` | remove the video again |
 
-`HELP_VIDEO_URL` wins when both are set. With neither set, the button replies
-"📹 Video hozircha qo'shilmagan."
+A link set this way wins over a stored video, and whatever was set last wins
+over `.env`: `HELP_VIDEO_URL` / `HELP_VIDEO_FILE_ID` are only fallbacks for
+when nothing has been configured at runtime. With no video anywhere, the
+button replies "📹 Video hozircha qo'shilmagan."
 
 ### Required channels
 

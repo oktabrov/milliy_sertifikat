@@ -63,6 +63,22 @@ HOW_TO_CREATE = (
 
 HELP_VIDEO_MISSING = "📹 Video hozircha qo'shilmagan."
 
+VIDEO_USAGE = (
+    "📹 <b>Videoni qo'shish</b>\n\n"
+    "Botga videoni yuboring (yoki forward qiling), so'ng shu videoga javob "
+    "sifatida <code>/video</code> buyrug'ini yozing.\n\n"
+    "Yoki havola bilan: <code>/video https://youtube.com/...</code>\n\n"
+    "Videoni olib tashlash: <code>/video_ochirish</code>"
+)
+
+VIDEO_SAVED = "✅ Video saqlandi. Endi «{button}» tugmasi shu videoni yuboradi."
+
+VIDEO_URL_SAVED = (
+    "✅ Havola saqlandi. Endi «{button}» tugmasi shu havolani to'g'ridan-to'g'ri ochadi."
+)
+
+VIDEO_REMOVED = "🗑 Video o'chirildi. Tugma endi «Video hozircha qo'shilmagan» deb javob beradi."
+
 INFO = (
     "ℹ️ <b>Bot haqida</b>\n\n"
     "Bu bot Milliy sertifikat formatidagi testlarni ishlash va yaratish uchun.\n\n"
@@ -73,11 +89,6 @@ INFO = (
     "/testlarim — siz yaratgan testlar\n"
     "/natijalarim — sizning natijalaringiz\n"
     "/info — shu ma'lumot\n\n"
-    "<b>Adminlar uchun:</b>\n"
-    "/special — admin buyruqlari ro'yxati\n"
-    "/kanallar — majburiy kanallar ro'yxati\n"
-    "/adminlar — adminlar ro'yxati\n"
-    "/stats — statistika\n\n"
     "Har kim <code>/id</code> orqali o'z ID raqamini bilib olishi mumkin.\n\n"
     "<b>Natijalar qanday hisoblanadi?</b>\n"
     "Natijangiz RASH (Rasch) modeli asosida 3 xil stsenariyda beriladi:\n"

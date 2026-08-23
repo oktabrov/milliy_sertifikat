@@ -12,18 +12,24 @@ from aiogram.types import (
 
 from app.bot import texts
 from app.config import get_settings
+from app.services import video as video_service
 
 
-def intro_inline() -> InlineKeyboardMarkup:
-    """The three buttons shown right after registration."""
-    settings = get_settings()
+def intro_inline(store) -> InlineKeyboardMarkup:
+    """The three buttons shown right after registration.
+
+    A video link set at runtime (or in .env) turns the third button into a URL
+    button; with only a file_id the button stays a callback and the bot sends
+    the video itself.
+    """
     rows = [
         [InlineKeyboardButton(text=texts.BTN_HOW_TO_ANSWER, callback_data="how:answer")],
         [InlineKeyboardButton(text=texts.BTN_HOW_TO_CREATE, callback_data="how:create")],
         [InlineKeyboardButton(text=texts.BTN_HELP_VIDEO, callback_data="how:video")],
     ]
-    if settings.help_video_url:
-        rows[2] = [InlineKeyboardButton(text=texts.BTN_HELP_VIDEO, url=settings.help_video_url)]
+    url, _ = video_service.current(store)
+    if url:
+        rows[2] = [InlineKeyboardButton(text=texts.BTN_HELP_VIDEO, url=url)]
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 

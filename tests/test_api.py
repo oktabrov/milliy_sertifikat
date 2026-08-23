@@ -338,3 +338,60 @@ async def test_the_answer_key_never_reaches_the_student(client):
     assert "0.75" not in str(body)
     assert "3/4" not in str(body)
     assert body["questions"][1] == {"number": 2, "type": "open", "options": 4, "parts": ["a"]}
+
+
+# --- Questions 33-35 carry six options (A-F) ----------------------------------
+
+
+@pytest.mark.asyncio
+async def test_questions_33_to_35_get_six_options_even_when_stored_as_four(client):
+    """Tests authored before the builder forced six still render A-F.
+
+    In the Milliy sertifikat format 33-35 always have six options; the answer
+    sheet upgrades them whatever the stored count says, and leaves every other
+    question alone.
+    """
+    questions = [
+        {"number": number, "type": "mc", "options": 4, "answer": "A"}
+        for number in (1, 32, 33, 34, 35)
+    ]
+    await client.post(
+        "/api/test",
+        json={"title": "Eski test", "subjects": [], "code": "908", "questions": questions},
+        headers=auth_headers(user_id=1),
+    )
+
+    body = (await client.get("/api/test/908", headers=auth_headers(user_id=40))).json()
+    options = {question["number"]: question["options"] for question in body["questions"]}
+    assert options == {1: 4, 32: 4, 33: 6, 34: 6, 35: 6}
+
+
+@pytest.mark.asyncio
+async def test_e_and_f_answers_are_accepted_and_graded_on_33_to_35(client):
+    """Teacher keys 33-35 on E/F; tapping E/F scores, other letters do not."""
+    questions = [
+        {"number": number, "type": "mc", "options": 6, "answer": letter}
+        for number, letter in ((33, "E"), (34, "F"), (35, "E"))
+    ]
+    created = await client.post(
+        "/api/test",
+        json={"title": "EF testi", "subjects": [], "code": "909", "questions": questions},
+        headers=auth_headers(user_id=1),
+    )
+    assert created.status_code == 201, created.text
+
+    # Lower-case input too: grading compares case-insensitively.
+    right = await client.post(
+        "/api/attempt",
+        json={"code": "909", "answers": {"33": "E", "34": "f", "35": "E"}},
+        headers=auth_headers(user_id=50),
+    )
+    assert right.status_code == 200, right.text
+    assert right.json()["raw_correct"] == 3
+
+    wrong = await client.post(
+        "/api/attempt",
+        json={"code": "909", "answers": {"33": "D", "34": "A"}},
+        headers=auth_headers(user_id=51),
+    )
+    assert wrong.json()["raw_correct"] == 0

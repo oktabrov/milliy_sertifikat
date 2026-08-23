@@ -10,8 +10,8 @@ from aiogram.types import CallbackQuery, Message
 from app.bot import texts
 from app.bot.handlers.start import Registration
 from app.bot.keyboards import intro_inline, join_channels_inline, ms_keyboard
-from app.config import get_settings
 from app.services import channels as channel_service
+from app.services import video as video_service
 from app.store.json_store import Store
 from app.store.models import User
 
@@ -38,15 +38,15 @@ async def how_to_create(query: CallbackQuery) -> None:
 
 
 @router.callback_query(lambda query: query.data == "how:video")
-async def help_video(query: CallbackQuery) -> None:
-    settings = get_settings()
+async def help_video(query: CallbackQuery, store: Store) -> None:
     await query.answer()
     if not query.message:
         return
-    if settings.help_video_url:
-        await query.message.answer(settings.help_video_url)
-    elif settings.help_video_file_id:
-        await query.message.answer_video(settings.help_video_file_id)
+    url, file_id = video_service.current(store)
+    if url:
+        await query.message.answer(url)
+    elif file_id:
+        await query.message.answer_video(file_id)
     else:
         await query.message.answer(texts.HELP_VIDEO_MISSING)
 
@@ -77,7 +77,7 @@ async def recheck_join(
 
     if user.full_name:
         await query.message.answer(
-            texts.GREETING.format(name=user.full_name), reply_markup=intro_inline()
+            texts.GREETING.format(name=user.full_name), reply_markup=intro_inline(store)
         )
         await query.message.answer(texts.MS_SECTION, reply_markup=ms_keyboard())
     else:

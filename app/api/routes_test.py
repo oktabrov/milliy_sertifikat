@@ -19,6 +19,11 @@ from app.store.models import Test
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api", tags=["test"])
 
+# In the Milliy sertifikat format questions 33-35 always carry six options
+# (A-F). The builder already stores six for new tests; enforcing it here as
+# well upgrades answer sheets of tests created before that was the case.
+SIX_OPTION_QUESTIONS = frozenset({33, 34, 35})
+
 
 class QuestionOut(BaseModel):
     number: int
@@ -87,11 +92,13 @@ async def get_test(
             parts = sorted((question.get("parts") or {}).keys())
             questions.append(QuestionOut(number=int(question["number"]), type="open", parts=parts))
         else:
+            number = int(question["number"])
+            options = int(question.get("options", 4))
             questions.append(
                 QuestionOut(
-                    number=int(question["number"]),
+                    number=number,
                     type="mc",
-                    options=int(question.get("options", 4)),
+                    options=max(options, 6) if number in SIX_OPTION_QUESTIONS else options,
                 )
             )
 
