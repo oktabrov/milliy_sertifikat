@@ -13,14 +13,16 @@ export function reportFatal(message) {
   if (typeof window.__msFatal === 'function') window.__msFatal(message);
 }
 
-/* A page opened straight from a browser has no initData, so saving can never
-   succeed. Say so at the top instead of after the whole form is filled. */
+/* A page opened straight from a link has no initData, so saving can never
+   succeed. Say so at the top — and point at the menu buttons, which is how a
+   Telegram session actually attaches to the page — instead of after the whole
+   form is filled. */
 export function warnOutsideTelegram() {
   const notice = document.getElementById('tg-notice');
   if (hasInitData || !notice) return;
   notice.textContent =
-    'Sahifa botdan tashqarida ochilgan — saqlash ishlamaydi. ' +
-    'Ilovani botdagi tegishli tugma orqali oching.';
+    'Sahifa havola orqali ochilgan — saqlash ishlamaydi. Sahifani yopib, ' +
+    'bot menyusidagi «Test tekshirish» yoki «Test yaratish» tugmasini bosing.';
   notice.classList.add('visible');
 }
 

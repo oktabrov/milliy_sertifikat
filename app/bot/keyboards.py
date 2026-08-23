@@ -70,6 +70,23 @@ def ms_keyboard() -> ReplyKeyboardMarkup:
     )
 
 
+def miniapp_inline(page: str, text: str) -> InlineKeyboardMarkup | None:
+    """An inline button that opens the Mini App as a real Mini App.
+
+    A bare https link opens Telegram's in-app browser instead, where the page
+    loads without `initData` and every API call is refused — the trap students
+    hit by tapping an old message link and then losing a filled answer sheet.
+    Only `web_app` buttons get a Telegram session attached to the page.
+    """
+    if not get_settings().miniapp_base.startswith("https://"):
+        return None
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text=text, web_app=WebAppInfo(url=miniapp_url(page)))]
+        ]
+    )
+
+
 def see_result_inline(test_code: str) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[

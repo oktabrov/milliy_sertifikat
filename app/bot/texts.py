@@ -28,11 +28,12 @@ MS_SECTION = "Milliy sertifikat bo'limi\n\nKerakli tugmani bosing"
 
 # Shown right after the process (re)started: the site had been stopped and this
 # message arrived during or just after the wake-up, so the student's keyboard
-# may predate a WEBHOOK_BASE change or a stale Mini App page.
+# may predate a WEBHOOK_BASE change or a stale Mini App page. Sent together
+# with a web_app inline button — never a bare link, which would open without
+# initData and refuse to save.
 WAKE_NOTICE = (
     "\n\n⚠️ <i>Bot hozir qayta ishga tushdi — u vaqtincha to'xtatib turilgandi. "
-    'Agar tugmalar ishlamasa, testni havola orqali oching: '
-    '<a href="{url}">Mini ilova</a></i>'
+    "Agar tugmalar ishlamasa, quyidagi tugma orqali oching:</i>"
 )
 
 HOW_TO_ANSWER = (
@@ -183,6 +184,8 @@ BTN_CHECK_TEST = "Test tekshirish"
 BTN_CREATE_TEST = "Test yaratish"
 BTN_MY_RESULTS = "Mening natijalarim"
 BTN_MY_TESTS = "Mening testlarim"
+
+BTN_OPEN_MINIAPP = "🚀 Testni ochish"
 
 BTN_SEE_RESULT = "📊 Natijani ko'rish"
 BTN_JOIN = "Qo'shilish"

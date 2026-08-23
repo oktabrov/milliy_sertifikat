@@ -84,6 +84,32 @@ def test_the_intro_buttons_live_in_the_reply_keyboard():
     assert keyboards.texts.BTN_HELP_VIDEO in found
 
 
+def test_wake_notice_uses_a_web_app_button_not_a_link(monkeypatch):
+    """A bare link opens Telegram's in-app browser, where the page loads
+    without initData and refuses to save — the exact trap that cost students
+    their filled answer sheets. Only web_app buttons attach the session."""
+    monkeypatch.setattr(
+        keyboards,
+        "get_settings",
+        lambda: settings_with(webhook_base="https://umrbek1.alwaysdata.net"),
+    )
+    markup = keyboards.miniapp_inline("answer", keyboards.texts.BTN_OPEN_MINIAPP)
+    assert markup is not None
+    (row,) = markup.inline_keyboard
+    (button,) = row
+    assert button.web_app is not None
+    assert re.match(
+        _URL_SHAPE.format(base=r"https://umrbek1\.alwaysdata\.net", page="answer"),
+        button.web_app.url,
+    )
+
+
+@pytest.mark.parametrize("base", ["", "http://insecure.test"])
+def test_wake_notice_degrades_without_https(monkeypatch, base):
+    monkeypatch.setattr(keyboards, "get_settings", lambda: settings_with(webhook_base=base))
+    assert keyboards.miniapp_inline("answer", "open") is None
+
+
 def test_the_fallback_router_is_registered_last():
     """It claims any unmatched text. Registered earlier, it would swallow
     name registration and every button the other routers handle."""

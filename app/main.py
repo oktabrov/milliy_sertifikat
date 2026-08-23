@@ -18,7 +18,6 @@ from pathlib import Path
 from aiogram.types import Update
 from fastapi import FastAPI, HTTPException, Request, Response, status
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
 
 from app.api import routes_create, routes_test
 from app.bot import create_bot, create_dispatcher, set_bot_commands
@@ -148,8 +147,6 @@ app = FastAPI(title="Milliy sertifikat test bot", lifespan=lifespan, docs_url=No
 app.include_router(routes_test.router)
 app.include_router(routes_create.router)
 
-app.mount("/app/static", StaticFiles(directory=WEB_DIR / "static"), name="static")
-
 
 @app.middleware("http")
 async def revalidate_mini_app(request: Request, call_next):
@@ -212,7 +209,24 @@ async def favicon() -> FileResponse:
     return FileResponse(WEB_DIR / "static" / "favicon.svg", media_type="image/svg+xml")
 
 
-_STATIC_REF = re.compile(r'(src|href)="/app/static/([^"]+)"')
+_STATIC_REF = re.compile(r'(src|href)="(/app/static/[^"?]+)(\?[^"]*)?"')
+_LOCAL_IMPORT = re.compile(r"(from\s+')(/app/static/[A-Za-z0-9_.-]+)(')")
+_MEDIA_TYPES = {".css": "text/css", ".js": "text/javascript", ".svg": "image/svg+xml"}
+
+
+def _asset_version(path: Path) -> str:
+    stat_result = path.stat()
+    return f"{int(stat_result.st_mtime):x}-{stat_result.st_size:x}"
+
+
+def _stamp_static_url(url: str) -> str:
+    """Append the file's mtime-size stamp to a `/app/static/...` URL."""
+    filename = url.rsplit("/", 1)[-1]
+    try:
+        version = _asset_version(WEB_DIR / "static" / filename)
+    except OSError:
+        version = "0"
+    return f"{url}?v={version}"
 
 
 def _versioned_pages_html(name: str) -> HTMLResponse:
@@ -229,13 +243,7 @@ def _versioned_pages_html(name: str) -> HTMLResponse:
     html = (WEB_DIR / name).read_text(encoding="utf-8")
 
     def stamp(match: re.Match[str]) -> str:
-        attribute, filename = match.group(1), match.group(2)
-        path = WEB_DIR / "static" / filename
-        try:
-            version = int(path.stat().st_mtime)
-        except OSError:
-            version = 0
-        return f'{attribute}="/app/static/{filename}?v={version}"'
+        return f'{match.group(1)}="{_stamp_static_url(match.group(2))}"'
 
     return HTMLResponse(_STATIC_REF.sub(stamp, html))
 
@@ -248,6 +256,41 @@ async def answer_page() -> HTMLResponse:
 @app.get("/app/create")
 async def create_page() -> HTMLResponse:
     return _versioned_pages_html("create.html")
+
+
+@app.get("/app/static/{filename}", include_in_schema=False)
+async def mini_app_asset(filename: str, request: Request) -> Response:
+    """Serve Mini App assets, stamping their internal imports as well.
+
+    Stamping the pages is not enough: a module imports its siblings from inside
+    the JS (`from '/app/static/tg.js'`), and that bare URL is exactly where a
+    stale cached copy crept back in — new create.js, an old tg.js, and the
+    browser rejected the missing export with a dead page. Rewriting those
+    imports to carry the same mtime-size stamp makes every edge of the module
+    graph change URL whenever any file changes.
+    """
+    if Path(filename).name != filename:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+
+    path = WEB_DIR / "static" / filename
+    if not path.is_file():
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+
+    etag = f'"W/{_asset_version(path)}"'
+    if request.headers.get("if-none-match") == etag:
+        return Response(status_code=status.HTTP_304_NOT_MODIFIED, headers={"ETag": etag})
+
+    if path.suffix == ".js":
+
+        def stamp(match: re.Match[str]) -> str:
+            return f"{match.group(1)}{_stamp_static_url(match.group(2))}{match.group(3)}"
+
+        body: str | bytes = _LOCAL_IMPORT.sub(stamp, path.read_text(encoding="utf-8"))
+    else:
+        body = path.read_bytes()
+
+    media_type = _MEDIA_TYPES.get(path.suffix, "application/octet-stream")
+    return Response(body, media_type=media_type, headers={"ETag": etag})
 
 
 @app.post("/webhook/{secret}")
