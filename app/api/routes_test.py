@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+from dataclasses import asdict
 from typing import Any
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
@@ -11,8 +12,9 @@ from pydantic import BaseModel, Field
 from app.api.auth import WebAppUser, require_web_app_user
 from app.api.gate import require_membership
 from app.bot import texts
-from app.bot.keyboards import see_result_inline
-from app.services.scoring_service import record_attempt, recalibrate
+from app.bot.keyboards import see_result_inline, submission_notify_inline
+from app.services.scoring_service import record_attempt, recalibrate, items_for, ensure_tables
+from app.scoring.grader import score_attempt
 from app.store.json_store import Store, get_store
 from app.store.models import Test
 
@@ -61,6 +63,7 @@ class SubmitOut(BaseModel):
     raw_correct: int
     total_items: int
     scenarios: list[ScenarioOut]
+    practice: bool = False
 
 
 def _load_test(store: Store, code: str) -> Test:
@@ -76,11 +79,7 @@ async def get_test(
     request: Request,
     web_app_user: WebAppUser = Depends(require_web_app_user),
 ) -> TestOut:
-    """Test metadata and the shape of the answer sheet.
-
-    Correct answers are never included — the sheet only needs to know how many
-    options each question has.
-    """
+    """Test metadata and the shape of the answer sheet."""
     await require_membership(request, web_app_user.id)
 
     store = get_store()
@@ -125,26 +124,46 @@ async def submit_attempt(
     store = get_store()
     test = _load_test(store, payload.code)
 
-    if test.status != "open":
-        raise HTTPException(status.HTTP_409_CONFLICT, "Bu test yopilgan")
-
     user = await store.ensure_user(web_app_user.id, username=web_app_user.username)
     if not user.full_name and web_app_user.full_name:
         user.full_name = web_app_user.full_name
         await store.save_user(user)
 
+    # --- PRACTICE MODE: test is closed, score but don't store ---
+    if test.status != "open":
+        items = items_for(test)
+        tables = await ensure_tables(store, test)
+        result = score_attempt(items, payload.answers, tables)
+        return SubmitOut(
+            raw_correct=result.raw_correct,
+            total_items=result.total_items,
+            scenarios=[ScenarioOut(**asdict(s)) for s in result.scenarios],
+            practice=True,
+        )
+
+    # --- NORMAL MODE: test is open, store and notify ---
+    if store.get_attempt(test.id, user.id) is not None:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, "Siz bu testga allaqachon javob bergansiz"
+        )
+
     try:
         attempt = await record_attempt(store, test, user.id, payload.subject, payload.answers)
     except ValueError:
-        # The store re-checks under its lock, so a duplicate that slipped past
-        # an earlier read still lands here rather than creating a second row.
         raise HTTPException(
             status.HTTP_409_CONFLICT, "Siz bu testga allaqachon javob bergansiz"
         ) from None
 
     bot = getattr(request.app.state, "bot", None)
     if bot is not None:
+        # Notify the student
         background.add_task(_notify_submitted, bot, user.id, test.code)
+        # Notify the test creator
+        student_name = user.full_name or user.username or f"ID:{user.id}"
+        background.add_task(
+            _notify_creator, bot, test.owner_id, test.code,
+            student_name, attempt.raw_correct, attempt.total_items,
+        )
     background.add_task(_recalibrate_later, test.id)
 
     return SubmitOut(
@@ -176,6 +195,22 @@ async def _notify_submitted(bot, chat_id: int, code: str) -> None:
         )
     except Exception:
         logger.exception("Could not notify %s about submission to %s", chat_id, code)
+
+
+async def _notify_creator(
+    bot, owner_id: int, code: str, student_name: str, correct: int, total: int,
+) -> None:
+    """Notify the test creator that someone submitted answers."""
+    try:
+        await bot.send_message(
+            owner_id,
+            texts.SUBMISSION_NOTIFY.format(
+                student=student_name, code=code, correct=correct, total=total,
+            ),
+            reply_markup=submission_notify_inline(code),
+        )
+    except Exception:
+        logger.exception("Could not notify creator %s about submission to %s", owner_id, code)
 
 
 async def _recalibrate_later(test_id: int) -> None:

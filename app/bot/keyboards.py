@@ -124,6 +124,22 @@ def test_admin_inline(test_code: str, status: str) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[[toggle]])
 
 
+def submission_notify_inline(test_code: str) -> InlineKeyboardMarkup:
+    """Inline buttons sent to the test creator when someone submits."""
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text=texts.BTN_CURRENT_STATUS, callback_data=f"leaderboard:{test_code}"
+                ),
+                InlineKeyboardButton(
+                    text=texts.BTN_CLOSE_TEST, callback_data=f"test:close:{test_code}"
+                ),
+            ]
+        ]
+    )
+
+
 def intro_inline() -> InlineKeyboardMarkup:
     """The three intro buttons shown with the /start greeting."""
     return InlineKeyboardMarkup(

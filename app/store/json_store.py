@@ -251,6 +251,18 @@ class Store:
     def all_tests(self) -> list[Test]:
         return list(self._tests.values())
 
+    async def delete_test(self, test_id: int) -> None:
+        """Remove a test and all its attempts from the store."""
+        async with self._lock:
+            self._tests.pop(test_id, None)
+            self._flush_tests()
+            # Remove all attempts for this test
+            to_remove = [a.id for a in self._attempts.values() if a.test_id == test_id]
+            for aid in to_remove:
+                del self._attempts[aid]
+            if to_remove:
+                self._flush_attempts()
+
     # --- attempts ------------------------------------------------------------
 
     def get_attempt(self, test_id: int, user_id: int) -> Attempt | None:

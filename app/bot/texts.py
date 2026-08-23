@@ -111,7 +111,34 @@ JOIN_CONFIRMED = "✅ Rahmat! Endi botdan to'liq foydalanishingiz mumkin."
 
 SUBMITTED = (
     "Siz <b>{code}</b> raqamli testga javob berdingiz.\n"
-    "Natijangizni ko'rish uchun 📊 <b>Natijani ko'rish</b> tugmasini bosing."
+    "Natijangizni ko\u2019rish uchun \U0001f4ca <b>Natijani ko\u2019rish</b> tugmasini bosing."
+)
+
+# Sent to the TEST CREATOR when someone submits
+SUBMISSION_NOTIFY = (
+    "\u270d\ufe0f <b>{student}</b> <b>{code}</b> testiga javob berdi.\n"
+    "To\u2019g\u2019ri javoblar: <b>{correct}/{total}</b>"
+)
+
+LEADERBOARD_HEADER = (
+    "\U0001f3c5 <b>Test yakunlandi.</b>\n"
+    "Test muallifi: <b>{owner}</b>\n"
+    "Test kodi: <code>{code}</code>\n"
+    "Savollar soni: <b>{questions}</b> ta\n\n"
+    "\u2705 <b>Natijalar:</b>"
+)
+
+LEADERBOARD_ROW = "{rank}. {name} \U0001f449 {correct} ta {medal}"
+
+LEADERBOARD_ANSWERS = "\nTo\u2019g\u2019ri javoblar:\n{answers}"
+
+LEADERBOARD_FOOTER = "\nTestda qatnashganlarga rahmat...\n\U0001f60a\U0001f60a\U0001f60a"
+
+NO_PARTICIPANTS = "Hech kim qatnashmagan."
+
+TEST_LIMIT_REACHED = (
+    "\u26a0\ufe0f Eng eski testingiz (<b>{title}</b>, kod: <code>{code}</code>) "
+    "o\u2019chirildi, chunki bir foydalanuvchi uchun maksimum 5 ta test saqlash mumkin."
 )
 
 RESULT_PENDING = "Natija hisoblanmoqda. Bir necha daqiqadan so'ng urinib ko'ring."
@@ -190,8 +217,9 @@ BTN_OPEN_MINIAPP = "🚀 Testni ochish"
 BTN_SEE_RESULT = "📊 Natijani ko'rish"
 BTN_JOIN = "Qo'shilish"
 BTN_CHECK_JOIN = "✅ Tekshirish"
-BTN_CLOSE_TEST = "🔒 Yopish"
-BTN_REOPEN_TEST = "🔓 Ochish"
+BTN_CLOSE_TEST = "\U0001f512 Yopish"
+BTN_REOPEN_TEST = "\U0001f513 Ochish"
+BTN_CURRENT_STATUS = "\U0001f4ca Joriy holat"
 
 STATUS_LABELS = {"open": "ochiq", "closed": "yopiq"}
 

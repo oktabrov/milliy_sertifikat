@@ -165,6 +165,8 @@ def _clean_parts(parts: dict[str, list[str]]) -> dict[str, list[str]]:
             cleaned[part] = kept
     return cleaned
 
+MAX_TESTS_PER_USER = 5
+
 
 @router.post("/test", response_model=CreateTestOut, status_code=status.HTTP_201_CREATED)
 async def create_test(
@@ -181,6 +183,14 @@ async def create_test(
     if not user.full_name and web_app_user.full_name:
         user.full_name = web_app_user.full_name
         await store.save_user(user)
+
+    # Enforce 5-test limit: delete the oldest if at capacity
+    existing = store.tests_by_owner(user.id)  # sorted newest-first
+    deleted_test = None
+    if len(existing) >= MAX_TESTS_PER_USER:
+        oldest = existing[-1]  # last = oldest
+        deleted_test = oldest
+        await store.delete_test(oldest.id)
 
     code = _pick_code(store, payload.code)
 
@@ -215,9 +225,23 @@ async def create_test(
 
     bot = getattr(request.app.state, "bot", None)
     if bot is not None:
+        if deleted_test:
+            background.add_task(
+                _notify_test_deleted, bot, user.id, deleted_test.title, deleted_test.code
+            )
         background.add_task(_notify_created, bot, user.id, test.title, test.code, len(questions))
 
     return CreateTestOut(code=test.code, title=test.title, question_count=len(questions))
+
+
+async def _notify_test_deleted(bot, chat_id: int, title: str, code: str) -> None:
+    try:
+        await bot.send_message(
+            chat_id,
+            texts.TEST_LIMIT_REACHED.format(title=title, code=code),
+        )
+    except Exception:
+        logger.exception("Could not notify %s about deleted test %s", chat_id, code)
 
 
 async def _notify_created(bot, chat_id: int, title: str, code: str, questions: int) -> None:
