@@ -89,3 +89,16 @@ async def test_javascript_is_served_with_a_strict_content_type(client):
 async def test_pages_are_html_documents(client):
     response = await client.get("/app/create")
     assert response.text.startswith("<!doctype html>")
+
+
+async def test_the_web_app_bridge_is_self_hosted(client):
+    """When telegram.org is unreachable the page used to lose its whole
+    session and refuse to save. The bridge script ships with the app now."""
+    for page in ("/app/create", "/app/answer"):
+        html = (await client.get(page)).text
+        assert "telegram.org/js/telegram-web-app.js" not in html, page
+        assert '/app/static/telegram-web-app.js' in html, page
+
+    served = await client.get("/app/static/telegram-web-app.js")
+    assert served.status_code == 200
+    assert "tgWebAppData" in served.text

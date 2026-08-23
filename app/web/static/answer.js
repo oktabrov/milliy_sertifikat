@@ -7,6 +7,7 @@ import {
   mathLiveReady,
   readAnswerField,
   reportFatal,
+  startStatusBadge,
   warnOutsideTelegram,
 } from '/app/static/tg.js';
 
@@ -40,6 +41,7 @@ function collectAnswers() {
 const el = (id) => document.getElementById(id);
 
 bootstrap();
+startStatusBadge();
 warnOutsideTelegram();
 
 /* --- Wiring: delegated, registered before anything can throw ---------------

@@ -27,6 +27,35 @@ export function hasSession() {
   return Boolean(currentInitData());
 }
 
+/* A one-line, always-on status readout in the corner. When something is wrong
+   the user can screenshot it and the cause is immediately obvious — no
+   devtools, no guessing. */
+function paintStatus() {
+  const badge = document.getElementById('session-badge');
+  if (!badge) return;
+  const libLoaded = Boolean(window.Telegram);
+  const hashPresent = /^#.*tgWebAppData=/.test(window.location.hash);
+  const session = hasSession();
+  badge.textContent =
+    (libLoaded ? 'Telegram ✓' : 'Telegram ✗') +
+    ' · ' +
+    (hashPresent ? 'belgi ✓' : 'belgi ✗') +
+    ' · ' +
+    (session ? 'sessiya ✓' : 'sessiya ✗');
+  badge.classList.toggle('bad', !session);
+}
+
+export function startStatusBadge() {
+  if (!document.getElementById('session-badge')) {
+    const badge = document.createElement('div');
+    badge.id = 'session-badge';
+    document.body.appendChild(badge);
+  }
+  paintStatus();
+  setTimeout(paintStatus, 500);
+  setTimeout(paintStatus, 2000);
+}
+
 /* Surface a script failure as a red banner instead of a silently dead page. */
 export function reportFatal(message) {
   if (typeof window.__msFatal === 'function') window.__msFatal(message);
@@ -39,14 +68,15 @@ export function warnOutsideTelegram() {
   if (!notice) return;
 
   const check = () => {
-    if (hasSession()) return;
-    const libLoaded = Boolean(window.Telegram);
-    const hashPresent = /^#.*tgWebAppData=/.test(window.location.hash);
+    if (hasSession()) {
+      notice.classList.remove('visible');
+      paintStatus();
+      return;
+    }
     notice.textContent =
       'Sahifa Telegram sessiyasisiz ochildi — saqlash ishlamaydi. ' +
       'Sahifani yopib, bot menyusidagi «Test tekshirish» yoki ' +
-      '«Test yaratish» tugmasini bosing. ' +
-      `(texnik: js=${libLoaded ? 'bor' : 'yo‘q'}, belgi=${hashPresent ? 'bor' : 'yo‘q'})`;
+      '«Test yaratish» tugmasini bosing.';
     notice.classList.add('visible');
   };
 
