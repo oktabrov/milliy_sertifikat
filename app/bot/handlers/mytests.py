@@ -31,6 +31,24 @@ async def my_tests(message: Message, store: Store, user: User) -> None:
         )
 
 
+@router.callback_query(lambda q: q.data == "nav:tests")
+async def nav_tests(query: CallbackQuery, store: Store, user: User) -> None:
+    await query.answer()
+    if not query.message:
+        return
+    tests = store.tests_by_owner(user.id)
+    if not tests:
+        await query.message.answer(texts.NO_TESTS)
+        return
+
+    await query.message.answer(texts.MY_TESTS_HEADER)
+    for test in tests:
+        await query.message.answer(
+            render_test_row(test, store.count_attempts(test.id)),
+            reply_markup=test_admin_inline(test.code, test.status),
+        )
+
+
 @router.callback_query(F.data.startswith("test:"))
 async def toggle_test(query: CallbackQuery, store: Store, user: User) -> None:
     _, action, code = (query.data or "").split(":", 2)

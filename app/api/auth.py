@@ -1,11 +1,11 @@
-"""Telegram Mini App `initData` verification.
+"""Telegram Mini App authentication.
 
-The Mini App is served over plain HTTPS with no session of its own, so every
-API call carries the `initData` string Telegram handed the page. Verifying its
-HMAC is the only thing standing between the API and anyone who knows a user id,
-so it is checked on every request — never trusted from a query parameter.
+Two auth methods are supported:
+1. initData (Telegram's HMAC-signed session string) — the standard method
+2. Bot-signed token (user_id:timestamp:hmac) — fallback when initData is
+   unavailable due to Telegram client issues
 
-Spec: https://core.telegram.org/bots/webapps#validating-data-received-via-the-mini-app
+The server tries initData first; if that fails, it tries the token.
 """
 
 from __future__ import annotations
@@ -17,8 +17,9 @@ import time
 from dataclasses import dataclass
 from urllib.parse import parse_qsl
 
-from fastapi import Header, HTTPException, status
+from fastapi import Header, HTTPException, Query, status
 
+from app.api.tokens import verify_token
 from app.config import get_settings
 
 # Telegram refreshes initData when the app reopens; an hour is generous.
@@ -91,17 +92,37 @@ def verify_init_data(
 async def require_web_app_user(
     authorization: str | None = Header(default=None),
     x_init_data: str | None = Header(default=None, alias="X-Init-Data"),
+    x_app_token: str | None = Header(default=None, alias="X-App-Token"),
 ) -> WebAppUser:
-    """FastAPI dependency. Accepts `Authorization: tma <initData>` or `X-Init-Data`."""
+    """FastAPI dependency. Tries initData first, falls back to bot-signed token."""
+    settings = get_settings()
+
+    # 1. Try initData (standard Telegram auth)
     raw = ""
     if authorization and authorization.lower().startswith("tma "):
         raw = authorization[4:].strip()
     elif x_init_data:
         raw = x_init_data.strip()
 
-    try:
-        return verify_init_data(raw, get_settings().bot_token)
-    except InitDataError as error:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail=f"initData: {error}"
-        ) from error
+    if raw:
+        try:
+            return verify_init_data(raw, settings.bot_token)
+        except InitDataError:
+            pass  # Fall through to token auth
+
+    # 2. Try bot-signed token (fallback)
+    token = x_app_token.strip() if x_app_token else ""
+    if not token and authorization and authorization.lower().startswith("token "):
+        token = authorization[6:].strip()
+
+    if token:
+        try:
+            user_id = verify_token(token, settings.bot_token)
+            return WebAppUser(id=user_id)
+        except ValueError:
+            pass
+
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Avtorizatsiya xatosi. Mini ilovani bot orqali oching.",
+    )

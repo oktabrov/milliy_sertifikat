@@ -33,6 +33,27 @@ async def my_results(message: Message, store: Store, user: User) -> None:
         await message.answer(render_result(attempt, test, name))
 
 
+@router.callback_query(lambda q: q.data == "nav:results")
+async def nav_results(query: CallbackQuery, store: Store, user: User) -> None:
+    await query.answer()
+    if not query.message:
+        return
+    attempts = store.attempts_by_user(user.id, limit=10)
+    if not attempts:
+        await query.message.answer(texts.NO_RESULTS)
+        return
+
+    name = user.full_name or "—"
+    for attempt in attempts:
+        test = store.get_test(attempt.test_id)
+        if test is None:
+            continue
+        if not attempt.results:
+            await query.message.answer(texts.RESULT_PENDING)
+            continue
+        await query.message.answer(render_result(attempt, test, name))
+
+
 @router.callback_query(F.data.startswith("result:"))
 async def show_result(query: CallbackQuery, store: Store, user: User) -> None:
     await query.answer()

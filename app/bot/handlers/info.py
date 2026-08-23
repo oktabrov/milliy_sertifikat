@@ -99,7 +99,7 @@ async def recheck_join(
 
     if user.full_name:
         await query.message.answer(
-            texts.GREETING.format(name=user.full_name), reply_markup=ms_keyboard()
+            texts.GREETING.format(name=user.full_name), reply_markup=ms_keyboard(user.id)
         )
     else:
         await state.set_state(Registration.waiting_for_name)

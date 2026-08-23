@@ -22,4 +22,5 @@ router = Router(name="fallback")
 
 @router.message(F.text)
 async def unrecognised_text(message: Message) -> None:
-    await message.answer(texts.UNKNOWN, reply_markup=ms_keyboard())
+    user_id = message.from_user.id if message.from_user else 0
+    await message.answer(texts.UNKNOWN, reply_markup=ms_keyboard(user_id))

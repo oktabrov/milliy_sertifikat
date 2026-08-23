@@ -1,4 +1,4 @@
-"""The Milliy sertifikat section and its reply keyboard."""
+"""The Milliy sertifikat section and its inline keyboard."""
 
 from __future__ import annotations
 
@@ -20,16 +20,13 @@ _NO_HTTPS_HINT = (
 
 @router.message(Command("ms"))
 async def cmd_ms(message: Message) -> None:
-    await message.answer(texts.MS_SECTION, reply_markup=ms_keyboard())
+    user_id = message.from_user.id if message.from_user else 0
+    await message.answer(texts.MS_SECTION, reply_markup=ms_keyboard(user_id))
 
 
 @router.message(F.text.in_({texts.BTN_CHECK_TEST, texts.BTN_CREATE_TEST}))
 async def open_mini_app(message: Message) -> None:
-    """Only reached when the Mini App button could not be built as a web_app button.
-
-    With a valid HTTPS base the button opens the Mini App directly and this
-    handler never fires.
-    """
+    """Only reached when the Mini App button could not be built as a web_app button."""
     settings = get_settings()
     if not settings.miniapp_base.startswith("https://"):
         await message.answer(_NO_HTTPS_HINT)
