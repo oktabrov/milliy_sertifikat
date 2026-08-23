@@ -17,6 +17,7 @@ BOT_COMMANDS = [
     BotCommand(command="ms", description="Milliy sertifikat bo'limi"),
     BotCommand(command="testlarim", description="Testlaringiz haqida ma'lumotlar"),
     BotCommand(command="natijalarim", description="Sizning natijalaringiz"),
+    BotCommand(command="special", description="Admin buyruqlari ro'yxati (admin)"),
     BotCommand(command="kanallar", description="Majburiy kanallar (admin)"),
     BotCommand(command="adminlar", description="Adminlar ro'yxati (admin)"),
     BotCommand(command="id", description="Telegram ID raqamingiz"),

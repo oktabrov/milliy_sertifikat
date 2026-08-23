@@ -1,4 +1,4 @@
-"""Admin commands: /stats and /broadcast."""
+"""Admin commands: /special, /stats and /broadcast."""
 
 from __future__ import annotations
 
@@ -16,6 +16,33 @@ from app.store.models import User
 
 logger = logging.getLogger(__name__)
 router = Router(name="admin")
+
+ADMIN_COMMANDS = [
+    ("/special", "shu ro'yxat"),
+    ("/kanallar", "majburiy kanallar ro'yxati"),
+    ("/kanal_qoshish @kanal", "majburiy kanal qo'shish"),
+    ("/kanal_ochirish @kanal", "majburiy kanalni o'chirish"),
+    ("/kanal_tozalash", "barcha majburiy kanallarni o'chirish"),
+    ("/adminlar", "adminlar ro'yxati"),
+    ("/admin_qoshish ID", "yangi admin qo'shish"),
+    ("/admin_ochirish ID", "adminlikdan olish"),
+    ("/stats", "statistika"),
+    ("/broadcast matn", "barcha foydalanuvchilarga xabar yuborish"),
+]
+
+
+@router.message(Command("special"))
+async def cmd_special(message: Message, user: User) -> None:
+    """One place that lists every admin-only command."""
+    if not user.is_admin:
+        await message.answer(texts.ADMIN_ONLY)
+        return
+
+    rows = "\n".join(
+        texts.SPECIAL_ROW.format(command=command, description=description)
+        for command, description in ADMIN_COMMANDS
+    )
+    await message.answer(texts.SPECIAL_HEADER + rows)
 
 
 @router.message(Command("stats"))
