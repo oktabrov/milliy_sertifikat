@@ -30,11 +30,7 @@ def miniapp_url(page: str) -> str:
 
 
 def ms_keyboard() -> ReplyKeyboardMarkup:
-    """The Milliy sertifikat section keyboard.
-
-    The three intro buttons (how to answer, how to create, the video) live at
-    the top of this keyboard rather than in a separate inline message, so a
-    fresh /start needs to send only one bubble.
+    """The Milliy sertifikat reply keyboard.
 
     "Test tekshirish" and "Test yaratish" open the Mini App directly. Telegram
     only allows web_app buttons over HTTPS, so when WEBHOOK_BASE is unset (local
@@ -57,9 +53,6 @@ def ms_keyboard() -> ReplyKeyboardMarkup:
 
     return ReplyKeyboardMarkup(
         keyboard=[
-            [KeyboardButton(text=texts.BTN_HOW_TO_ANSWER)],
-            [KeyboardButton(text=texts.BTN_HOW_TO_CREATE)],
-            [KeyboardButton(text=texts.BTN_HELP_VIDEO)],
             [check_button],
             [create_button],
             [KeyboardButton(text=texts.BTN_MY_RESULTS)],
@@ -120,3 +113,15 @@ def test_admin_inline(test_code: str, status: str) -> InlineKeyboardMarkup:
             text=texts.BTN_REOPEN_TEST, callback_data=f"test:open:{test_code}"
         )
     return InlineKeyboardMarkup(inline_keyboard=[[toggle]])
+
+
+def intro_inline() -> InlineKeyboardMarkup:
+    """The three intro buttons shown with the /start greeting."""
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text=texts.BTN_HOW_TO_ANSWER, callback_data="how:answer")],
+            [InlineKeyboardButton(text=texts.BTN_HOW_TO_CREATE, callback_data="how:create")],
+            [InlineKeyboardButton(text=texts.BTN_HELP_VIDEO, callback_data="how:video")],
+        ]
+    )
+
