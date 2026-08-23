@@ -5,7 +5,12 @@ export const tg = window.Telegram ? window.Telegram.WebApp : null;
 /* The session data is attached to the URL as #tgWebAppData=... by Telegram.
    Some clients/networks fail to load telegram-web-app.js, so window.Telegram
    never appears — but the fragment IS still present. Read it directly as a
-   reliable fallback that works even when the external script is blocked. */
+   reliable fallback that works even when the external script is blocked.
+
+   Additionally, the Telegram library stores initParams in sessionStorage under
+   the key '__telegram__initParams'. On some clients/platforms, the hash may
+   arrive after the initial load (delivered via postMessage), but sessionStorage
+   from a previous successful open persists. */
 function initDataFromHash() {
   try {
     const params = new URLSearchParams(window.location.hash.replace(/^#/, ''));
@@ -15,11 +20,22 @@ function initDataFromHash() {
   }
 }
 
+function initDataFromSessionStorage() {
+  try {
+    const raw = window.sessionStorage.getItem('__telegram__initParams');
+    if (!raw) return '';
+    const params = JSON.parse(raw);
+    return (params && params.tgWebAppData) || '';
+  } catch (_) {
+    return '';
+  }
+}
+
 /* Current initData at call time (not at module load). Prefers the library,
-   falls back to the URL fragment. */
+   falls back to the URL fragment, then to sessionStorage. */
 export function currentInitData() {
   const fromLibrary = tg && typeof tg.initData === 'string' ? tg.initData : '';
-  return fromLibrary || initDataFromHash();
+  return fromLibrary || initDataFromHash() || initDataFromSessionStorage();
 }
 
 /* True when we can see a session — evaluated on demand. */
@@ -62,28 +78,54 @@ export function reportFatal(message) {
 }
 
 /* Page opened via a link or a client that didn't deliver initData.
-   Check dynamically with retries so we don't mis-classify a slow library load. */
+   Check dynamically with retries so we don't mis-classify a slow library load.
+
+   On some Telegram client versions/platforms, initData may arrive
+   asynchronously via postMessage from the parent container rather than being
+   present in the URL hash at page load. We retry aggressively for up to 10
+   seconds and auto-dismiss the warning the moment a session appears. */
 export function warnOutsideTelegram() {
   const notice = document.getElementById('tg-notice');
   if (!notice) return;
 
+  /* Once session is found, hide the warning and stop checking. */
+  let resolved = false;
+
   const check = () => {
+    if (resolved) return;
     if (hasSession()) {
+      resolved = true;
       notice.classList.remove('visible');
       paintStatus();
+      return;
+    }
+    notice.textContent =
+      'Telegram sessiyasi yuklanmoqda… Agar bu xabar yo'qolmasa, ' +
+      'sahifani yopib, bot menyusidagi «Test tekshirish» yoki ' +
+      '«Test yaratish» tugmasini bosing.';
+    notice.classList.add('visible');
+  };
+
+  /* Check at load, then at increasing intervals up to 10 seconds. */
+  check();
+  const delays = [100, 300, 500, 1000, 2000, 3000, 5000, 8000, 10000];
+  delays.forEach((delay) => setTimeout(check, delay));
+
+  /* After all retries, if still no session, show the final message. */
+  setTimeout(() => {
+    if (resolved) return;
+    paintStatus();
+    /* Check one last time — initData may have arrived during the wait. */
+    if (hasSession()) {
+      resolved = true;
+      notice.classList.remove('visible');
       return;
     }
     notice.textContent =
       'Sahifa Telegram sessiyasisiz ochildi — saqlash ishlamaydi. ' +
       'Sahifani yopib, bot menyusidagi «Test tekshirish» yoki ' +
       '«Test yaratish» tugmasini bosing.';
-    notice.classList.add('visible');
-  };
-
-  check();
-  setTimeout(check, 500);
-  setTimeout(check, 2000);
-  setTimeout(check, 5000);
+  }, 12000);
 }
 
 /* Initialise Telegram WebApp UI helpers if the library loaded. */
@@ -116,7 +158,7 @@ export async function api(path, options = {}) {
       (payload && (payload.error || payload.detail)) ||
       (response.status === 401
         ? 'Avtorizatsiya xatosi. Mini ilovani bot orqali oching.'
-        : 'Server xatosi. Qayta urinib ko‘ring.');
+        : 'Server xatosi. Qayta urinib ko'ring.');
     throw new Error(typeof message === 'string' ? message : JSON.stringify(message));
   }
   return payload;

@@ -210,6 +210,7 @@ async def favicon() -> FileResponse:
 
 
 _STATIC_REF = re.compile(r'(src|href)="(/app/static/[^"?]+)(\?[^"]*)?"')
+_STATIC_REF_SQ = re.compile(r"""(\.src=')(/app/static/[^'?]+)(\?[^']*)?'""")
 _LOCAL_IMPORT = re.compile(r"(from\s+')(/app/static/[A-Za-z0-9_.-]+)(')")
 _MEDIA_TYPES = {".css": "text/css", ".js": "text/javascript", ".svg": "image/svg+xml"}
 
@@ -245,7 +246,12 @@ def _versioned_pages_html(name: str) -> HTMLResponse:
     def stamp(match: re.Match[str]) -> str:
         return f'{match.group(1)}="{_stamp_static_url(match.group(2))}"'
 
-    return HTMLResponse(_STATIC_REF.sub(stamp, html))
+    def stamp_sq(match: re.Match[str]) -> str:
+        return f"{match.group(1)}{_stamp_static_url(match.group(2))}'"
+
+    html = _STATIC_REF.sub(stamp, html)
+    html = _STATIC_REF_SQ.sub(stamp_sq, html)
+    return HTMLResponse(html)
 
 
 @app.get("/app/answer")

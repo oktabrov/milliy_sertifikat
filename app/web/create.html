@@ -4,9 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
     <title>Test yaratish</title>
-    <!-- Self-hosted: when telegram.org is unreachable the whole app used to
-         lose its session and refuse to save. Local copy can't fail that way. -->
-    <script src="/app/static/telegram-web-app.js"></script>
+    <!-- CDN primary — always current. Self-hosted fallback if telegram.org
+         is unreachable. The onerror fires only on network failure, not on
+         a successful but outdated response. -->
+    <script src="https://telegram.org/js/telegram-web-app.js"
+            onerror="var s=document.createElement('script');s.src='/app/static/telegram-web-app.js';document.head.appendChild(s);"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathlive@0.101.0/dist/mathlive.min.js"></script>
     <link rel="icon" href="/app/static/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/app/static/app.css" />
