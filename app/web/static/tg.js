@@ -2,43 +2,76 @@
 
 export const tg = window.Telegram ? window.Telegram.WebApp : null;
 
-/* True only when the page was really opened by Telegram: initData exists just
-   once, at open time, and every API call is verified against it. */
-export const hasInitData = Boolean(tg && tg.initData);
+/* The session data is attached to the URL as #tgWebAppData=... by Telegram.
+   Some clients/networks fail to load telegram-web-app.js, so window.Telegram
+   never appears — but the fragment IS still present. Read it directly as a
+   reliable fallback that works even when the external script is blocked. */
+function initDataFromHash() {
+  try {
+    const params = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    return params.get('tgWebAppData') || '';
+  } catch (_) {
+    return '';
+  }
+}
 
-/* Surface a script failure as a red banner instead of a silently dead page.
-   The inline bootstrap in each HTML file defines the banner plumbing before
-   any module runs, so this still works when the module itself is what broke. */
+/* Current initData at call time (not at module load). Prefers the library,
+   falls back to the URL fragment. */
+export function currentInitData() {
+  const fromLibrary = tg && typeof tg.initData === 'string' ? tg.initData : '';
+  return fromLibrary || initDataFromHash();
+}
+
+/* True when we can see a session — evaluated on demand. */
+export function hasSession() {
+  return Boolean(currentInitData());
+}
+
+/* Surface a script failure as a red banner instead of a silently dead page. */
 export function reportFatal(message) {
   if (typeof window.__msFatal === 'function') window.__msFatal(message);
 }
 
-/* A page opened straight from a link has no initData, so saving can never
-   succeed. Say so at the top — and point at the menu buttons, which is how a
-   Telegram session actually attaches to the page — instead of after the whole
-   form is filled. */
+/* Page opened via a link or a client that didn't deliver initData.
+   Check dynamically with retries so we don't mis-classify a slow library load. */
 export function warnOutsideTelegram() {
   const notice = document.getElementById('tg-notice');
-  if (hasInitData || !notice) return;
-  notice.textContent =
-    'Sahifa havola orqali ochilgan — saqlash ishlamaydi. Sahifani yopib, ' +
-    'bot menyusidagi «Test tekshirish» yoki «Test yaratish» tugmasini bosing.';
-  notice.classList.add('visible');
+  if (!notice) return;
+
+  const check = () => {
+    if (hasSession()) return;
+    const libLoaded = Boolean(window.Telegram);
+    const hashPresent = /^#.*tgWebAppData=/.test(window.location.hash);
+    notice.textContent =
+      'Sahifa Telegram sessiyasisiz ochildi — saqlash ishlamaydi. ' +
+      'Sahifani yopib, bot menyusidagi «Test tekshirish» yoki ' +
+      '«Test yaratish» tugmasini bosing. ' +
+      `(texnik: js=${libLoaded ? 'bor' : 'yo‘q'}, belgi=${hashPresent ? 'bor' : 'yo‘q'})`;
+    notice.classList.add('visible');
+  };
+
+  check();
+  setTimeout(check, 500);
+  setTimeout(check, 2000);
+  setTimeout(check, 5000);
 }
 
+/* Initialise Telegram WebApp UI helpers if the library loaded. */
 export function bootstrap() {
   if (!tg) return;
-  tg.ready();
-  tg.expand();
-  if (tg.colorScheme === 'dark') document.body.classList.add('tg-dark');
+  try {
+    tg.ready();
+    tg.expand();
+    if (tg.colorScheme === 'dark') document.body.classList.add('tg-dark');
+  } catch (_) {
+    /* Library may throw on some clients; UI works without it. */
+  }
 }
 
-/* Every API call carries the initData string Telegram gave the page; the
-   server re-derives its HMAC and refuses anything it cannot verify. */
+/* Every API call carries initData; server verifies its HMAC. */
 export async function api(path, options = {}) {
   const headers = Object.assign({ 'Content-Type': 'application/json' }, options.headers || {});
-  const initData = tg && tg.initData ? tg.initData : '';
-  headers['Authorization'] = `tma ${initData}`;
+  headers['Authorization'] = `tma ${currentInitData()}`;
 
   const response = await fetch(path, Object.assign({}, options, { headers }));
   let payload = null;
@@ -59,23 +92,17 @@ export async function api(path, options = {}) {
   return payload;
 }
 
-/* The four tabs match the keyboard in the reference bot: 123, symbols, abc,
-   greek. MathLive ships all four, so we only need to pin the order. */
 export function configureMathKeyboard() {
   if (!window.mathVirtualKeyboard) return;
   try {
     window.mathVirtualKeyboard.layouts = ['numeric', 'symbols', 'alphabetic', 'greek'];
-  } catch (_) {
-    /* Older MathLive builds expose a different API; the default layout is fine. */
-  }
+  } catch (_) {}
 }
 
 export function mathLiveReady() {
   return typeof window.customElements !== 'undefined' && !!customElements.get('math-field');
 }
 
-/* If the MathLive bundle fails to load the sheet must still be answerable, so
-   every math-field degrades to a plain text input carrying the same name. */
 export function degradeMathFields(root) {
   root.querySelectorAll('math-field').forEach((field) => {
     const input = document.createElement('input');
