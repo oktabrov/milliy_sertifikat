@@ -6,6 +6,8 @@ import {
   degradeMathFields,
   mathLiveReady,
   readAnswerField,
+  reportFatal,
+  warnOutsideTelegram,
 } from '/app/static/tg.js';
 
 const OPEN_HINT =
@@ -38,12 +40,38 @@ function collectAnswers() {
 const el = (id) => document.getElementById(id);
 
 bootstrap();
+warnOutsideTelegram();
+
+/* --- Wiring: delegated, registered before anything can throw ---------------
+   One listener on document routes clicks by element id, so the buttons keep
+   working even if module setup fails further down — and a failure surfaces as
+   a banner instead of a page that silently ignores every tap. */
+
+const actions = {
+  'code-submit': () => {
+    loadTest();
+  },
+  'submit-btn': () => {
+    submitAnswers();
+  },
+  'close-btn': () => {
+    if (tg) tg.close();
+    else window.close();
+  },
+};
+
+document.addEventListener('click', (event) => {
+  if (!(event.target instanceof Element)) return;
+  const action = event.target.closest('[id]');
+  if (action && actions[action.id]) actions[action.id]();
+});
 
 /* --- Step 1: test code ---------------------------------------------------- */
 
-el('code-submit').addEventListener('click', loadTest);
-el('code-input').addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') loadTest();
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Enter') return;
+  const field = event.target instanceof Element ? event.target : null;
+  if (field && field.id === 'code-input') loadTest();
 });
 
 async function loadTest() {
@@ -214,8 +242,6 @@ function updateProgress() {
 
 /* --- Step 3: submit ------------------------------------------------------- */
 
-el('submit-btn').addEventListener('click', submitAnswers);
-
 async function submitAnswers() {
   const error = el('submit-error');
   error.textContent = '';
@@ -284,11 +310,6 @@ function showDone(result) {
 
   if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
 }
-
-el('close-btn').addEventListener('click', () => {
-  if (tg) tg.close();
-  else window.close();
-});
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => {

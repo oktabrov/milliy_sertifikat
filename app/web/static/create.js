@@ -6,6 +6,8 @@ import {
   degradeMathFields,
   mathLiveReady,
   readAnswerField,
+  reportFatal,
+  warnOutsideTelegram,
 } from '/app/static/tg.js';
 
 const state = {
@@ -51,10 +53,40 @@ function collectKey() {
 const el = (id) => document.getElementById(id);
 
 bootstrap();
+warnOutsideTelegram();
+
+/* --- Wiring: delegated, registered before anything can throw ---------------
+   One listener on document routes clicks by element id. Per-element listeners
+   die together with whatever threw during module setup; delegation keeps the
+   buttons alive, and a failure becomes a visible banner instead of a silent
+   page that "does not respond". */
+
+const actions = {
+  'setup-submit': () => buildKeySheet(),
+  'save-btn': () => {
+    saveTest();
+  },
+  'close-btn': () => {
+    if (tg) tg.close();
+    else window.close();
+  },
+};
+
+document.addEventListener('click', (event) => {
+  if (!(event.target instanceof Element)) return;
+  const action = event.target.closest('[id]');
+  if (action && actions[action.id]) actions[action.id]();
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Enter') return;
+  const field = event.target instanceof Element ? event.target : null;
+  if (field && field.closest('#setup-step') && !field.classList.contains('btn')) {
+    buildKeySheet();
+  }
+});
 
 /* --- Step 1: shape -------------------------------------------------------- */
-
-el('setup-submit').addEventListener('click', buildKeySheet);
 
 function buildKeySheet() {
   const error = el('setup-error');
@@ -85,7 +117,11 @@ function buildKeySheet() {
     state.questions.push({ number: CLOSED_QUESTIONS + index + 1, type: 'open' });
   }
 
-  renderKeySheet();
+  try {
+    renderKeySheet();
+  } catch (problem) {
+    reportFatal(problem && problem.message ? problem.message : String(problem));
+  }
 }
 
 function renderKeySheet() {
@@ -254,8 +290,6 @@ function updateCount() {
 
 /* --- Step 3: save --------------------------------------------------------- */
 
-el('save-btn').addEventListener('click', saveTest);
-
 async function saveTest() {
   const error = el('save-error');
   error.textContent = '';
@@ -318,11 +352,6 @@ function showDone(created) {
     `Shu kodni o‘quvchilarga yuboring.`;
   if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
 }
-
-el('close-btn').addEventListener('click', () => {
-  if (tg) tg.close();
-  else window.close();
-});
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => {

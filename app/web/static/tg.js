@@ -2,6 +2,28 @@
 
 export const tg = window.Telegram ? window.Telegram.WebApp : null;
 
+/* True only when the page was really opened by Telegram: initData exists just
+   once, at open time, and every API call is verified against it. */
+export const hasInitData = Boolean(tg && tg.initData);
+
+/* Surface a script failure as a red banner instead of a silently dead page.
+   The inline bootstrap in each HTML file defines the banner plumbing before
+   any module runs, so this still works when the module itself is what broke. */
+export function reportFatal(message) {
+  if (typeof window.__msFatal === 'function') window.__msFatal(message);
+}
+
+/* A page opened straight from a browser has no initData, so saving can never
+   succeed. Say so at the top instead of after the whole form is filled. */
+export function warnOutsideTelegram() {
+  const notice = document.getElementById('tg-notice');
+  if (hasInitData || !notice) return;
+  notice.textContent =
+    'Sahifa botdan tashqarida ochilgan — saqlash ishlamaydi. ' +
+    'Ilovani botdagi tegishli tugma orqali oching.';
+  notice.classList.add('visible');
+}
+
 export function bootstrap() {
   if (!tg) return;
   tg.ready();

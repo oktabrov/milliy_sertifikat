@@ -43,6 +43,43 @@ body {
   display: none !important;
 }
 
+/* Script failures must never look like a dead button: say what broke. */
+.fatal-banner {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 10px 14px;
+  background: var(--danger);
+  color: #fff;
+  font-size: 13px;
+}
+
+.fatal-banner.visible {
+  display: block;
+}
+
+/* "You opened this outside the bot" — shown before work is wasted, not after. */
+.notice {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  padding: 10px 14px;
+  background: var(--chip);
+  color: var(--chip-ink);
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.notice.visible {
+  display: block;
+}
+
 /* --- Code entry ----------------------------------------------------------- */
 
 .overlay {

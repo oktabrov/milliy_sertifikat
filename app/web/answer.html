@@ -8,8 +8,31 @@
     <script defer src="https://cdn.jsdelivr.net/npm/mathlive@0.101.0/dist/mathlive.min.js"></script>
     <link rel="icon" href="/app/static/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/app/static/app.css" />
+    <script>
+      /* Classic script, no dependencies: runs even when the module below
+         fails to load or parse, so a broken deploy shows a message instead of
+         a silently dead button. */
+      window.__msFatal = function (message) {
+        var banner = document.getElementById('fatal-banner');
+        if (!banner) return;
+        banner.textContent = 'Xatolik: ' + message + ' — ilovani yopib, qayta oching.';
+        banner.classList.add('visible');
+      };
+      window.addEventListener('error', function (event) {
+        if (event && event.message && event.lineno) {
+          window.__msFatal(event.message);
+        }
+      });
+      window.addEventListener('unhandledrejection', function (event) {
+        var reason = event && event.reason;
+        window.__msFatal(String((reason && reason.message) || reason || 'noma’lum xato'));
+      });
+    </script>
   </head>
   <body>
+    <div class="fatal-banner" id="fatal-banner"></div>
+    <div class="notice" id="tg-notice"></div>
+
     <!-- Step 1: the test code prompt -->
     <div class="overlay" id="code-step">
       <div class="dialog">

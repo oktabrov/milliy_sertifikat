@@ -11,12 +11,13 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import logging
+import re
 from contextlib import asynccontextmanager
 from pathlib import Path
 
 from aiogram.types import Update
 from fastapi import FastAPI, HTTPException, Request, Response, status
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.api import routes_create, routes_test
@@ -211,14 +212,42 @@ async def favicon() -> FileResponse:
     return FileResponse(WEB_DIR / "static" / "favicon.svg", media_type="image/svg+xml")
 
 
+_STATIC_REF = re.compile(r'(src|href)="/app/static/([^"]+)"')
+
+
+def _versioned_pages_html(name: str) -> HTMLResponse:
+    """Serve a Mini App page with version-stamped static asset URLs.
+
+    The keyboard buttons only cache-bust the page itself (`?v=` in
+    `miniapp_url`), yet the page pulls its behaviour from `/app/static/*.js`.
+    Telegram's in-app browser has been observed serving those subresources from
+    its cache after a deploy, so an old script pairs with a new page: buttons
+    reference handlers that no longer exist and everything dies silently. Each
+    asset URL therefore carries its own file mtime, so any deploy that touches
+    a file changes its URL outright and no client can reuse a stale copy.
+    """
+    html = (WEB_DIR / name).read_text(encoding="utf-8")
+
+    def stamp(match: re.Match[str]) -> str:
+        attribute, filename = match.group(1), match.group(2)
+        path = WEB_DIR / "static" / filename
+        try:
+            version = int(path.stat().st_mtime)
+        except OSError:
+            version = 0
+        return f'{attribute}="/app/static/{filename}?v={version}"'
+
+    return HTMLResponse(_STATIC_REF.sub(stamp, html))
+
+
 @app.get("/app/answer")
-async def answer_page() -> FileResponse:
-    return FileResponse(WEB_DIR / "answer.html")
+async def answer_page() -> HTMLResponse:
+    return _versioned_pages_html("answer.html")
 
 
 @app.get("/app/create")
-async def create_page() -> FileResponse:
-    return FileResponse(WEB_DIR / "create.html")
+async def create_page() -> HTMLResponse:
+    return _versioned_pages_html("create.html")
 
 
 @app.post("/webhook/{secret}")
