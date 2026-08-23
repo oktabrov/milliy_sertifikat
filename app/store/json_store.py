@@ -279,6 +279,8 @@ class Store:
         attempts.sort(key=lambda attempt: attempt.submitted_at, reverse=True)
         return attempts[:limit] if limit else attempts
 
+    MAX_ATTEMPTS_PER_USER = 5
+
     async def create_attempt(
         self,
         test_id: int,
@@ -295,11 +297,23 @@ class Store:
         Raises `ValueError` if this student already answered this test — the
         check happens inside the lock, so two simultaneous submissions cannot
         both slip through.
+
+        Enforces a per-user limit: when a user already has 5 attempts, the
+        oldest one is deleted before the new one is stored.
         """
         async with self._lock:
             for attempt in self._attempts.values():
                 if attempt.test_id == test_id and attempt.user_id == user_id:
                     raise ValueError("already submitted")
+
+            # Enforce 5-attempt limit per user
+            user_attempts = sorted(
+                [a for a in self._attempts.values() if a.user_id == user_id],
+                key=lambda a: a.submitted_at,
+            )
+            while len(user_attempts) >= self.MAX_ATTEMPTS_PER_USER:
+                oldest = user_attempts.pop(0)
+                del self._attempts[oldest.id]
 
             attempt = Attempt(
                 id=self._next_attempt_id,

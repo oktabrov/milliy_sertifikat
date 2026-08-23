@@ -17,7 +17,7 @@ router = Router(name="results")
 @router.message(F.text == texts.BTN_MY_RESULTS)
 @router.message(Command("natijalarim"))
 async def my_results(message: Message, store: Store, user: User) -> None:
-    attempts = store.attempts_by_user(user.id, limit=10)
+    attempts = store.attempts_by_user(user.id, limit=5)
     if not attempts:
         await message.answer(texts.NO_RESULTS)
         return
@@ -38,7 +38,7 @@ async def nav_results(query: CallbackQuery, store: Store, user: User) -> None:
     await query.answer()
     if not query.message:
         return
-    attempts = store.attempts_by_user(user.id, limit=10)
+    attempts = store.attempts_by_user(user.id, limit=5)
     if not attempts:
         await query.message.answer(texts.NO_RESULTS)
         return
