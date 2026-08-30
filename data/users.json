@@ -1,0 +1,34 @@
+[
+ {
+  "id": 5736677391,
+  "full_name": "Umrbek Oktyabrov",
+  "username": "oktabrov",
+  "is_admin": true,
+  "is_blocked": false,
+  "created_at": "2026-08-17T09:29:58.190279+00:00"
+ },
+ {
+  "id": 5983343012,
+  "full_name": "Uydhfbd Sdifuhdnkf",
+  "username": "for_youCutie",
+  "is_admin": false,
+  "is_blocked": false,
+  "created_at": "2026-08-17T09:57:33.421261+00:00"
+ },
+ {
+  "id": 215204493,
+  "full_name": "To'Rayev Sardor",
+  "username": "Torayev_Sardor_fizik",
+  "is_admin": false,
+  "is_blocked": false,
+  "created_at": "2026-08-23T02:04:52.194292+00:00"
+ },
+ {
+  "id": 952785861,
+  "full_name": "Torayev Sardor",
+  "username": null,
+  "is_admin": false,
+  "is_blocked": false,
+  "created_at": "2026-08-30T03:04:14.896225+00:00"
+ }
+]
