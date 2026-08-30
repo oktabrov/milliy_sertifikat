@@ -30,5 +30,69 @@
   "is_admin": false,
   "is_blocked": false,
   "created_at": "2026-08-30T03:04:14.896225+00:00"
+ },
+ {
+  "id": 8377854866,
+  "full_name": "Aslam",
+  "username": null,
+  "is_admin": false,
+  "is_blocked": false,
+  "created_at": "2026-08-30T05:37:49.854849+00:00"
+ },
+ {
+  "id": 7367517085,
+  "full_name": "Jongirov Bahrom",
+  "username": "B_Jangirov_09",
+  "is_admin": false,
+  "is_blocked": false,
+  "created_at": "2026-08-30T05:38:02.964646+00:00"
+ },
+ {
+  "id": 8248560591,
+  "full_name": "Ulashov Jahongir",
+  "username": "ulashov_022",
+  "is_admin": false,
+  "is_blocked": false,
+  "created_at": "2026-08-30T05:42:00.567788+00:00"
+ },
+ {
+  "id": 7593792791,
+  "full_name": "Ismoilova Imsinoy",
+  "username": "Gulombekovna_17",
+  "is_admin": false,
+  "is_blocked": false,
+  "created_at": "2026-08-30T05:42:12.775379+00:00"
+ },
+ {
+  "id": 7433154779,
+  "full_name": "Fizika",
+  "username": "bunyodbekkomiljonov",
+  "is_admin": false,
+  "is_blocked": false,
+  "created_at": "2026-08-30T05:42:40.066214+00:00"
+ },
+ {
+  "id": 7919410149,
+  "full_name": "Abram",
+  "username": null,
+  "is_admin": false,
+  "is_blocked": false,
+  "created_at": "2026-08-30T05:51:42.137552+00:00"
+ },
+ {
+  "id": 5239149983,
+  "full_name": "Zikrillo Abduxolisov",
+  "username": "zikrillo_abduxolisov",
+  "is_admin": false,
+  "is_blocked": false,
+  "created_at": "2026-08-30T06:15:27.581921+00:00"
+ },
+ {
+  "id": 1161956846,
+  "full_name": "Bonu Maxmudova",
+  "username": null,
+  "is_admin": false,
+  "is_blocked": false,
+  "created_at": "2026-08-30T06:51:54.701641+00:00"
  }
 ]
