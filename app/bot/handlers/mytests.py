@@ -49,6 +49,30 @@ async def nav_tests(query: CallbackQuery, store: Store, user: User) -> None:
         )
 
 
+MAX_MESSAGE_LENGTH = 4096
+
+
+async def _send_long_message(message, text: str) -> None:
+    """Send a message, splitting it if it exceeds Telegram's length limit."""
+    if len(text) <= MAX_MESSAGE_LENGTH:
+        await message.answer(text)
+        return
+
+    parts = []
+    current = ""
+    for line in text.split("\n"):
+        if len(current) + len(line) + 1 > MAX_MESSAGE_LENGTH:
+            parts.append(current)
+            current = line
+        else:
+            current = (current + "\n" + line) if current else line
+    if current:
+        parts.append(current)
+
+    for part in parts:
+        await message.answer(part)
+
+
 @router.callback_query(F.data.startswith("leaderboard:"))
 async def show_leaderboard(query: CallbackQuery, store: Store, user: User) -> None:
     """Show the current leaderboard without changing anything."""
@@ -70,7 +94,8 @@ async def show_leaderboard(query: CallbackQuery, store: Store, user: User) -> No
         if u:
             user_names[u.id] = u.full_name or u.username or f"ID:{u.id}"
 
-    await query.message.answer(render_leaderboard(test, attempts, owner_name, user_names))
+    leaderboard_text = render_leaderboard(test, attempts, owner_name, user_names)
+    await _send_long_message(query.message, leaderboard_text)
 
 
 @router.callback_query(F.data.startswith("test:"))
@@ -107,6 +132,5 @@ async def toggle_test(query: CallbackQuery, store: Store, user: User) -> None:
                     user_names[u.id] = u.full_name or u.username or f"ID:{u.id}"
 
             if query.message:
-                await query.message.answer(
-                    render_leaderboard(test, attempts, owner_name, user_names)
-                )
+                leaderboard_text = render_leaderboard(test, attempts, owner_name, user_names)
+                await _send_long_message(query.message, leaderboard_text)

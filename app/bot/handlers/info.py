@@ -9,7 +9,7 @@ from aiogram.types import CallbackQuery, Message
 
 from app.bot import texts
 from app.bot.handlers.start import Registration
-from app.bot.keyboards import join_channels_inline, ms_keyboard
+from app.bot.keyboards import intro_inline, join_channels_inline
 from app.services import channels as channel_service
 from app.services import video as video_service
 from app.store.json_store import Store
@@ -81,7 +81,7 @@ async def recheck_join(
 
     Dead-ending on "thanks, you may now use the bot" left people to guess that
     /start was the next step, so this hands them straight to registration or to
-    the section keyboard.
+    the intro buttons.
     """
     missing = await channel_service.missing_for(query.bot, store, user.id)
 
@@ -99,7 +99,7 @@ async def recheck_join(
 
     if user.full_name:
         await query.message.answer(
-            texts.GREETING.format(name=user.full_name), reply_markup=ms_keyboard(user.id)
+            texts.GREETING.format(name=user.full_name), reply_markup=intro_inline()
         )
     else:
         await state.set_state(Registration.waiting_for_name)

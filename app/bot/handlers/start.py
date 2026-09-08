@@ -8,7 +8,7 @@ from aiogram import Router, F
 from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from aiogram.types import Message
+from aiogram.types import Message, ReplyKeyboardRemove
 
 from app.bot import texts
 from app.bot.keyboards import intro_inline
@@ -35,13 +35,13 @@ async def cmd_start(message: Message, state: FSMContext, user: User) -> None:
         )
         return
     await state.set_state(Registration.waiting_for_name)
-    await message.answer(texts.ASK_NAME)
+    await message.answer(texts.ASK_NAME, reply_markup=ReplyKeyboardRemove())
 
 
 @router.message(Command("edit"))
 async def cmd_edit(message: Message, state: FSMContext) -> None:
     await state.set_state(Registration.waiting_for_name)
-    await message.answer(texts.ASK_NAME)
+    await message.answer(texts.ASK_NAME, reply_markup=ReplyKeyboardRemove())
 
 
 @router.message(Registration.waiting_for_name, F.text)
