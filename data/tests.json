@@ -2055,7 +2055,7 @@
     }
    }
   ],
-  "status": "open",
+  "status": "closed",
   "created_at": "2026-08-23T14:50:06.941979+00:00",
   "closes_at": null,
   "score_tables": {
@@ -3770,8 +3770,1723 @@
     }
    }
   ],
-  "status": "open",
+  "status": "closed",
   "created_at": "2026-08-30T02:55:59.027108+00:00",
+  "closes_at": null,
+  "score_tables": {
+   "weak": {
+    "key": "weak",
+    "label_uz": "Zaif guruh",
+    "difficulties": [
+     -0.8767,
+     -0.7902,
+     0.4058,
+     1.7838,
+     1.3494,
+     -0.5014,
+     0.1677,
+     0.2601,
+     1.6875,
+     0.361,
+     0.3016,
+     2.4337,
+     0.4393,
+     0.1211,
+     -0.1307,
+     0.8642,
+     -0.0233,
+     0.3799,
+     0.3422,
+     1.0954,
+     0.1368,
+     0.2389,
+     -0.0581,
+     0.3278,
+     0.8447,
+     -0.1332,
+     -0.3153,
+     0.3317,
+     0.6271,
+     0.7748,
+     0.8383,
+     -0.09,
+     1.2544,
+     0.9671,
+     0.8782,
+     3.0582,
+     3.1567,
+     2.3064,
+     2.6739,
+     2.4928,
+     1.9714,
+     1.7322,
+     2.0806,
+     2.5891,
+     2.0841,
+     2.6148,
+     2.7382,
+     1.9033,
+     1.9155,
+     2.1978,
+     1.9614,
+     4.368,
+     4.3377,
+     1.8564,
+     3.5982
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -4.5639,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -3.3346,
+      "ball": 0,
+      "percentile": 0.6,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -2.605,
+      "ball": 8,
+      "percentile": 1.6,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -2.1627,
+      "ball": 15,
+      "percentile": 3.0,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -1.8378,
+      "ball": 21,
+      "percentile": 4.9,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -1.577,
+      "ball": 25,
+      "percentile": 7.4,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -1.3566,
+      "ball": 28,
+      "percentile": 10.4,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -1.1638,
+      "ball": 31,
+      "percentile": 13.8,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -0.9911,
+      "ball": 34,
+      "percentile": 17.6,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -0.8335,
+      "ball": 37,
+      "percentile": 21.6,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -0.6877,
+      "ball": 39,
+      "percentile": 25.6,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -0.5513,
+      "ball": 41,
+      "percentile": 29.9,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -0.4225,
+      "ball": 43,
+      "percentile": 34.3,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -0.2999,
+      "ball": 45,
+      "percentile": 38.6,
+      "grade": "—"
+     },
+     {
+      "raw": 14,
+      "theta": -0.1825,
+      "ball": 47,
+      "percentile": 42.5,
+      "grade": "C"
+     },
+     {
+      "raw": 15,
+      "theta": -0.0693,
+      "ball": 49,
+      "percentile": 46.6,
+      "grade": "C"
+     },
+     {
+      "raw": 16,
+      "theta": 0.0404,
+      "ball": 51,
+      "percentile": 50.7,
+      "grade": "C+"
+     },
+     {
+      "raw": 17,
+      "theta": 0.147,
+      "ball": 52,
+      "percentile": 54.7,
+      "grade": "C+"
+     },
+     {
+      "raw": 18,
+      "theta": 0.2512,
+      "ball": 54,
+      "percentile": 58.3,
+      "grade": "C+"
+     },
+     {
+      "raw": 19,
+      "theta": 0.3533,
+      "ball": 56,
+      "percentile": 61.9,
+      "grade": "B"
+     },
+     {
+      "raw": 20,
+      "theta": 0.4537,
+      "ball": 57,
+      "percentile": 65.3,
+      "grade": "B"
+     },
+     {
+      "raw": 21,
+      "theta": 0.5528,
+      "ball": 59,
+      "percentile": 68.6,
+      "grade": "B"
+     },
+     {
+      "raw": 22,
+      "theta": 0.6507,
+      "ball": 60,
+      "percentile": 71.9,
+      "grade": "B+"
+     },
+     {
+      "raw": 23,
+      "theta": 0.7479,
+      "ball": 62,
+      "percentile": 75.0,
+      "grade": "B+"
+     },
+     {
+      "raw": 24,
+      "theta": 0.8445,
+      "ball": 64,
+      "percentile": 78.0,
+      "grade": "B+"
+     },
+     {
+      "raw": 25,
+      "theta": 0.9408,
+      "ball": 65,
+      "percentile": 80.7,
+      "grade": "A"
+     },
+     {
+      "raw": 26,
+      "theta": 1.0369,
+      "ball": 67,
+      "percentile": 83.0,
+      "grade": "A"
+     },
+     {
+      "raw": 27,
+      "theta": 1.1331,
+      "ball": 68,
+      "percentile": 85.3,
+      "grade": "A"
+     },
+     {
+      "raw": 28,
+      "theta": 1.2295,
+      "ball": 70,
+      "percentile": 87.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 29,
+      "theta": 1.3264,
+      "ball": 71,
+      "percentile": 89.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 30,
+      "theta": 1.424,
+      "ball": 73,
+      "percentile": 90.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 31,
+      "theta": 1.5224,
+      "ball": 74,
+      "percentile": 91.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 32,
+      "theta": 1.6219,
+      "ball": 76,
+      "percentile": 93.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 33,
+      "theta": 1.7228,
+      "ball": 78,
+      "percentile": 94.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 34,
+      "theta": 1.8251,
+      "ball": 79,
+      "percentile": 95.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 35,
+      "theta": 1.9293,
+      "ball": 81,
+      "percentile": 96.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 36,
+      "theta": 2.0357,
+      "ball": 83,
+      "percentile": 97.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 37,
+      "theta": 2.1444,
+      "ball": 84,
+      "percentile": 97.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 38,
+      "theta": 2.2561,
+      "ball": 86,
+      "percentile": 98.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 39,
+      "theta": 2.371,
+      "ball": 88,
+      "percentile": 98.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 40,
+      "theta": 2.4898,
+      "ball": 90,
+      "percentile": 99.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 41,
+      "theta": 2.6131,
+      "ball": 92,
+      "percentile": 99.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 42,
+      "theta": 2.7416,
+      "ball": 94,
+      "percentile": 99.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 43,
+      "theta": 2.8763,
+      "ball": 96,
+      "percentile": 99.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 44,
+      "theta": 3.0184,
+      "ball": 98,
+      "percentile": 99.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 45,
+      "theta": 3.1694,
+      "ball": 100,
+      "percentile": 99.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 46,
+      "theta": 3.3311,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 47,
+      "theta": 3.5062,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 48,
+      "theta": 3.6984,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 49,
+      "theta": 3.9127,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 4.157,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 4.4445,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 4.7992,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 5.2748,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 6.0415,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 7.2351,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   },
+   "normal": {
+    "key": "normal",
+    "label_uz": "O'rtacha guruh",
+    "difficulties": [
+     -2.0897,
+     -2.087,
+     -0.7807,
+     0.5349,
+     0.1504,
+     -1.7917,
+     -1.1082,
+     -1.0175,
+     0.4595,
+     -0.8585,
+     -0.9215,
+     1.2435,
+     -0.7934,
+     -1.1163,
+     -1.4154,
+     -0.4125,
+     -1.2215,
+     -0.8715,
+     -0.8801,
+     -0.143,
+     -1.1198,
+     -0.9612,
+     -1.2645,
+     -0.9144,
+     -0.3952,
+     -1.3207,
+     -1.4958,
+     -0.8861,
+     -0.5946,
+     -0.4667,
+     -0.3823,
+     -1.3338,
+     0.0322,
+     -0.2993,
+     -0.41,
+     1.7932,
+     1.9822,
+     1.0764,
+     1.4458,
+     1.2071,
+     0.6959,
+     0.5238,
+     0.8426,
+     1.3404,
+     0.8942,
+     1.3278,
+     1.5374,
+     0.6923,
+     0.6627,
+     0.9194,
+     0.7325,
+     3.0186,
+     3.1155,
+     0.5546,
+     2.4624
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -5.8025,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -4.573,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -3.8431,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -3.4006,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -3.0755,
+      "ball": 1,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -2.8145,
+      "ball": 5,
+      "percentile": 0.5,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -2.5939,
+      "ball": 8,
+      "percentile": 0.7,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -2.401,
+      "ball": 12,
+      "percentile": 1.1,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -2.2282,
+      "ball": 14,
+      "percentile": 1.7,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -2.0705,
+      "ball": 17,
+      "percentile": 2.3,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -1.9247,
+      "ball": 19,
+      "percentile": 3.2,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -1.7882,
+      "ball": 21,
+      "percentile": 4.2,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -1.6593,
+      "ball": 23,
+      "percentile": 5.5,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -1.5367,
+      "ball": 25,
+      "percentile": 7.0,
+      "grade": "—"
+     },
+     {
+      "raw": 14,
+      "theta": -1.4192,
+      "ball": 27,
+      "percentile": 8.7,
+      "grade": "—"
+     },
+     {
+      "raw": 15,
+      "theta": -1.306,
+      "ball": 29,
+      "percentile": 10.5,
+      "grade": "—"
+     },
+     {
+      "raw": 16,
+      "theta": -1.1964,
+      "ball": 31,
+      "percentile": 12.4,
+      "grade": "—"
+     },
+     {
+      "raw": 17,
+      "theta": -1.0897,
+      "ball": 33,
+      "percentile": 14.8,
+      "grade": "—"
+     },
+     {
+      "raw": 18,
+      "theta": -0.9855,
+      "ball": 34,
+      "percentile": 17.4,
+      "grade": "—"
+     },
+     {
+      "raw": 19,
+      "theta": -0.8834,
+      "ball": 36,
+      "percentile": 20.0,
+      "grade": "—"
+     },
+     {
+      "raw": 20,
+      "theta": -0.783,
+      "ball": 37,
+      "percentile": 23.0,
+      "grade": "—"
+     },
+     {
+      "raw": 21,
+      "theta": -0.684,
+      "ball": 39,
+      "percentile": 26.0,
+      "grade": "—"
+     },
+     {
+      "raw": 22,
+      "theta": -0.586,
+      "ball": 41,
+      "percentile": 28.9,
+      "grade": "—"
+     },
+     {
+      "raw": 23,
+      "theta": -0.4889,
+      "ball": 42,
+      "percentile": 32.2,
+      "grade": "—"
+     },
+     {
+      "raw": 24,
+      "theta": -0.3923,
+      "ball": 44,
+      "percentile": 35.7,
+      "grade": "—"
+     },
+     {
+      "raw": 25,
+      "theta": -0.2961,
+      "ball": 45,
+      "percentile": 39.4,
+      "grade": "—"
+     },
+     {
+      "raw": 26,
+      "theta": -0.2,
+      "ball": 47,
+      "percentile": 43.0,
+      "grade": "C"
+     },
+     {
+      "raw": 27,
+      "theta": -0.1039,
+      "ball": 48,
+      "percentile": 46.5,
+      "grade": "C"
+     },
+     {
+      "raw": 28,
+      "theta": -0.0074,
+      "ball": 50,
+      "percentile": 50.1,
+      "grade": "C+"
+     },
+     {
+      "raw": 29,
+      "theta": 0.0895,
+      "ball": 51,
+      "percentile": 53.5,
+      "grade": "C+"
+     },
+     {
+      "raw": 30,
+      "theta": 0.187,
+      "ball": 53,
+      "percentile": 57.0,
+      "grade": "C+"
+     },
+     {
+      "raw": 31,
+      "theta": 0.2855,
+      "ball": 55,
+      "percentile": 60.7,
+      "grade": "B"
+     },
+     {
+      "raw": 32,
+      "theta": 0.385,
+      "ball": 56,
+      "percentile": 64.4,
+      "grade": "B"
+     },
+     {
+      "raw": 33,
+      "theta": 0.4858,
+      "ball": 58,
+      "percentile": 68.1,
+      "grade": "B"
+     },
+     {
+      "raw": 34,
+      "theta": 0.5882,
+      "ball": 59,
+      "percentile": 71.6,
+      "grade": "B"
+     },
+     {
+      "raw": 35,
+      "theta": 0.6924,
+      "ball": 61,
+      "percentile": 74.8,
+      "grade": "B+"
+     },
+     {
+      "raw": 36,
+      "theta": 0.7988,
+      "ball": 63,
+      "percentile": 77.8,
+      "grade": "B+"
+     },
+     {
+      "raw": 37,
+      "theta": 0.9076,
+      "ball": 65,
+      "percentile": 80.7,
+      "grade": "A"
+     },
+     {
+      "raw": 38,
+      "theta": 1.0193,
+      "ball": 66,
+      "percentile": 83.5,
+      "grade": "A"
+     },
+     {
+      "raw": 39,
+      "theta": 1.1343,
+      "ball": 68,
+      "percentile": 86.1,
+      "grade": "A"
+     },
+     {
+      "raw": 40,
+      "theta": 1.2532,
+      "ball": 70,
+      "percentile": 88.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 41,
+      "theta": 1.3766,
+      "ball": 72,
+      "percentile": 90.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 42,
+      "theta": 1.5052,
+      "ball": 74,
+      "percentile": 92.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 43,
+      "theta": 1.64,
+      "ball": 76,
+      "percentile": 94.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 44,
+      "theta": 1.7822,
+      "ball": 79,
+      "percentile": 95.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 45,
+      "theta": 1.9332,
+      "ball": 81,
+      "percentile": 96.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 46,
+      "theta": 2.0951,
+      "ball": 84,
+      "percentile": 97.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 47,
+      "theta": 2.2702,
+      "ball": 86,
+      "percentile": 98.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 48,
+      "theta": 2.4623,
+      "ball": 89,
+      "percentile": 98.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 49,
+      "theta": 2.6765,
+      "ball": 93,
+      "percentile": 99.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 2.9206,
+      "ball": 97,
+      "percentile": 99.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 3.2075,
+      "ball": 100,
+      "percentile": 99.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 3.5614,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 4.0357,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 4.8007,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 5.998,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   },
+   "strong": {
+    "key": "strong",
+    "label_uz": "Kuchli guruh",
+    "difficulties": [
+     -3.3023,
+     -3.2679,
+     -2.0061,
+     -0.6804,
+     -1.122,
+     -2.9353,
+     -2.2913,
+     -2.2488,
+     -0.7721,
+     -2.1165,
+     -2.2016,
+     0.0138,
+     -2.0095,
+     -2.3227,
+     -2.6471,
+     -1.5898,
+     -2.4871,
+     -2.0834,
+     -2.071,
+     -1.3247,
+     -2.3735,
+     -2.2265,
+     -2.5284,
+     -2.2159,
+     -1.5547,
+     -2.5566,
+     -2.7368,
+     -2.0683,
+     -1.7843,
+     -1.7157,
+     -1.6085,
+     -2.5697,
+     -1.1859,
+     -1.4889,
+     -1.6085,
+     0.5754,
+     0.798,
+     -0.1433,
+     0.2408,
+     0.0123,
+     -0.4607,
+     -0.7101,
+     -0.3982,
+     0.1324,
+     -0.3371,
+     0.1353,
+     0.3293,
+     -0.5572,
+     -0.545,
+     -0.2986,
+     -0.4472,
+     1.955,
+     1.9177,
+     -0.6092,
+     1.2287
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -7.0212,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -5.792,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -5.0625,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -4.6202,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -4.2953,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -4.0345,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -3.8141,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -3.6213,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -3.4485,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -3.2908,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -3.145,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -3.0085,
+      "ball": 2,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -2.8795,
+      "ball": 4,
+      "percentile": 0.3,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -2.7568,
+      "ball": 6,
+      "percentile": 0.5,
+      "grade": "—"
+     },
+     {
+      "raw": 14,
+      "theta": -2.6392,
+      "ball": 8,
+      "percentile": 0.7,
+      "grade": "—"
+     },
+     {
+      "raw": 15,
+      "theta": -2.5258,
+      "ball": 10,
+      "percentile": 0.9,
+      "grade": "—"
+     },
+     {
+      "raw": 16,
+      "theta": -2.416,
+      "ball": 11,
+      "percentile": 1.2,
+      "grade": "—"
+     },
+     {
+      "raw": 17,
+      "theta": -2.3091,
+      "ball": 13,
+      "percentile": 1.5,
+      "grade": "—"
+     },
+     {
+      "raw": 18,
+      "theta": -2.2048,
+      "ball": 15,
+      "percentile": 1.9,
+      "grade": "—"
+     },
+     {
+      "raw": 19,
+      "theta": -2.1024,
+      "ball": 16,
+      "percentile": 2.5,
+      "grade": "—"
+     },
+     {
+      "raw": 20,
+      "theta": -2.0018,
+      "ball": 18,
+      "percentile": 3.0,
+      "grade": "—"
+     },
+     {
+      "raw": 21,
+      "theta": -1.9025,
+      "ball": 20,
+      "percentile": 3.7,
+      "grade": "—"
+     },
+     {
+      "raw": 22,
+      "theta": -1.8043,
+      "ball": 21,
+      "percentile": 4.6,
+      "grade": "—"
+     },
+     {
+      "raw": 23,
+      "theta": -1.7069,
+      "ball": 23,
+      "percentile": 5.7,
+      "grade": "—"
+     },
+     {
+      "raw": 24,
+      "theta": -1.61,
+      "ball": 24,
+      "percentile": 6.7,
+      "grade": "—"
+     },
+     {
+      "raw": 25,
+      "theta": -1.5135,
+      "ball": 26,
+      "percentile": 7.9,
+      "grade": "—"
+     },
+     {
+      "raw": 26,
+      "theta": -1.4171,
+      "ball": 27,
+      "percentile": 9.3,
+      "grade": "—"
+     },
+     {
+      "raw": 27,
+      "theta": -1.3206,
+      "ball": 29,
+      "percentile": 10.9,
+      "grade": "—"
+     },
+     {
+      "raw": 28,
+      "theta": -1.2238,
+      "ball": 30,
+      "percentile": 12.7,
+      "grade": "—"
+     },
+     {
+      "raw": 29,
+      "theta": -1.1266,
+      "ball": 32,
+      "percentile": 14.6,
+      "grade": "—"
+     },
+     {
+      "raw": 30,
+      "theta": -1.0287,
+      "ball": 34,
+      "percentile": 17.0,
+      "grade": "—"
+     },
+     {
+      "raw": 31,
+      "theta": -0.93,
+      "ball": 35,
+      "percentile": 19.7,
+      "grade": "—"
+     },
+     {
+      "raw": 32,
+      "theta": -0.8301,
+      "ball": 37,
+      "percentile": 22.5,
+      "grade": "—"
+     },
+     {
+      "raw": 33,
+      "theta": -0.7289,
+      "ball": 38,
+      "percentile": 25.4,
+      "grade": "—"
+     },
+     {
+      "raw": 34,
+      "theta": -0.6261,
+      "ball": 40,
+      "percentile": 28.7,
+      "grade": "—"
+     },
+     {
+      "raw": 35,
+      "theta": -0.5215,
+      "ball": 42,
+      "percentile": 32.2,
+      "grade": "—"
+     },
+     {
+      "raw": 36,
+      "theta": -0.4148,
+      "ball": 43,
+      "percentile": 35.9,
+      "grade": "—"
+     },
+     {
+      "raw": 37,
+      "theta": -0.3055,
+      "ball": 45,
+      "percentile": 39.9,
+      "grade": "—"
+     },
+     {
+      "raw": 38,
+      "theta": -0.1934,
+      "ball": 47,
+      "percentile": 43.8,
+      "grade": "C"
+     },
+     {
+      "raw": 39,
+      "theta": -0.0779,
+      "ball": 49,
+      "percentile": 48.1,
+      "grade": "C"
+     },
+     {
+      "raw": 40,
+      "theta": 0.0415,
+      "ball": 51,
+      "percentile": 52.6,
+      "grade": "C+"
+     },
+     {
+      "raw": 41,
+      "theta": 0.1654,
+      "ball": 53,
+      "percentile": 57.0,
+      "grade": "C+"
+     },
+     {
+      "raw": 42,
+      "theta": 0.2946,
+      "ball": 55,
+      "percentile": 61.6,
+      "grade": "B"
+     },
+     {
+      "raw": 43,
+      "theta": 0.43,
+      "ball": 57,
+      "percentile": 66.1,
+      "grade": "B"
+     },
+     {
+      "raw": 44,
+      "theta": 0.5729,
+      "ball": 59,
+      "percentile": 70.7,
+      "grade": "B"
+     },
+     {
+      "raw": 45,
+      "theta": 0.7247,
+      "ball": 62,
+      "percentile": 75.3,
+      "grade": "B+"
+     },
+     {
+      "raw": 46,
+      "theta": 0.8875,
+      "ball": 64,
+      "percentile": 79.7,
+      "grade": "B+"
+     },
+     {
+      "raw": 47,
+      "theta": 1.0637,
+      "ball": 67,
+      "percentile": 83.8,
+      "grade": "A"
+     },
+     {
+      "raw": 48,
+      "theta": 1.2571,
+      "ball": 70,
+      "percentile": 87.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 49,
+      "theta": 1.4727,
+      "ball": 74,
+      "percentile": 91.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 1.7186,
+      "ball": 77,
+      "percentile": 94.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 2.0078,
+      "ball": 82,
+      "percentile": 96.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 2.3643,
+      "ball": 88,
+      "percentile": 98.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 2.8419,
+      "ball": 95,
+      "percentile": 99.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 3.6107,
+      "ball": 100,
+      "percentile": 99.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 4.7842,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   }
+  },
+  "calibrated_from": 94
+ },
+ {
+  "id": 4,
+  "code": "1425",
+  "title": "Test №1",
+  "owner_id": 5736677391,
+  "subjects": [
+   "Matematika"
+  ],
+  "questions": [
+   {
+    "number": 1,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 2,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 3,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 4,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 5,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 6,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 7,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 8,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 9,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 10,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 11,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 12,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 13,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 14,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 15,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 16,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 17,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 18,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 19,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 20,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 21,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 22,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 23,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 24,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 25,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 26,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 27,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 28,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 29,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 30,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 31,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 32,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 33,
+    "type": "mc",
+    "options": 6,
+    "answer": "A"
+   },
+   {
+    "number": 34,
+    "type": "mc",
+    "options": 6,
+    "answer": "A"
+   },
+   {
+    "number": 35,
+    "type": "mc",
+    "options": 6,
+    "answer": "A"
+   },
+   {
+    "number": 36,
+    "type": "open",
+    "parts": {
+     "a": [
+      "7"
+     ],
+     "b": [
+      "7"
+     ]
+    }
+   },
+   {
+    "number": 37,
+    "type": "open",
+    "parts": {
+     "a": [
+      "7"
+     ],
+     "b": [
+      "7"
+     ]
+    }
+   },
+   {
+    "number": 38,
+    "type": "open",
+    "parts": {
+     "a": [
+      "7"
+     ],
+     "b": [
+      "7"
+     ]
+    }
+   },
+   {
+    "number": 39,
+    "type": "open",
+    "parts": {
+     "a": [
+      "7"
+     ],
+     "b": [
+      "7"
+     ]
+    }
+   },
+   {
+    "number": 40,
+    "type": "open",
+    "parts": {
+     "a": [
+      "7"
+     ],
+     "b": [
+      "7"
+     ]
+    }
+   },
+   {
+    "number": 41,
+    "type": "open",
+    "parts": {
+     "a": [
+      "7"
+     ],
+     "b": [
+      "7"
+     ]
+    }
+   },
+   {
+    "number": 42,
+    "type": "open",
+    "parts": {
+     "a": [
+      "7"
+     ],
+     "b": [
+      "7"
+     ]
+    }
+   },
+   {
+    "number": 43,
+    "type": "open",
+    "parts": {
+     "a": [
+      "7"
+     ],
+     "b": [
+      "7"
+     ]
+    }
+   },
+   {
+    "number": 44,
+    "type": "open",
+    "parts": {
+     "a": [
+      "7"
+     ],
+     "b": [
+      "7"
+     ]
+    }
+   },
+   {
+    "number": 45,
+    "type": "open",
+    "parts": {
+     "a": [
+      "7"
+     ],
+     "b": [
+      "7"
+     ]
+    }
+   }
+  ],
+  "status": "closed",
+  "created_at": "2026-08-30T07:22:51.695682+00:00",
   "closes_at": null,
   "score_tables": {
    "weak": {
@@ -5144,5 +6859,7211 @@
    }
   },
   "calibrated_from": 0
+ },
+ {
+  "id": 5,
+  "code": "1",
+  "title": "Test №1",
+  "owner_id": 8249718690,
+  "subjects": [
+   "Matematika"
+  ],
+  "questions": [
+   {
+    "number": 1,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 2,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 3,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 4,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 5,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 6,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 7,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 8,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 9,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 10,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 11,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 12,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 13,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 14,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 15,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 16,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 17,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 18,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 19,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 20,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 21,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 22,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 23,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 24,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 25,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 26,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 27,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 28,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 29,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 30,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 31,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 32,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 33,
+    "type": "mc",
+    "options": 6,
+    "answer": "B"
+   },
+   {
+    "number": 34,
+    "type": "mc",
+    "options": 6,
+    "answer": "E"
+   },
+   {
+    "number": 35,
+    "type": "mc",
+    "options": 6,
+    "answer": "D"
+   },
+   {
+    "number": 36,
+    "type": "open",
+    "parts": {
+     "a": [
+      "6"
+     ],
+     "b": [
+      "5"
+     ]
+    }
+   },
+   {
+    "number": 37,
+    "type": "open",
+    "parts": {
+     "a": [
+      "\\frac{\\pi}{6}"
+     ],
+     "b": [
+      "4"
+     ]
+    }
+   },
+   {
+    "number": 38,
+    "type": "open",
+    "parts": {
+     "a": [
+      "60"
+     ],
+     "b": [
+      "5"
+     ]
+    }
+   },
+   {
+    "number": 39,
+    "type": "open",
+    "parts": {
+     "a": [
+      "0"
+     ],
+     "b": [
+      "8\\pi"
+     ]
+    }
+   },
+   {
+    "number": 40,
+    "type": "open",
+    "parts": {
+     "a": [
+      "17"
+     ],
+     "b": [
+      "2"
+     ]
+    }
+   },
+   {
+    "number": 41,
+    "type": "open",
+    "parts": {
+     "a": [
+      "\\frac{6}{13}"
+     ],
+     "b": [
+      "19"
+     ]
+    }
+   },
+   {
+    "number": 42,
+    "type": "open",
+    "parts": {
+     "a": [
+      "1"
+     ],
+     "b": [
+      "-1"
+     ]
+    }
+   },
+   {
+    "number": 43,
+    "type": "open",
+    "parts": {
+     "a": [
+      "10"
+     ],
+     "b": [
+      "24"
+     ]
+    }
+   },
+   {
+    "number": 44,
+    "type": "open",
+    "parts": {
+     "a": [
+      "\\frac{64}{5}"
+     ],
+     "b": [
+      "\\frac{16\\pi}{3}"
+     ]
+    }
+   },
+   {
+    "number": 45,
+    "type": "open",
+    "parts": {
+     "a": [
+      "\\frac12"
+     ],
+     "b": [
+      "180000"
+     ]
+    }
+   }
+  ],
+  "status": "closed",
+  "created_at": "2026-08-31T10:08:47.283217+00:00",
+  "closes_at": null,
+  "score_tables": {
+   "weak": {
+    "key": "weak",
+    "label_uz": "Zaif guruh",
+    "difficulties": [
+     -0.6717,
+     -0.56,
+     -0.5132,
+     -0.412,
+     -0.3252,
+     -0.2803,
+     -0.11,
+     -0.038,
+     0.007,
+     0.0853,
+     0.1538,
+     0.1734,
+     0.321,
+     0.4014,
+     0.5168,
+     0.5736,
+     0.6089,
+     0.7269,
+     0.7679,
+     0.8824,
+     0.9946,
+     0.9985,
+     1.1138,
+     1.1869,
+     1.2807,
+     1.3601,
+     1.3899,
+     1.4524,
+     1.5652,
+     1.656,
+     1.7491,
+     1.8311,
+     1.8654,
+     2.0162,
+     2.0787,
+     1.2924,
+     1.3344,
+     1.4103,
+     1.538,
+     1.6199,
+     1.7432,
+     1.7889,
+     1.9525,
+     2.0248,
+     2.069,
+     2.2551,
+     2.2978,
+     2.4046,
+     2.5054,
+     2.6697,
+     2.689,
+     2.8275,
+     2.8304,
+     3.012,
+     3.035
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -4.4518,
+      "ball": 0,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -3.2217,
+      "ball": 0,
+      "percentile": 0.8,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -2.4908,
+      "ball": 10,
+      "percentile": 1.9,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -2.0472,
+      "ball": 17,
+      "percentile": 3.7,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -1.7211,
+      "ball": 22,
+      "percentile": 6.0,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -1.4591,
+      "ball": 27,
+      "percentile": 8.8,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -1.2376,
+      "ball": 30,
+      "percentile": 12.2,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -1.0438,
+      "ball": 33,
+      "percentile": 16.2,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -0.8703,
+      "ball": 36,
+      "percentile": 20.5,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -0.7121,
+      "ball": 39,
+      "percentile": 24.8,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -0.566,
+      "ball": 41,
+      "percentile": 29.2,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -0.4295,
+      "ball": 43,
+      "percentile": 33.8,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -0.3008,
+      "ball": 45,
+      "percentile": 38.2,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -0.1787,
+      "ball": 47,
+      "percentile": 42.6,
+      "grade": "C"
+     },
+     {
+      "raw": 14,
+      "theta": -0.062,
+      "ball": 49,
+      "percentile": 46.9,
+      "grade": "C"
+     },
+     {
+      "raw": 15,
+      "theta": 0.05,
+      "ball": 51,
+      "percentile": 50.9,
+      "grade": "C+"
+     },
+     {
+      "raw": 16,
+      "theta": 0.1581,
+      "ball": 53,
+      "percentile": 54.9,
+      "grade": "C+"
+     },
+     {
+      "raw": 17,
+      "theta": 0.2629,
+      "ball": 54,
+      "percentile": 58.7,
+      "grade": "C+"
+     },
+     {
+      "raw": 18,
+      "theta": 0.3647,
+      "ball": 56,
+      "percentile": 62.2,
+      "grade": "B"
+     },
+     {
+      "raw": 19,
+      "theta": 0.4641,
+      "ball": 57,
+      "percentile": 65.7,
+      "grade": "B"
+     },
+     {
+      "raw": 20,
+      "theta": 0.5613,
+      "ball": 59,
+      "percentile": 69.1,
+      "grade": "B"
+     },
+     {
+      "raw": 21,
+      "theta": 0.6567,
+      "ball": 61,
+      "percentile": 72.3,
+      "grade": "B+"
+     },
+     {
+      "raw": 22,
+      "theta": 0.7506,
+      "ball": 62,
+      "percentile": 75.2,
+      "grade": "B+"
+     },
+     {
+      "raw": 23,
+      "theta": 0.8433,
+      "ball": 63,
+      "percentile": 77.9,
+      "grade": "B+"
+     },
+     {
+      "raw": 24,
+      "theta": 0.9349,
+      "ball": 65,
+      "percentile": 80.5,
+      "grade": "A"
+     },
+     {
+      "raw": 25,
+      "theta": 1.0256,
+      "ball": 66,
+      "percentile": 82.9,
+      "grade": "A"
+     },
+     {
+      "raw": 26,
+      "theta": 1.1158,
+      "ball": 68,
+      "percentile": 84.9,
+      "grade": "A"
+     },
+     {
+      "raw": 27,
+      "theta": 1.2056,
+      "ball": 69,
+      "percentile": 86.8,
+      "grade": "A"
+     },
+     {
+      "raw": 28,
+      "theta": 1.2951,
+      "ball": 71,
+      "percentile": 88.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 29,
+      "theta": 1.3847,
+      "ball": 72,
+      "percentile": 90.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 30,
+      "theta": 1.4744,
+      "ball": 74,
+      "percentile": 91.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 31,
+      "theta": 1.5646,
+      "ball": 75,
+      "percentile": 92.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 32,
+      "theta": 1.6553,
+      "ball": 76,
+      "percentile": 93.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 33,
+      "theta": 1.7469,
+      "ball": 78,
+      "percentile": 94.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 34,
+      "theta": 1.8395,
+      "ball": 79,
+      "percentile": 95.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 35,
+      "theta": 1.9335,
+      "ball": 81,
+      "percentile": 96.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 36,
+      "theta": 2.0291,
+      "ball": 82,
+      "percentile": 97.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 37,
+      "theta": 2.1266,
+      "ball": 84,
+      "percentile": 97.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 38,
+      "theta": 2.2265,
+      "ball": 86,
+      "percentile": 98.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 39,
+      "theta": 2.3291,
+      "ball": 87,
+      "percentile": 98.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 40,
+      "theta": 2.4349,
+      "ball": 89,
+      "percentile": 98.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 41,
+      "theta": 2.5445,
+      "ball": 91,
+      "percentile": 99.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 42,
+      "theta": 2.6586,
+      "ball": 93,
+      "percentile": 99.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 43,
+      "theta": 2.778,
+      "ball": 94,
+      "percentile": 99.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 44,
+      "theta": 2.9039,
+      "ball": 96,
+      "percentile": 99.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 45,
+      "theta": 3.0375,
+      "ball": 99,
+      "percentile": 99.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 46,
+      "theta": 3.1807,
+      "ball": 100,
+      "percentile": 99.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 47,
+      "theta": 3.3359,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 48,
+      "theta": 3.5063,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 49,
+      "theta": 3.697,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 3.9154,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 4.1743,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 4.4973,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 4.9378,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 5.6656,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 6.8937,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   },
+   "normal": {
+    "key": "normal",
+    "label_uz": "O'rtacha guruh",
+    "difficulties": [
+     -1.867,
+     -1.8047,
+     -1.7115,
+     -1.6617,
+     -1.5641,
+     -1.5558,
+     -1.3917,
+     -1.3345,
+     -1.2257,
+     -1.1548,
+     -1.0764,
+     -1.0519,
+     -0.9147,
+     -0.8664,
+     -0.8027,
+     -0.7065,
+     -0.5847,
+     -0.5462,
+     -0.44,
+     -0.3451,
+     -0.3117,
+     -0.1762,
+     -0.0797,
+     -0.0551,
+     0.0281,
+     0.1263,
+     0.2006,
+     0.266,
+     0.3371,
+     0.4078,
+     0.5349,
+     0.5959,
+     0.6529,
+     0.743,
+     0.8013,
+     0.0213,
+     0.0968,
+     0.2211,
+     0.3263,
+     0.3697,
+     0.4771,
+     0.602,
+     0.7289,
+     0.8232,
+     0.8685,
+     0.9647,
+     1.0941,
+     1.1882,
+     1.2955,
+     1.3834,
+     1.4347,
+     1.5224,
+     1.6596,
+     1.7051,
+     1.8141
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -5.6919,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -4.4618,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -3.731,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -3.2875,
+      "ball": 0,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -2.9614,
+      "ball": 3,
+      "percentile": 0.4,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -2.6994,
+      "ball": 7,
+      "percentile": 0.6,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -2.4778,
+      "ball": 10,
+      "percentile": 1.0,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -2.284,
+      "ball": 13,
+      "percentile": 1.5,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -2.1104,
+      "ball": 16,
+      "percentile": 2.2,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -1.9522,
+      "ball": 19,
+      "percentile": 3.1,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -1.8059,
+      "ball": 21,
+      "percentile": 4.1,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -1.6692,
+      "ball": 23,
+      "percentile": 5.3,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -1.5404,
+      "ball": 25,
+      "percentile": 6.8,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -1.4181,
+      "ball": 27,
+      "percentile": 8.6,
+      "grade": "—"
+     },
+     {
+      "raw": 14,
+      "theta": -1.3012,
+      "ball": 29,
+      "percentile": 10.5,
+      "grade": "—"
+     },
+     {
+      "raw": 15,
+      "theta": -1.189,
+      "ball": 31,
+      "percentile": 12.7,
+      "grade": "—"
+     },
+     {
+      "raw": 16,
+      "theta": -1.0807,
+      "ball": 33,
+      "percentile": 15.2,
+      "grade": "—"
+     },
+     {
+      "raw": 17,
+      "theta": -0.9758,
+      "ball": 34,
+      "percentile": 17.7,
+      "grade": "—"
+     },
+     {
+      "raw": 18,
+      "theta": -0.8737,
+      "ball": 36,
+      "percentile": 20.2,
+      "grade": "—"
+     },
+     {
+      "raw": 19,
+      "theta": -0.7741,
+      "ball": 38,
+      "percentile": 22.9,
+      "grade": "—"
+     },
+     {
+      "raw": 20,
+      "theta": -0.6767,
+      "ball": 39,
+      "percentile": 25.9,
+      "grade": "—"
+     },
+     {
+      "raw": 21,
+      "theta": -0.5811,
+      "ball": 41,
+      "percentile": 29.1,
+      "grade": "—"
+     },
+     {
+      "raw": 22,
+      "theta": -0.487,
+      "ball": 42,
+      "percentile": 32.5,
+      "grade": "—"
+     },
+     {
+      "raw": 23,
+      "theta": -0.3941,
+      "ball": 44,
+      "percentile": 35.9,
+      "grade": "—"
+     },
+     {
+      "raw": 24,
+      "theta": -0.3024,
+      "ball": 45,
+      "percentile": 39.4,
+      "grade": "—"
+     },
+     {
+      "raw": 25,
+      "theta": -0.2114,
+      "ball": 47,
+      "percentile": 42.7,
+      "grade": "C"
+     },
+     {
+      "raw": 26,
+      "theta": -0.1211,
+      "ball": 48,
+      "percentile": 45.8,
+      "grade": "C"
+     },
+     {
+      "raw": 27,
+      "theta": -0.0312,
+      "ball": 50,
+      "percentile": 49.0,
+      "grade": "C+"
+     },
+     {
+      "raw": 28,
+      "theta": 0.0585,
+      "ball": 51,
+      "percentile": 52.4,
+      "grade": "C+"
+     },
+     {
+      "raw": 29,
+      "theta": 0.1482,
+      "ball": 52,
+      "percentile": 55.7,
+      "grade": "C+"
+     },
+     {
+      "raw": 30,
+      "theta": 0.238,
+      "ball": 54,
+      "percentile": 59.2,
+      "grade": "C+"
+     },
+     {
+      "raw": 31,
+      "theta": 0.3283,
+      "ball": 55,
+      "percentile": 62.5,
+      "grade": "B"
+     },
+     {
+      "raw": 32,
+      "theta": 0.4191,
+      "ball": 57,
+      "percentile": 65.7,
+      "grade": "B"
+     },
+     {
+      "raw": 33,
+      "theta": 0.5107,
+      "ball": 58,
+      "percentile": 68.9,
+      "grade": "B"
+     },
+     {
+      "raw": 34,
+      "theta": 0.6034,
+      "ball": 60,
+      "percentile": 72.1,
+      "grade": "B+"
+     },
+     {
+      "raw": 35,
+      "theta": 0.6974,
+      "ball": 61,
+      "percentile": 75.1,
+      "grade": "B+"
+     },
+     {
+      "raw": 36,
+      "theta": 0.793,
+      "ball": 63,
+      "percentile": 77.7,
+      "grade": "B+"
+     },
+     {
+      "raw": 37,
+      "theta": 0.8906,
+      "ball": 64,
+      "percentile": 80.3,
+      "grade": "B+"
+     },
+     {
+      "raw": 38,
+      "theta": 0.9904,
+      "ball": 66,
+      "percentile": 82.7,
+      "grade": "A"
+     },
+     {
+      "raw": 39,
+      "theta": 1.0929,
+      "ball": 67,
+      "percentile": 85.0,
+      "grade": "A"
+     },
+     {
+      "raw": 40,
+      "theta": 1.1987,
+      "ball": 69,
+      "percentile": 87.2,
+      "grade": "A"
+     },
+     {
+      "raw": 41,
+      "theta": 1.3082,
+      "ball": 71,
+      "percentile": 89.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 42,
+      "theta": 1.4222,
+      "ball": 73,
+      "percentile": 91.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 43,
+      "theta": 1.5415,
+      "ball": 75,
+      "percentile": 92.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 44,
+      "theta": 1.6673,
+      "ball": 77,
+      "percentile": 94.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 45,
+      "theta": 1.8008,
+      "ball": 79,
+      "percentile": 95.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 46,
+      "theta": 1.9438,
+      "ball": 81,
+      "percentile": 96.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 47,
+      "theta": 2.0988,
+      "ball": 84,
+      "percentile": 97.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 48,
+      "theta": 2.269,
+      "ball": 86,
+      "percentile": 98.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 49,
+      "theta": 2.4595,
+      "ball": 89,
+      "percentile": 98.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 2.6777,
+      "ball": 93,
+      "percentile": 99.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 2.9363,
+      "ball": 97,
+      "percentile": 99.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 3.2591,
+      "ball": 100,
+      "percentile": 99.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 3.6993,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 4.4268,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 5.6547,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   },
+   "strong": {
+    "key": "strong",
+    "label_uz": "Kuchli guruh",
+    "difficulties": [
+     -3.0978,
+     -3.0399,
+     -2.8769,
+     -2.7924,
+     -2.8191,
+     -2.7167,
+     -2.6039,
+     -2.5701,
+     -2.4268,
+     -2.4096,
+     -2.3599,
+     -2.2443,
+     -2.1191,
+     -2.0675,
+     -1.9845,
+     -1.8986,
+     -1.8606,
+     -1.744,
+     -1.6533,
+     -1.5364,
+     -1.523,
+     -1.4148,
+     -1.381,
+     -1.311,
+     -1.1461,
+     -1.1015,
+     -1.0473,
+     -0.9347,
+     -0.8619,
+     -0.8457,
+     -0.7223,
+     -0.6347,
+     -0.5722,
+     -0.4857,
+     -0.3871,
+     -1.1678,
+     -1.0934,
+     -1.0264,
+     -0.9079,
+     -0.8468,
+     -0.7019,
+     -0.6377,
+     -0.5296,
+     -0.4325,
+     -0.3603,
+     -0.226,
+     -0.1617,
+     -0.0843,
+     0.0627,
+     0.159,
+     0.2569,
+     0.3582,
+     0.4192,
+     0.5195,
+     0.5784
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -6.9057,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -5.6758,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -4.9454,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -4.5022,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -4.1763,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -3.9147,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -3.6934,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -3.4999,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -3.3266,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -3.1686,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -3.0226,
+      "ball": 2,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -2.8863,
+      "ball": 4,
+      "percentile": 0.3,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -2.7578,
+      "ball": 6,
+      "percentile": 0.5,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -2.6357,
+      "ball": 8,
+      "percentile": 0.6,
+      "grade": "—"
+     },
+     {
+      "raw": 14,
+      "theta": -2.5192,
+      "ball": 10,
+      "percentile": 0.9,
+      "grade": "—"
+     },
+     {
+      "raw": 15,
+      "theta": -2.4072,
+      "ball": 11,
+      "percentile": 1.3,
+      "grade": "—"
+     },
+     {
+      "raw": 16,
+      "theta": -2.2991,
+      "ball": 13,
+      "percentile": 1.6,
+      "grade": "—"
+     },
+     {
+      "raw": 17,
+      "theta": -2.1945,
+      "ball": 15,
+      "percentile": 2.0,
+      "grade": "—"
+     },
+     {
+      "raw": 18,
+      "theta": -2.0927,
+      "ball": 17,
+      "percentile": 2.5,
+      "grade": "—"
+     },
+     {
+      "raw": 19,
+      "theta": -1.9933,
+      "ball": 18,
+      "percentile": 3.1,
+      "grade": "—"
+     },
+     {
+      "raw": 20,
+      "theta": -1.8961,
+      "ball": 20,
+      "percentile": 3.8,
+      "grade": "—"
+     },
+     {
+      "raw": 21,
+      "theta": -1.8007,
+      "ball": 21,
+      "percentile": 4.6,
+      "grade": "—"
+     },
+     {
+      "raw": 22,
+      "theta": -1.7068,
+      "ball": 23,
+      "percentile": 5.6,
+      "grade": "—"
+     },
+     {
+      "raw": 23,
+      "theta": -1.6142,
+      "ball": 24,
+      "percentile": 6.7,
+      "grade": "—"
+     },
+     {
+      "raw": 24,
+      "theta": -1.5226,
+      "ball": 26,
+      "percentile": 7.9,
+      "grade": "—"
+     },
+     {
+      "raw": 25,
+      "theta": -1.4318,
+      "ball": 27,
+      "percentile": 9.2,
+      "grade": "—"
+     },
+     {
+      "raw": 26,
+      "theta": -1.3417,
+      "ball": 29,
+      "percentile": 10.8,
+      "grade": "—"
+     },
+     {
+      "raw": 27,
+      "theta": -1.2519,
+      "ball": 30,
+      "percentile": 12.5,
+      "grade": "—"
+     },
+     {
+      "raw": 28,
+      "theta": -1.1624,
+      "ball": 31,
+      "percentile": 14.2,
+      "grade": "—"
+     },
+     {
+      "raw": 29,
+      "theta": -1.0729,
+      "ball": 33,
+      "percentile": 16.2,
+      "grade": "—"
+     },
+     {
+      "raw": 30,
+      "theta": -0.9831,
+      "ball": 34,
+      "percentile": 18.4,
+      "grade": "—"
+     },
+     {
+      "raw": 31,
+      "theta": -0.893,
+      "ball": 36,
+      "percentile": 20.9,
+      "grade": "—"
+     },
+     {
+      "raw": 32,
+      "theta": -0.8023,
+      "ball": 37,
+      "percentile": 23.5,
+      "grade": "—"
+     },
+     {
+      "raw": 33,
+      "theta": -0.7108,
+      "ball": 39,
+      "percentile": 26.1,
+      "grade": "—"
+     },
+     {
+      "raw": 34,
+      "theta": -0.6182,
+      "ball": 40,
+      "percentile": 29.0,
+      "grade": "—"
+     },
+     {
+      "raw": 35,
+      "theta": -0.5242,
+      "ball": 42,
+      "percentile": 32.3,
+      "grade": "—"
+     },
+     {
+      "raw": 36,
+      "theta": -0.4287,
+      "ball": 43,
+      "percentile": 35.8,
+      "grade": "—"
+     },
+     {
+      "raw": 37,
+      "theta": -0.3312,
+      "ball": 45,
+      "percentile": 39.2,
+      "grade": "—"
+     },
+     {
+      "raw": 38,
+      "theta": -0.2314,
+      "ball": 46,
+      "percentile": 42.7,
+      "grade": "C"
+     },
+     {
+      "raw": 39,
+      "theta": -0.1289,
+      "ball": 48,
+      "percentile": 46.5,
+      "grade": "C"
+     },
+     {
+      "raw": 40,
+      "theta": -0.0232,
+      "ball": 50,
+      "percentile": 50.3,
+      "grade": "C+"
+     },
+     {
+      "raw": 41,
+      "theta": 0.0864,
+      "ball": 51,
+      "percentile": 54.3,
+      "grade": "C+"
+     },
+     {
+      "raw": 42,
+      "theta": 0.2004,
+      "ball": 53,
+      "percentile": 58.5,
+      "grade": "C+"
+     },
+     {
+      "raw": 43,
+      "theta": 0.3197,
+      "ball": 55,
+      "percentile": 62.6,
+      "grade": "B"
+     },
+     {
+      "raw": 44,
+      "theta": 0.4455,
+      "ball": 57,
+      "percentile": 66.9,
+      "grade": "B"
+     },
+     {
+      "raw": 45,
+      "theta": 0.5791,
+      "ball": 59,
+      "percentile": 71.2,
+      "grade": "B"
+     },
+     {
+      "raw": 46,
+      "theta": 0.7222,
+      "ball": 62,
+      "percentile": 75.3,
+      "grade": "B+"
+     },
+     {
+      "raw": 47,
+      "theta": 0.8772,
+      "ball": 64,
+      "percentile": 79.5,
+      "grade": "B+"
+     },
+     {
+      "raw": 48,
+      "theta": 1.0476,
+      "ball": 67,
+      "percentile": 83.6,
+      "grade": "A"
+     },
+     {
+      "raw": 49,
+      "theta": 1.2381,
+      "ball": 70,
+      "percentile": 87.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 1.4565,
+      "ball": 73,
+      "percentile": 91.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 1.7152,
+      "ball": 77,
+      "percentile": 94.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 2.0382,
+      "ball": 83,
+      "percentile": 96.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 2.4785,
+      "ball": 90,
+      "percentile": 98.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 3.2063,
+      "ball": 100,
+      "percentile": 99.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 4.4343,
+      "ball": 100,
+      "percentile": 99.8,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   }
+  },
+  "calibrated_from": 0
+ },
+ {
+  "id": 6,
+  "code": "9554",
+  "title": "Milliy serifikat",
+  "owner_id": 215204493,
+  "subjects": [
+   "Fizika"
+  ],
+  "questions": [
+   {
+    "number": 1,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 2,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 3,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 4,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 5,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 6,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 7,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 8,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 9,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 10,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 11,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 12,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 13,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 14,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 15,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 16,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 17,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 18,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 19,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 20,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 21,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 22,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 23,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 24,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 25,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 26,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 27,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 28,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 29,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 30,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 31,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 32,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 33,
+    "type": "mc",
+    "options": 6,
+    "answer": "D"
+   },
+   {
+    "number": 34,
+    "type": "mc",
+    "options": 6,
+    "answer": "E"
+   },
+   {
+    "number": 35,
+    "type": "mc",
+    "options": 6,
+    "answer": "A"
+   },
+   {
+    "number": 36,
+    "type": "open",
+    "parts": {
+     "a": [
+      "10"
+     ],
+     "b": [
+      "120"
+     ]
+    }
+   },
+   {
+    "number": 37,
+    "type": "open",
+    "parts": {
+     "a": [
+      "5"
+     ],
+     "b": [
+      "1"
+     ]
+    }
+   },
+   {
+    "number": 38,
+    "type": "open",
+    "parts": {
+     "a": [
+      "2"
+     ],
+     "b": [
+      "32"
+     ]
+    }
+   },
+   {
+    "number": 39,
+    "type": "open",
+    "parts": {
+     "a": [
+      "21"
+     ],
+     "b": [
+      "50"
+     ]
+    }
+   },
+   {
+    "number": 40,
+    "type": "open",
+    "parts": {
+     "a": [
+      "1.5"
+     ],
+     "b": [
+      "4.5"
+     ]
+    }
+   },
+   {
+    "number": 41,
+    "type": "open",
+    "parts": {
+     "a": [
+      "525"
+     ],
+     "b": [
+      "1.31"
+     ]
+    }
+   },
+   {
+    "number": 42,
+    "type": "open",
+    "parts": {
+     "a": [
+      "1.9"
+     ],
+     "b": [
+      "1.13"
+     ]
+    }
+   },
+   {
+    "number": 43,
+    "type": "open",
+    "parts": {
+     "a": [
+      "2.5"
+     ],
+     "b": [
+      "1.14"
+     ]
+    }
+   },
+   {
+    "number": 44,
+    "type": "open",
+    "parts": {
+     "a": [
+      "\\frac{m}{2}"
+     ],
+     "b": [
+      "\\frac{mc^2}{8}"
+     ]
+    }
+   },
+   {
+    "number": 45,
+    "type": "open",
+    "parts": {
+     "a": [
+      "1.51"
+     ],
+     "b": [
+      "13.6"
+     ]
+    }
+   }
+  ],
+  "status": "closed",
+  "created_at": "2026-09-03T02:11:40.203040+00:00",
+  "closes_at": null,
+  "score_tables": {
+   "weak": {
+    "key": "weak",
+    "label_uz": "Zaif guruh",
+    "difficulties": [
+     -0.6717,
+     -0.56,
+     -0.5132,
+     -0.412,
+     -0.3252,
+     -0.2803,
+     -0.11,
+     -0.038,
+     0.007,
+     0.0853,
+     0.1538,
+     0.1734,
+     0.321,
+     0.4014,
+     0.5168,
+     0.5736,
+     0.6089,
+     0.7269,
+     0.7679,
+     0.8824,
+     0.9946,
+     0.9985,
+     1.1138,
+     1.1869,
+     1.2807,
+     1.3601,
+     1.3899,
+     1.4524,
+     1.5652,
+     1.656,
+     1.7491,
+     1.8311,
+     1.8654,
+     2.0162,
+     2.0787,
+     1.2924,
+     1.3344,
+     1.4103,
+     1.538,
+     1.6199,
+     1.7432,
+     1.7889,
+     1.9525,
+     2.0248,
+     2.069,
+     2.2551,
+     2.2978,
+     2.4046,
+     2.5054,
+     2.6697,
+     2.689,
+     2.8275,
+     2.8304,
+     3.012,
+     3.035
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -4.4518,
+      "ball": 0,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -3.2217,
+      "ball": 0,
+      "percentile": 0.8,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -2.4908,
+      "ball": 10,
+      "percentile": 1.9,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -2.0472,
+      "ball": 17,
+      "percentile": 3.7,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -1.7211,
+      "ball": 22,
+      "percentile": 6.0,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -1.4591,
+      "ball": 27,
+      "percentile": 8.8,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -1.2376,
+      "ball": 30,
+      "percentile": 12.2,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -1.0438,
+      "ball": 33,
+      "percentile": 16.2,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -0.8703,
+      "ball": 36,
+      "percentile": 20.5,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -0.7121,
+      "ball": 39,
+      "percentile": 24.8,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -0.566,
+      "ball": 41,
+      "percentile": 29.2,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -0.4295,
+      "ball": 43,
+      "percentile": 33.8,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -0.3008,
+      "ball": 45,
+      "percentile": 38.2,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -0.1787,
+      "ball": 47,
+      "percentile": 42.6,
+      "grade": "C"
+     },
+     {
+      "raw": 14,
+      "theta": -0.062,
+      "ball": 49,
+      "percentile": 46.9,
+      "grade": "C"
+     },
+     {
+      "raw": 15,
+      "theta": 0.05,
+      "ball": 51,
+      "percentile": 50.9,
+      "grade": "C+"
+     },
+     {
+      "raw": 16,
+      "theta": 0.1581,
+      "ball": 53,
+      "percentile": 54.9,
+      "grade": "C+"
+     },
+     {
+      "raw": 17,
+      "theta": 0.2629,
+      "ball": 54,
+      "percentile": 58.7,
+      "grade": "C+"
+     },
+     {
+      "raw": 18,
+      "theta": 0.3647,
+      "ball": 56,
+      "percentile": 62.2,
+      "grade": "B"
+     },
+     {
+      "raw": 19,
+      "theta": 0.4641,
+      "ball": 57,
+      "percentile": 65.7,
+      "grade": "B"
+     },
+     {
+      "raw": 20,
+      "theta": 0.5613,
+      "ball": 59,
+      "percentile": 69.1,
+      "grade": "B"
+     },
+     {
+      "raw": 21,
+      "theta": 0.6567,
+      "ball": 61,
+      "percentile": 72.3,
+      "grade": "B+"
+     },
+     {
+      "raw": 22,
+      "theta": 0.7506,
+      "ball": 62,
+      "percentile": 75.2,
+      "grade": "B+"
+     },
+     {
+      "raw": 23,
+      "theta": 0.8433,
+      "ball": 63,
+      "percentile": 77.9,
+      "grade": "B+"
+     },
+     {
+      "raw": 24,
+      "theta": 0.9349,
+      "ball": 65,
+      "percentile": 80.5,
+      "grade": "A"
+     },
+     {
+      "raw": 25,
+      "theta": 1.0256,
+      "ball": 66,
+      "percentile": 82.9,
+      "grade": "A"
+     },
+     {
+      "raw": 26,
+      "theta": 1.1158,
+      "ball": 68,
+      "percentile": 84.9,
+      "grade": "A"
+     },
+     {
+      "raw": 27,
+      "theta": 1.2056,
+      "ball": 69,
+      "percentile": 86.8,
+      "grade": "A"
+     },
+     {
+      "raw": 28,
+      "theta": 1.2951,
+      "ball": 71,
+      "percentile": 88.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 29,
+      "theta": 1.3847,
+      "ball": 72,
+      "percentile": 90.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 30,
+      "theta": 1.4744,
+      "ball": 74,
+      "percentile": 91.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 31,
+      "theta": 1.5646,
+      "ball": 75,
+      "percentile": 92.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 32,
+      "theta": 1.6553,
+      "ball": 76,
+      "percentile": 93.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 33,
+      "theta": 1.7469,
+      "ball": 78,
+      "percentile": 94.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 34,
+      "theta": 1.8395,
+      "ball": 79,
+      "percentile": 95.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 35,
+      "theta": 1.9335,
+      "ball": 81,
+      "percentile": 96.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 36,
+      "theta": 2.0291,
+      "ball": 82,
+      "percentile": 97.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 37,
+      "theta": 2.1266,
+      "ball": 84,
+      "percentile": 97.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 38,
+      "theta": 2.2265,
+      "ball": 86,
+      "percentile": 98.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 39,
+      "theta": 2.3291,
+      "ball": 87,
+      "percentile": 98.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 40,
+      "theta": 2.4349,
+      "ball": 89,
+      "percentile": 98.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 41,
+      "theta": 2.5445,
+      "ball": 91,
+      "percentile": 99.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 42,
+      "theta": 2.6586,
+      "ball": 93,
+      "percentile": 99.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 43,
+      "theta": 2.778,
+      "ball": 94,
+      "percentile": 99.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 44,
+      "theta": 2.9039,
+      "ball": 96,
+      "percentile": 99.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 45,
+      "theta": 3.0375,
+      "ball": 99,
+      "percentile": 99.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 46,
+      "theta": 3.1807,
+      "ball": 100,
+      "percentile": 99.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 47,
+      "theta": 3.3359,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 48,
+      "theta": 3.5063,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 49,
+      "theta": 3.697,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 3.9154,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 4.1743,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 4.4973,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 4.9378,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 5.6656,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 6.8937,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   },
+   "normal": {
+    "key": "normal",
+    "label_uz": "O'rtacha guruh",
+    "difficulties": [
+     -1.867,
+     -1.8047,
+     -1.7115,
+     -1.6617,
+     -1.5641,
+     -1.5558,
+     -1.3917,
+     -1.3345,
+     -1.2257,
+     -1.1548,
+     -1.0764,
+     -1.0519,
+     -0.9147,
+     -0.8664,
+     -0.8027,
+     -0.7065,
+     -0.5847,
+     -0.5462,
+     -0.44,
+     -0.3451,
+     -0.3117,
+     -0.1762,
+     -0.0797,
+     -0.0551,
+     0.0281,
+     0.1263,
+     0.2006,
+     0.266,
+     0.3371,
+     0.4078,
+     0.5349,
+     0.5959,
+     0.6529,
+     0.743,
+     0.8013,
+     0.0213,
+     0.0968,
+     0.2211,
+     0.3263,
+     0.3697,
+     0.4771,
+     0.602,
+     0.7289,
+     0.8232,
+     0.8685,
+     0.9647,
+     1.0941,
+     1.1882,
+     1.2955,
+     1.3834,
+     1.4347,
+     1.5224,
+     1.6596,
+     1.7051,
+     1.8141
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -5.6919,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -4.4618,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -3.731,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -3.2875,
+      "ball": 0,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -2.9614,
+      "ball": 3,
+      "percentile": 0.4,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -2.6994,
+      "ball": 7,
+      "percentile": 0.6,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -2.4778,
+      "ball": 10,
+      "percentile": 1.0,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -2.284,
+      "ball": 13,
+      "percentile": 1.5,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -2.1104,
+      "ball": 16,
+      "percentile": 2.2,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -1.9522,
+      "ball": 19,
+      "percentile": 3.1,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -1.8059,
+      "ball": 21,
+      "percentile": 4.1,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -1.6692,
+      "ball": 23,
+      "percentile": 5.3,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -1.5404,
+      "ball": 25,
+      "percentile": 6.8,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -1.4181,
+      "ball": 27,
+      "percentile": 8.6,
+      "grade": "—"
+     },
+     {
+      "raw": 14,
+      "theta": -1.3012,
+      "ball": 29,
+      "percentile": 10.5,
+      "grade": "—"
+     },
+     {
+      "raw": 15,
+      "theta": -1.189,
+      "ball": 31,
+      "percentile": 12.7,
+      "grade": "—"
+     },
+     {
+      "raw": 16,
+      "theta": -1.0807,
+      "ball": 33,
+      "percentile": 15.2,
+      "grade": "—"
+     },
+     {
+      "raw": 17,
+      "theta": -0.9758,
+      "ball": 34,
+      "percentile": 17.7,
+      "grade": "—"
+     },
+     {
+      "raw": 18,
+      "theta": -0.8737,
+      "ball": 36,
+      "percentile": 20.2,
+      "grade": "—"
+     },
+     {
+      "raw": 19,
+      "theta": -0.7741,
+      "ball": 38,
+      "percentile": 22.9,
+      "grade": "—"
+     },
+     {
+      "raw": 20,
+      "theta": -0.6767,
+      "ball": 39,
+      "percentile": 25.9,
+      "grade": "—"
+     },
+     {
+      "raw": 21,
+      "theta": -0.5811,
+      "ball": 41,
+      "percentile": 29.1,
+      "grade": "—"
+     },
+     {
+      "raw": 22,
+      "theta": -0.487,
+      "ball": 42,
+      "percentile": 32.5,
+      "grade": "—"
+     },
+     {
+      "raw": 23,
+      "theta": -0.3941,
+      "ball": 44,
+      "percentile": 35.9,
+      "grade": "—"
+     },
+     {
+      "raw": 24,
+      "theta": -0.3024,
+      "ball": 45,
+      "percentile": 39.4,
+      "grade": "—"
+     },
+     {
+      "raw": 25,
+      "theta": -0.2114,
+      "ball": 47,
+      "percentile": 42.7,
+      "grade": "C"
+     },
+     {
+      "raw": 26,
+      "theta": -0.1211,
+      "ball": 48,
+      "percentile": 45.8,
+      "grade": "C"
+     },
+     {
+      "raw": 27,
+      "theta": -0.0312,
+      "ball": 50,
+      "percentile": 49.0,
+      "grade": "C+"
+     },
+     {
+      "raw": 28,
+      "theta": 0.0585,
+      "ball": 51,
+      "percentile": 52.4,
+      "grade": "C+"
+     },
+     {
+      "raw": 29,
+      "theta": 0.1482,
+      "ball": 52,
+      "percentile": 55.7,
+      "grade": "C+"
+     },
+     {
+      "raw": 30,
+      "theta": 0.238,
+      "ball": 54,
+      "percentile": 59.2,
+      "grade": "C+"
+     },
+     {
+      "raw": 31,
+      "theta": 0.3283,
+      "ball": 55,
+      "percentile": 62.5,
+      "grade": "B"
+     },
+     {
+      "raw": 32,
+      "theta": 0.4191,
+      "ball": 57,
+      "percentile": 65.7,
+      "grade": "B"
+     },
+     {
+      "raw": 33,
+      "theta": 0.5107,
+      "ball": 58,
+      "percentile": 68.9,
+      "grade": "B"
+     },
+     {
+      "raw": 34,
+      "theta": 0.6034,
+      "ball": 60,
+      "percentile": 72.1,
+      "grade": "B+"
+     },
+     {
+      "raw": 35,
+      "theta": 0.6974,
+      "ball": 61,
+      "percentile": 75.1,
+      "grade": "B+"
+     },
+     {
+      "raw": 36,
+      "theta": 0.793,
+      "ball": 63,
+      "percentile": 77.7,
+      "grade": "B+"
+     },
+     {
+      "raw": 37,
+      "theta": 0.8906,
+      "ball": 64,
+      "percentile": 80.3,
+      "grade": "B+"
+     },
+     {
+      "raw": 38,
+      "theta": 0.9904,
+      "ball": 66,
+      "percentile": 82.7,
+      "grade": "A"
+     },
+     {
+      "raw": 39,
+      "theta": 1.0929,
+      "ball": 67,
+      "percentile": 85.0,
+      "grade": "A"
+     },
+     {
+      "raw": 40,
+      "theta": 1.1987,
+      "ball": 69,
+      "percentile": 87.2,
+      "grade": "A"
+     },
+     {
+      "raw": 41,
+      "theta": 1.3082,
+      "ball": 71,
+      "percentile": 89.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 42,
+      "theta": 1.4222,
+      "ball": 73,
+      "percentile": 91.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 43,
+      "theta": 1.5415,
+      "ball": 75,
+      "percentile": 92.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 44,
+      "theta": 1.6673,
+      "ball": 77,
+      "percentile": 94.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 45,
+      "theta": 1.8008,
+      "ball": 79,
+      "percentile": 95.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 46,
+      "theta": 1.9438,
+      "ball": 81,
+      "percentile": 96.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 47,
+      "theta": 2.0988,
+      "ball": 84,
+      "percentile": 97.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 48,
+      "theta": 2.269,
+      "ball": 86,
+      "percentile": 98.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 49,
+      "theta": 2.4595,
+      "ball": 89,
+      "percentile": 98.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 2.6777,
+      "ball": 93,
+      "percentile": 99.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 2.9363,
+      "ball": 97,
+      "percentile": 99.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 3.2591,
+      "ball": 100,
+      "percentile": 99.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 3.6993,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 4.4268,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 5.6547,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   },
+   "strong": {
+    "key": "strong",
+    "label_uz": "Kuchli guruh",
+    "difficulties": [
+     -3.0978,
+     -3.0399,
+     -2.8769,
+     -2.7924,
+     -2.8191,
+     -2.7167,
+     -2.6039,
+     -2.5701,
+     -2.4268,
+     -2.4096,
+     -2.3599,
+     -2.2443,
+     -2.1191,
+     -2.0675,
+     -1.9845,
+     -1.8986,
+     -1.8606,
+     -1.744,
+     -1.6533,
+     -1.5364,
+     -1.523,
+     -1.4148,
+     -1.381,
+     -1.311,
+     -1.1461,
+     -1.1015,
+     -1.0473,
+     -0.9347,
+     -0.8619,
+     -0.8457,
+     -0.7223,
+     -0.6347,
+     -0.5722,
+     -0.4857,
+     -0.3871,
+     -1.1678,
+     -1.0934,
+     -1.0264,
+     -0.9079,
+     -0.8468,
+     -0.7019,
+     -0.6377,
+     -0.5296,
+     -0.4325,
+     -0.3603,
+     -0.226,
+     -0.1617,
+     -0.0843,
+     0.0627,
+     0.159,
+     0.2569,
+     0.3582,
+     0.4192,
+     0.5195,
+     0.5784
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -6.9057,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -5.6758,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -4.9454,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -4.5022,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -4.1763,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -3.9147,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -3.6934,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -3.4999,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -3.3266,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -3.1686,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -3.0226,
+      "ball": 2,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -2.8863,
+      "ball": 4,
+      "percentile": 0.3,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -2.7578,
+      "ball": 6,
+      "percentile": 0.5,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -2.6357,
+      "ball": 8,
+      "percentile": 0.6,
+      "grade": "—"
+     },
+     {
+      "raw": 14,
+      "theta": -2.5192,
+      "ball": 10,
+      "percentile": 0.9,
+      "grade": "—"
+     },
+     {
+      "raw": 15,
+      "theta": -2.4072,
+      "ball": 11,
+      "percentile": 1.3,
+      "grade": "—"
+     },
+     {
+      "raw": 16,
+      "theta": -2.2991,
+      "ball": 13,
+      "percentile": 1.6,
+      "grade": "—"
+     },
+     {
+      "raw": 17,
+      "theta": -2.1945,
+      "ball": 15,
+      "percentile": 2.0,
+      "grade": "—"
+     },
+     {
+      "raw": 18,
+      "theta": -2.0927,
+      "ball": 17,
+      "percentile": 2.5,
+      "grade": "—"
+     },
+     {
+      "raw": 19,
+      "theta": -1.9933,
+      "ball": 18,
+      "percentile": 3.1,
+      "grade": "—"
+     },
+     {
+      "raw": 20,
+      "theta": -1.8961,
+      "ball": 20,
+      "percentile": 3.8,
+      "grade": "—"
+     },
+     {
+      "raw": 21,
+      "theta": -1.8007,
+      "ball": 21,
+      "percentile": 4.6,
+      "grade": "—"
+     },
+     {
+      "raw": 22,
+      "theta": -1.7068,
+      "ball": 23,
+      "percentile": 5.6,
+      "grade": "—"
+     },
+     {
+      "raw": 23,
+      "theta": -1.6142,
+      "ball": 24,
+      "percentile": 6.7,
+      "grade": "—"
+     },
+     {
+      "raw": 24,
+      "theta": -1.5226,
+      "ball": 26,
+      "percentile": 7.9,
+      "grade": "—"
+     },
+     {
+      "raw": 25,
+      "theta": -1.4318,
+      "ball": 27,
+      "percentile": 9.2,
+      "grade": "—"
+     },
+     {
+      "raw": 26,
+      "theta": -1.3417,
+      "ball": 29,
+      "percentile": 10.8,
+      "grade": "—"
+     },
+     {
+      "raw": 27,
+      "theta": -1.2519,
+      "ball": 30,
+      "percentile": 12.5,
+      "grade": "—"
+     },
+     {
+      "raw": 28,
+      "theta": -1.1624,
+      "ball": 31,
+      "percentile": 14.2,
+      "grade": "—"
+     },
+     {
+      "raw": 29,
+      "theta": -1.0729,
+      "ball": 33,
+      "percentile": 16.2,
+      "grade": "—"
+     },
+     {
+      "raw": 30,
+      "theta": -0.9831,
+      "ball": 34,
+      "percentile": 18.4,
+      "grade": "—"
+     },
+     {
+      "raw": 31,
+      "theta": -0.893,
+      "ball": 36,
+      "percentile": 20.9,
+      "grade": "—"
+     },
+     {
+      "raw": 32,
+      "theta": -0.8023,
+      "ball": 37,
+      "percentile": 23.5,
+      "grade": "—"
+     },
+     {
+      "raw": 33,
+      "theta": -0.7108,
+      "ball": 39,
+      "percentile": 26.1,
+      "grade": "—"
+     },
+     {
+      "raw": 34,
+      "theta": -0.6182,
+      "ball": 40,
+      "percentile": 29.0,
+      "grade": "—"
+     },
+     {
+      "raw": 35,
+      "theta": -0.5242,
+      "ball": 42,
+      "percentile": 32.3,
+      "grade": "—"
+     },
+     {
+      "raw": 36,
+      "theta": -0.4287,
+      "ball": 43,
+      "percentile": 35.8,
+      "grade": "—"
+     },
+     {
+      "raw": 37,
+      "theta": -0.3312,
+      "ball": 45,
+      "percentile": 39.2,
+      "grade": "—"
+     },
+     {
+      "raw": 38,
+      "theta": -0.2314,
+      "ball": 46,
+      "percentile": 42.7,
+      "grade": "C"
+     },
+     {
+      "raw": 39,
+      "theta": -0.1289,
+      "ball": 48,
+      "percentile": 46.5,
+      "grade": "C"
+     },
+     {
+      "raw": 40,
+      "theta": -0.0232,
+      "ball": 50,
+      "percentile": 50.3,
+      "grade": "C+"
+     },
+     {
+      "raw": 41,
+      "theta": 0.0864,
+      "ball": 51,
+      "percentile": 54.3,
+      "grade": "C+"
+     },
+     {
+      "raw": 42,
+      "theta": 0.2004,
+      "ball": 53,
+      "percentile": 58.5,
+      "grade": "C+"
+     },
+     {
+      "raw": 43,
+      "theta": 0.3197,
+      "ball": 55,
+      "percentile": 62.6,
+      "grade": "B"
+     },
+     {
+      "raw": 44,
+      "theta": 0.4455,
+      "ball": 57,
+      "percentile": 66.9,
+      "grade": "B"
+     },
+     {
+      "raw": 45,
+      "theta": 0.5791,
+      "ball": 59,
+      "percentile": 71.2,
+      "grade": "B"
+     },
+     {
+      "raw": 46,
+      "theta": 0.7222,
+      "ball": 62,
+      "percentile": 75.3,
+      "grade": "B+"
+     },
+     {
+      "raw": 47,
+      "theta": 0.8772,
+      "ball": 64,
+      "percentile": 79.5,
+      "grade": "B+"
+     },
+     {
+      "raw": 48,
+      "theta": 1.0476,
+      "ball": 67,
+      "percentile": 83.6,
+      "grade": "A"
+     },
+     {
+      "raw": 49,
+      "theta": 1.2381,
+      "ball": 70,
+      "percentile": 87.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 1.4565,
+      "ball": 73,
+      "percentile": 91.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 1.7152,
+      "ball": 77,
+      "percentile": 94.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 2.0382,
+      "ball": 83,
+      "percentile": 96.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 2.4785,
+      "ball": 90,
+      "percentile": 98.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 3.2063,
+      "ball": 100,
+      "percentile": 99.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 4.4343,
+      "ball": 100,
+      "percentile": 99.8,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   }
+  },
+  "calibrated_from": 0
+ },
+ {
+  "id": 7,
+  "code": "1256",
+  "title": "Milliy sertifikat",
+  "owner_id": 215204493,
+  "subjects": [
+   "Fizika -2"
+  ],
+  "questions": [
+   {
+    "number": 1,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 2,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 3,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 4,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 5,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 6,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 7,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 8,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 9,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 10,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 11,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 12,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 13,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 14,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 15,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 16,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 17,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 18,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 19,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 20,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 21,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 22,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 23,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 24,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 25,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 26,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 27,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 28,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 29,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 30,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 31,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 32,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 33,
+    "type": "mc",
+    "options": 6,
+    "answer": "D"
+   },
+   {
+    "number": 34,
+    "type": "mc",
+    "options": 6,
+    "answer": "C"
+   },
+   {
+    "number": 35,
+    "type": "mc",
+    "options": 6,
+    "answer": "B"
+   },
+   {
+    "number": 36,
+    "type": "open",
+    "parts": {
+     "a": [
+      "60"
+     ],
+     "b": [
+      "25"
+     ]
+    }
+   },
+   {
+    "number": 37,
+    "type": "open",
+    "parts": {
+     "a": [
+      "2"
+     ],
+     "b": [
+      "6;16"
+     ]
+    }
+   },
+   {
+    "number": 38,
+    "type": "open",
+    "parts": {
+     "a": [
+      "14"
+     ],
+     "b": [
+      "30;40"
+     ]
+    }
+   },
+   {
+    "number": 39,
+    "type": "open",
+    "parts": {
+     "a": [
+      "-150"
+     ],
+     "b": [
+      "0"
+     ]
+    }
+   },
+   {
+    "number": 40,
+    "type": "open",
+    "parts": {
+     "a": [
+      "2.5"
+     ],
+     "b": [
+      "1.6"
+     ]
+    }
+   },
+   {
+    "number": 41,
+    "type": "open",
+    "parts": {
+     "a": [
+      "\\frac13"
+     ],
+     "b": [
+      "16"
+     ]
+    }
+   },
+   {
+    "number": 42,
+    "type": "open",
+    "parts": {
+     "a": [
+      "18"
+     ],
+     "b": [
+      "360"
+     ]
+    }
+   },
+   {
+    "number": 43,
+    "type": "open",
+    "parts": {
+     "a": [
+      "1"
+     ],
+     "b": [
+      "0.2"
+     ]
+    }
+   },
+   {
+    "number": 44,
+    "type": "open",
+    "parts": {
+     "a": [
+      "21"
+     ],
+     "b": [
+      "63"
+     ]
+    }
+   },
+   {
+    "number": 45,
+    "type": "open",
+    "parts": {
+     "a": [
+      "180"
+     ],
+     "b": [
+      "3.7\\cdot10^{-27}"
+     ]
+    }
+   }
+  ],
+  "status": "closed",
+  "created_at": "2026-09-05T02:02:30.691993+00:00",
+  "closes_at": null,
+  "score_tables": {
+   "weak": {
+    "key": "weak",
+    "label_uz": "Zaif guruh",
+    "difficulties": [
+     -0.6717,
+     -0.56,
+     -0.5132,
+     -0.412,
+     -0.3252,
+     -0.2803,
+     -0.11,
+     -0.038,
+     0.007,
+     0.0853,
+     0.1538,
+     0.1734,
+     0.321,
+     0.4014,
+     0.5168,
+     0.5736,
+     0.6089,
+     0.7269,
+     0.7679,
+     0.8824,
+     0.9946,
+     0.9985,
+     1.1138,
+     1.1869,
+     1.2807,
+     1.3601,
+     1.3899,
+     1.4524,
+     1.5652,
+     1.656,
+     1.7491,
+     1.8311,
+     1.8654,
+     2.0162,
+     2.0787,
+     1.2924,
+     1.3344,
+     1.4103,
+     1.538,
+     1.6199,
+     1.7432,
+     1.7889,
+     1.9525,
+     2.0248,
+     2.069,
+     2.2551,
+     2.2978,
+     2.4046,
+     2.5054,
+     2.6697,
+     2.689,
+     2.8275,
+     2.8304,
+     3.012,
+     3.035
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -4.4518,
+      "ball": 0,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -3.2217,
+      "ball": 0,
+      "percentile": 0.8,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -2.4908,
+      "ball": 10,
+      "percentile": 1.9,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -2.0472,
+      "ball": 17,
+      "percentile": 3.7,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -1.7211,
+      "ball": 22,
+      "percentile": 6.0,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -1.4591,
+      "ball": 27,
+      "percentile": 8.8,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -1.2376,
+      "ball": 30,
+      "percentile": 12.2,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -1.0438,
+      "ball": 33,
+      "percentile": 16.2,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -0.8703,
+      "ball": 36,
+      "percentile": 20.5,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -0.7121,
+      "ball": 39,
+      "percentile": 24.8,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -0.566,
+      "ball": 41,
+      "percentile": 29.2,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -0.4295,
+      "ball": 43,
+      "percentile": 33.8,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -0.3008,
+      "ball": 45,
+      "percentile": 38.2,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -0.1787,
+      "ball": 47,
+      "percentile": 42.6,
+      "grade": "C"
+     },
+     {
+      "raw": 14,
+      "theta": -0.062,
+      "ball": 49,
+      "percentile": 46.9,
+      "grade": "C"
+     },
+     {
+      "raw": 15,
+      "theta": 0.05,
+      "ball": 51,
+      "percentile": 50.9,
+      "grade": "C+"
+     },
+     {
+      "raw": 16,
+      "theta": 0.1581,
+      "ball": 53,
+      "percentile": 54.9,
+      "grade": "C+"
+     },
+     {
+      "raw": 17,
+      "theta": 0.2629,
+      "ball": 54,
+      "percentile": 58.7,
+      "grade": "C+"
+     },
+     {
+      "raw": 18,
+      "theta": 0.3647,
+      "ball": 56,
+      "percentile": 62.2,
+      "grade": "B"
+     },
+     {
+      "raw": 19,
+      "theta": 0.4641,
+      "ball": 57,
+      "percentile": 65.7,
+      "grade": "B"
+     },
+     {
+      "raw": 20,
+      "theta": 0.5613,
+      "ball": 59,
+      "percentile": 69.1,
+      "grade": "B"
+     },
+     {
+      "raw": 21,
+      "theta": 0.6567,
+      "ball": 61,
+      "percentile": 72.3,
+      "grade": "B+"
+     },
+     {
+      "raw": 22,
+      "theta": 0.7506,
+      "ball": 62,
+      "percentile": 75.2,
+      "grade": "B+"
+     },
+     {
+      "raw": 23,
+      "theta": 0.8433,
+      "ball": 63,
+      "percentile": 77.9,
+      "grade": "B+"
+     },
+     {
+      "raw": 24,
+      "theta": 0.9349,
+      "ball": 65,
+      "percentile": 80.5,
+      "grade": "A"
+     },
+     {
+      "raw": 25,
+      "theta": 1.0256,
+      "ball": 66,
+      "percentile": 82.9,
+      "grade": "A"
+     },
+     {
+      "raw": 26,
+      "theta": 1.1158,
+      "ball": 68,
+      "percentile": 84.9,
+      "grade": "A"
+     },
+     {
+      "raw": 27,
+      "theta": 1.2056,
+      "ball": 69,
+      "percentile": 86.8,
+      "grade": "A"
+     },
+     {
+      "raw": 28,
+      "theta": 1.2951,
+      "ball": 71,
+      "percentile": 88.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 29,
+      "theta": 1.3847,
+      "ball": 72,
+      "percentile": 90.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 30,
+      "theta": 1.4744,
+      "ball": 74,
+      "percentile": 91.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 31,
+      "theta": 1.5646,
+      "ball": 75,
+      "percentile": 92.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 32,
+      "theta": 1.6553,
+      "ball": 76,
+      "percentile": 93.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 33,
+      "theta": 1.7469,
+      "ball": 78,
+      "percentile": 94.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 34,
+      "theta": 1.8395,
+      "ball": 79,
+      "percentile": 95.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 35,
+      "theta": 1.9335,
+      "ball": 81,
+      "percentile": 96.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 36,
+      "theta": 2.0291,
+      "ball": 82,
+      "percentile": 97.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 37,
+      "theta": 2.1266,
+      "ball": 84,
+      "percentile": 97.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 38,
+      "theta": 2.2265,
+      "ball": 86,
+      "percentile": 98.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 39,
+      "theta": 2.3291,
+      "ball": 87,
+      "percentile": 98.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 40,
+      "theta": 2.4349,
+      "ball": 89,
+      "percentile": 98.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 41,
+      "theta": 2.5445,
+      "ball": 91,
+      "percentile": 99.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 42,
+      "theta": 2.6586,
+      "ball": 93,
+      "percentile": 99.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 43,
+      "theta": 2.778,
+      "ball": 94,
+      "percentile": 99.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 44,
+      "theta": 2.9039,
+      "ball": 96,
+      "percentile": 99.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 45,
+      "theta": 3.0375,
+      "ball": 99,
+      "percentile": 99.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 46,
+      "theta": 3.1807,
+      "ball": 100,
+      "percentile": 99.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 47,
+      "theta": 3.3359,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 48,
+      "theta": 3.5063,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 49,
+      "theta": 3.697,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 3.9154,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 4.1743,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 4.4973,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 4.9378,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 5.6656,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 6.8937,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   },
+   "normal": {
+    "key": "normal",
+    "label_uz": "O'rtacha guruh",
+    "difficulties": [
+     -1.867,
+     -1.8047,
+     -1.7115,
+     -1.6617,
+     -1.5641,
+     -1.5558,
+     -1.3917,
+     -1.3345,
+     -1.2257,
+     -1.1548,
+     -1.0764,
+     -1.0519,
+     -0.9147,
+     -0.8664,
+     -0.8027,
+     -0.7065,
+     -0.5847,
+     -0.5462,
+     -0.44,
+     -0.3451,
+     -0.3117,
+     -0.1762,
+     -0.0797,
+     -0.0551,
+     0.0281,
+     0.1263,
+     0.2006,
+     0.266,
+     0.3371,
+     0.4078,
+     0.5349,
+     0.5959,
+     0.6529,
+     0.743,
+     0.8013,
+     0.0213,
+     0.0968,
+     0.2211,
+     0.3263,
+     0.3697,
+     0.4771,
+     0.602,
+     0.7289,
+     0.8232,
+     0.8685,
+     0.9647,
+     1.0941,
+     1.1882,
+     1.2955,
+     1.3834,
+     1.4347,
+     1.5224,
+     1.6596,
+     1.7051,
+     1.8141
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -5.6919,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -4.4618,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -3.731,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -3.2875,
+      "ball": 0,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -2.9614,
+      "ball": 3,
+      "percentile": 0.4,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -2.6994,
+      "ball": 7,
+      "percentile": 0.6,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -2.4778,
+      "ball": 10,
+      "percentile": 1.0,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -2.284,
+      "ball": 13,
+      "percentile": 1.5,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -2.1104,
+      "ball": 16,
+      "percentile": 2.2,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -1.9522,
+      "ball": 19,
+      "percentile": 3.1,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -1.8059,
+      "ball": 21,
+      "percentile": 4.1,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -1.6692,
+      "ball": 23,
+      "percentile": 5.3,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -1.5404,
+      "ball": 25,
+      "percentile": 6.8,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -1.4181,
+      "ball": 27,
+      "percentile": 8.6,
+      "grade": "—"
+     },
+     {
+      "raw": 14,
+      "theta": -1.3012,
+      "ball": 29,
+      "percentile": 10.5,
+      "grade": "—"
+     },
+     {
+      "raw": 15,
+      "theta": -1.189,
+      "ball": 31,
+      "percentile": 12.7,
+      "grade": "—"
+     },
+     {
+      "raw": 16,
+      "theta": -1.0807,
+      "ball": 33,
+      "percentile": 15.2,
+      "grade": "—"
+     },
+     {
+      "raw": 17,
+      "theta": -0.9758,
+      "ball": 34,
+      "percentile": 17.7,
+      "grade": "—"
+     },
+     {
+      "raw": 18,
+      "theta": -0.8737,
+      "ball": 36,
+      "percentile": 20.2,
+      "grade": "—"
+     },
+     {
+      "raw": 19,
+      "theta": -0.7741,
+      "ball": 38,
+      "percentile": 22.9,
+      "grade": "—"
+     },
+     {
+      "raw": 20,
+      "theta": -0.6767,
+      "ball": 39,
+      "percentile": 25.9,
+      "grade": "—"
+     },
+     {
+      "raw": 21,
+      "theta": -0.5811,
+      "ball": 41,
+      "percentile": 29.1,
+      "grade": "—"
+     },
+     {
+      "raw": 22,
+      "theta": -0.487,
+      "ball": 42,
+      "percentile": 32.5,
+      "grade": "—"
+     },
+     {
+      "raw": 23,
+      "theta": -0.3941,
+      "ball": 44,
+      "percentile": 35.9,
+      "grade": "—"
+     },
+     {
+      "raw": 24,
+      "theta": -0.3024,
+      "ball": 45,
+      "percentile": 39.4,
+      "grade": "—"
+     },
+     {
+      "raw": 25,
+      "theta": -0.2114,
+      "ball": 47,
+      "percentile": 42.7,
+      "grade": "C"
+     },
+     {
+      "raw": 26,
+      "theta": -0.1211,
+      "ball": 48,
+      "percentile": 45.8,
+      "grade": "C"
+     },
+     {
+      "raw": 27,
+      "theta": -0.0312,
+      "ball": 50,
+      "percentile": 49.0,
+      "grade": "C+"
+     },
+     {
+      "raw": 28,
+      "theta": 0.0585,
+      "ball": 51,
+      "percentile": 52.4,
+      "grade": "C+"
+     },
+     {
+      "raw": 29,
+      "theta": 0.1482,
+      "ball": 52,
+      "percentile": 55.7,
+      "grade": "C+"
+     },
+     {
+      "raw": 30,
+      "theta": 0.238,
+      "ball": 54,
+      "percentile": 59.2,
+      "grade": "C+"
+     },
+     {
+      "raw": 31,
+      "theta": 0.3283,
+      "ball": 55,
+      "percentile": 62.5,
+      "grade": "B"
+     },
+     {
+      "raw": 32,
+      "theta": 0.4191,
+      "ball": 57,
+      "percentile": 65.7,
+      "grade": "B"
+     },
+     {
+      "raw": 33,
+      "theta": 0.5107,
+      "ball": 58,
+      "percentile": 68.9,
+      "grade": "B"
+     },
+     {
+      "raw": 34,
+      "theta": 0.6034,
+      "ball": 60,
+      "percentile": 72.1,
+      "grade": "B+"
+     },
+     {
+      "raw": 35,
+      "theta": 0.6974,
+      "ball": 61,
+      "percentile": 75.1,
+      "grade": "B+"
+     },
+     {
+      "raw": 36,
+      "theta": 0.793,
+      "ball": 63,
+      "percentile": 77.7,
+      "grade": "B+"
+     },
+     {
+      "raw": 37,
+      "theta": 0.8906,
+      "ball": 64,
+      "percentile": 80.3,
+      "grade": "B+"
+     },
+     {
+      "raw": 38,
+      "theta": 0.9904,
+      "ball": 66,
+      "percentile": 82.7,
+      "grade": "A"
+     },
+     {
+      "raw": 39,
+      "theta": 1.0929,
+      "ball": 67,
+      "percentile": 85.0,
+      "grade": "A"
+     },
+     {
+      "raw": 40,
+      "theta": 1.1987,
+      "ball": 69,
+      "percentile": 87.2,
+      "grade": "A"
+     },
+     {
+      "raw": 41,
+      "theta": 1.3082,
+      "ball": 71,
+      "percentile": 89.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 42,
+      "theta": 1.4222,
+      "ball": 73,
+      "percentile": 91.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 43,
+      "theta": 1.5415,
+      "ball": 75,
+      "percentile": 92.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 44,
+      "theta": 1.6673,
+      "ball": 77,
+      "percentile": 94.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 45,
+      "theta": 1.8008,
+      "ball": 79,
+      "percentile": 95.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 46,
+      "theta": 1.9438,
+      "ball": 81,
+      "percentile": 96.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 47,
+      "theta": 2.0988,
+      "ball": 84,
+      "percentile": 97.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 48,
+      "theta": 2.269,
+      "ball": 86,
+      "percentile": 98.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 49,
+      "theta": 2.4595,
+      "ball": 89,
+      "percentile": 98.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 2.6777,
+      "ball": 93,
+      "percentile": 99.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 2.9363,
+      "ball": 97,
+      "percentile": 99.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 3.2591,
+      "ball": 100,
+      "percentile": 99.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 3.6993,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 4.4268,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 5.6547,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   },
+   "strong": {
+    "key": "strong",
+    "label_uz": "Kuchli guruh",
+    "difficulties": [
+     -3.0978,
+     -3.0399,
+     -2.8769,
+     -2.7924,
+     -2.8191,
+     -2.7167,
+     -2.6039,
+     -2.5701,
+     -2.4268,
+     -2.4096,
+     -2.3599,
+     -2.2443,
+     -2.1191,
+     -2.0675,
+     -1.9845,
+     -1.8986,
+     -1.8606,
+     -1.744,
+     -1.6533,
+     -1.5364,
+     -1.523,
+     -1.4148,
+     -1.381,
+     -1.311,
+     -1.1461,
+     -1.1015,
+     -1.0473,
+     -0.9347,
+     -0.8619,
+     -0.8457,
+     -0.7223,
+     -0.6347,
+     -0.5722,
+     -0.4857,
+     -0.3871,
+     -1.1678,
+     -1.0934,
+     -1.0264,
+     -0.9079,
+     -0.8468,
+     -0.7019,
+     -0.6377,
+     -0.5296,
+     -0.4325,
+     -0.3603,
+     -0.226,
+     -0.1617,
+     -0.0843,
+     0.0627,
+     0.159,
+     0.2569,
+     0.3582,
+     0.4192,
+     0.5195,
+     0.5784
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -6.9057,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -5.6758,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -4.9454,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -4.5022,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -4.1763,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -3.9147,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -3.6934,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -3.4999,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -3.3266,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -3.1686,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -3.0226,
+      "ball": 2,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -2.8863,
+      "ball": 4,
+      "percentile": 0.3,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -2.7578,
+      "ball": 6,
+      "percentile": 0.5,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -2.6357,
+      "ball": 8,
+      "percentile": 0.6,
+      "grade": "—"
+     },
+     {
+      "raw": 14,
+      "theta": -2.5192,
+      "ball": 10,
+      "percentile": 0.9,
+      "grade": "—"
+     },
+     {
+      "raw": 15,
+      "theta": -2.4072,
+      "ball": 11,
+      "percentile": 1.3,
+      "grade": "—"
+     },
+     {
+      "raw": 16,
+      "theta": -2.2991,
+      "ball": 13,
+      "percentile": 1.6,
+      "grade": "—"
+     },
+     {
+      "raw": 17,
+      "theta": -2.1945,
+      "ball": 15,
+      "percentile": 2.0,
+      "grade": "—"
+     },
+     {
+      "raw": 18,
+      "theta": -2.0927,
+      "ball": 17,
+      "percentile": 2.5,
+      "grade": "—"
+     },
+     {
+      "raw": 19,
+      "theta": -1.9933,
+      "ball": 18,
+      "percentile": 3.1,
+      "grade": "—"
+     },
+     {
+      "raw": 20,
+      "theta": -1.8961,
+      "ball": 20,
+      "percentile": 3.8,
+      "grade": "—"
+     },
+     {
+      "raw": 21,
+      "theta": -1.8007,
+      "ball": 21,
+      "percentile": 4.6,
+      "grade": "—"
+     },
+     {
+      "raw": 22,
+      "theta": -1.7068,
+      "ball": 23,
+      "percentile": 5.6,
+      "grade": "—"
+     },
+     {
+      "raw": 23,
+      "theta": -1.6142,
+      "ball": 24,
+      "percentile": 6.7,
+      "grade": "—"
+     },
+     {
+      "raw": 24,
+      "theta": -1.5226,
+      "ball": 26,
+      "percentile": 7.9,
+      "grade": "—"
+     },
+     {
+      "raw": 25,
+      "theta": -1.4318,
+      "ball": 27,
+      "percentile": 9.2,
+      "grade": "—"
+     },
+     {
+      "raw": 26,
+      "theta": -1.3417,
+      "ball": 29,
+      "percentile": 10.8,
+      "grade": "—"
+     },
+     {
+      "raw": 27,
+      "theta": -1.2519,
+      "ball": 30,
+      "percentile": 12.5,
+      "grade": "—"
+     },
+     {
+      "raw": 28,
+      "theta": -1.1624,
+      "ball": 31,
+      "percentile": 14.2,
+      "grade": "—"
+     },
+     {
+      "raw": 29,
+      "theta": -1.0729,
+      "ball": 33,
+      "percentile": 16.2,
+      "grade": "—"
+     },
+     {
+      "raw": 30,
+      "theta": -0.9831,
+      "ball": 34,
+      "percentile": 18.4,
+      "grade": "—"
+     },
+     {
+      "raw": 31,
+      "theta": -0.893,
+      "ball": 36,
+      "percentile": 20.9,
+      "grade": "—"
+     },
+     {
+      "raw": 32,
+      "theta": -0.8023,
+      "ball": 37,
+      "percentile": 23.5,
+      "grade": "—"
+     },
+     {
+      "raw": 33,
+      "theta": -0.7108,
+      "ball": 39,
+      "percentile": 26.1,
+      "grade": "—"
+     },
+     {
+      "raw": 34,
+      "theta": -0.6182,
+      "ball": 40,
+      "percentile": 29.0,
+      "grade": "—"
+     },
+     {
+      "raw": 35,
+      "theta": -0.5242,
+      "ball": 42,
+      "percentile": 32.3,
+      "grade": "—"
+     },
+     {
+      "raw": 36,
+      "theta": -0.4287,
+      "ball": 43,
+      "percentile": 35.8,
+      "grade": "—"
+     },
+     {
+      "raw": 37,
+      "theta": -0.3312,
+      "ball": 45,
+      "percentile": 39.2,
+      "grade": "—"
+     },
+     {
+      "raw": 38,
+      "theta": -0.2314,
+      "ball": 46,
+      "percentile": 42.7,
+      "grade": "C"
+     },
+     {
+      "raw": 39,
+      "theta": -0.1289,
+      "ball": 48,
+      "percentile": 46.5,
+      "grade": "C"
+     },
+     {
+      "raw": 40,
+      "theta": -0.0232,
+      "ball": 50,
+      "percentile": 50.3,
+      "grade": "C+"
+     },
+     {
+      "raw": 41,
+      "theta": 0.0864,
+      "ball": 51,
+      "percentile": 54.3,
+      "grade": "C+"
+     },
+     {
+      "raw": 42,
+      "theta": 0.2004,
+      "ball": 53,
+      "percentile": 58.5,
+      "grade": "C+"
+     },
+     {
+      "raw": 43,
+      "theta": 0.3197,
+      "ball": 55,
+      "percentile": 62.6,
+      "grade": "B"
+     },
+     {
+      "raw": 44,
+      "theta": 0.4455,
+      "ball": 57,
+      "percentile": 66.9,
+      "grade": "B"
+     },
+     {
+      "raw": 45,
+      "theta": 0.5791,
+      "ball": 59,
+      "percentile": 71.2,
+      "grade": "B"
+     },
+     {
+      "raw": 46,
+      "theta": 0.7222,
+      "ball": 62,
+      "percentile": 75.3,
+      "grade": "B+"
+     },
+     {
+      "raw": 47,
+      "theta": 0.8772,
+      "ball": 64,
+      "percentile": 79.5,
+      "grade": "B+"
+     },
+     {
+      "raw": 48,
+      "theta": 1.0476,
+      "ball": 67,
+      "percentile": 83.6,
+      "grade": "A"
+     },
+     {
+      "raw": 49,
+      "theta": 1.2381,
+      "ball": 70,
+      "percentile": 87.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 1.4565,
+      "ball": 73,
+      "percentile": 91.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 1.7152,
+      "ball": 77,
+      "percentile": 94.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 2.0382,
+      "ball": 83,
+      "percentile": 96.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 2.4785,
+      "ball": 90,
+      "percentile": 98.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 3.2063,
+      "ball": 100,
+      "percentile": 99.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 4.4343,
+      "ball": 100,
+      "percentile": 99.8,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   }
+  },
+  "calibrated_from": 0
+ },
+ {
+  "id": 8,
+  "code": "4116",
+  "title": "Test №1",
+  "owner_id": 5229133528,
+  "subjects": [
+   "Fizika"
+  ],
+  "questions": [
+   {
+    "number": 1,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 2,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 3,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 4,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 5,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 6,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 7,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 8,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 9,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 10,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 11,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 12,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 13,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 14,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 15,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 16,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 17,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 18,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 19,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 20,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 21,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 22,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 23,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 24,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 25,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 26,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 27,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 28,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 29,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 30,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 31,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 32,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 33,
+    "type": "mc",
+    "options": 6,
+    "answer": "E"
+   },
+   {
+    "number": 34,
+    "type": "mc",
+    "options": 6,
+    "answer": "C"
+   },
+   {
+    "number": 35,
+    "type": "mc",
+    "options": 6,
+    "answer": "F"
+   },
+   {
+    "number": 36,
+    "type": "open",
+    "parts": {
+     "a": [
+      "36"
+     ],
+     "b": [
+      "0.5"
+     ]
+    }
+   },
+   {
+    "number": 37,
+    "type": "open",
+    "parts": {
+     "a": [
+      "15"
+     ],
+     "b": [
+      "2.8"
+     ]
+    }
+   },
+   {
+    "number": 38,
+    "type": "open",
+    "parts": {
+     "a": [
+      "65"
+     ],
+     "b": [
+      "36"
+     ]
+    }
+   },
+   {
+    "number": 39,
+    "type": "open",
+    "parts": {
+     "a": [
+      "14"
+     ],
+     "b": [
+      "20"
+     ]
+    }
+   },
+   {
+    "number": 40,
+    "type": "open",
+    "parts": {
+     "a": [
+      "0.25sm"
+     ],
+     "b": [
+      "5,3"
+     ]
+    }
+   },
+   {
+    "number": 41,
+    "type": "open",
+    "parts": {
+     "a": [
+      "12"
+     ],
+     "b": [
+      "200"
+     ]
+    }
+   },
+   {
+    "number": 42,
+    "type": "open",
+    "parts": {
+     "a": [
+      "18"
+     ],
+     "b": [
+      "360kj"
+     ]
+    }
+   },
+   {
+    "number": 43,
+    "type": "open",
+    "parts": {
+     "a": [
+      "0.2"
+     ],
+     "b": [
+      "2mj"
+     ]
+    }
+   },
+   {
+    "number": 44,
+    "type": "open",
+    "parts": {
+     "a": [
+      "2.5"
+     ],
+     "b": [
+      "36"
+     ]
+    }
+   },
+   {
+    "number": 45,
+    "type": "open",
+    "parts": {
+     "a": [
+      "1.2"
+     ],
+     "b": [
+      "10"
+     ]
+    }
+   }
+  ],
+  "status": "open",
+  "created_at": "2026-09-05T18:13:43.037380+00:00",
+  "closes_at": null,
+  "score_tables": null,
+  "calibrated_from": 0
+ },
+ {
+  "id": 9,
+  "code": "1402",
+  "title": "Milliy sertifikat 5-test",
+  "owner_id": 215204493,
+  "subjects": [
+   "Fizika"
+  ],
+  "questions": [
+   {
+    "number": 1,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 2,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 3,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 4,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 5,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 6,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 7,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 8,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 9,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 10,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 11,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 12,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 13,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 14,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 15,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 16,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 17,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 18,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 19,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 20,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 21,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 22,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 23,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 24,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 25,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 26,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 27,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 28,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 29,
+    "type": "mc",
+    "options": 4,
+    "answer": "B"
+   },
+   {
+    "number": 30,
+    "type": "mc",
+    "options": 4,
+    "answer": "A"
+   },
+   {
+    "number": 31,
+    "type": "mc",
+    "options": 4,
+    "answer": "C"
+   },
+   {
+    "number": 32,
+    "type": "mc",
+    "options": 4,
+    "answer": "D"
+   },
+   {
+    "number": 33,
+    "type": "mc",
+    "options": 6,
+    "answer": "C"
+   },
+   {
+    "number": 34,
+    "type": "mc",
+    "options": 6,
+    "answer": "D"
+   },
+   {
+    "number": 35,
+    "type": "mc",
+    "options": 6,
+    "answer": "F"
+   },
+   {
+    "number": 36,
+    "type": "open",
+    "parts": {
+     "a": [
+      "14"
+     ],
+     "b": [
+      "126"
+     ]
+    }
+   },
+   {
+    "number": 37,
+    "type": "open",
+    "parts": {
+     "a": [
+      "80"
+     ],
+     "b": [
+      "4"
+     ]
+    }
+   },
+   {
+    "number": 38,
+    "type": "open",
+    "parts": {
+     "a": [
+      "2"
+     ],
+     "b": [
+      "\\frac53"
+     ]
+    }
+   },
+   {
+    "number": 39,
+    "type": "open",
+    "parts": {
+     "a": [
+      "2"
+     ],
+     "b": [
+      "32"
+     ]
+    }
+   },
+   {
+    "number": 40,
+    "type": "open",
+    "parts": {
+     "a": [
+      "250"
+     ],
+     "b": [
+      "7.2"
+     ]
+    }
+   },
+   {
+    "number": 41,
+    "type": "open",
+    "parts": {
+     "a": [
+      "-\\frac{25}{3}"
+     ],
+     "b": [
+      "8"
+     ]
+    }
+   },
+   {
+    "number": 42,
+    "type": "open",
+    "parts": {
+     "a": [
+      "\\frac{16}{9}"
+     ],
+     "b": [
+      "\\frac83"
+     ]
+    }
+   },
+   {
+    "number": 43,
+    "type": "open",
+    "parts": {
+     "a": [
+      "1.6"
+     ],
+     "b": [
+      "4.6"
+     ]
+    }
+   },
+   {
+    "number": 44,
+    "type": "open",
+    "parts": {
+     "a": [
+      "5"
+     ],
+     "b": [
+      "20"
+     ]
+    }
+   },
+   {
+    "number": 45,
+    "type": "open",
+    "parts": {
+     "a": [
+      "43"
+     ],
+     "b": [
+      "1440"
+     ]
+    }
+   }
+  ],
+  "status": "open",
+  "created_at": "2026-09-06T04:24:52.357524+00:00",
+  "closes_at": null,
+  "score_tables": {
+   "weak": {
+    "key": "weak",
+    "label_uz": "Zaif guruh",
+    "difficulties": [
+     0.6449,
+     -0.7777,
+     -0.2763,
+     0.664,
+     0.2836,
+     0.7175,
+     0.0373,
+     2.2247,
+     -0.4893,
+     -0.2032,
+     0.2099,
+     0.1257,
+     1.2588,
+     3.0674,
+     1.3121,
+     0.752,
+     0.5529,
+     -0.1663,
+     0.1209,
+     0.1086,
+     0.2393,
+     1.54,
+     0.7232,
+     -0.5086,
+     0.719,
+     1.1887,
+     1.3251,
+     -0.6621,
+     1.3632,
+     0.9703,
+     0.7853,
+     1.7013,
+     1.5387,
+     1.5624,
+     1.0419,
+     1.8869,
+     1.9288,
+     0.8724,
+     0.8091,
+     1.9826,
+     3.1742,
+     1.1394,
+     1.646,
+     2.0536,
+     1.615,
+     4.5265,
+     1.9452,
+     3.0933,
+     3.0454,
+     2.1904,
+     2.8931,
+     2.0457,
+     2.3916,
+     2.4941,
+     2.687
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -4.4949,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -3.265,
+      "ball": 0,
+      "percentile": 0.6,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -2.5345,
+      "ball": 9,
+      "percentile": 1.7,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -2.0914,
+      "ball": 17,
+      "percentile": 3.4,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -1.7657,
+      "ball": 22,
+      "percentile": 5.7,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -1.5043,
+      "ball": 26,
+      "percentile": 8.5,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -1.2833,
+      "ball": 29,
+      "percentile": 11.6,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -1.0901,
+      "ball": 33,
+      "percentile": 15.0,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -0.9172,
+      "ball": 35,
+      "percentile": 18.9,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -0.7596,
+      "ball": 38,
+      "percentile": 23.1,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -0.614,
+      "ball": 40,
+      "percentile": 27.4,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -0.4779,
+      "ball": 42,
+      "percentile": 31.9,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -0.3497,
+      "ball": 44,
+      "percentile": 36.4,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -0.2279,
+      "ball": 46,
+      "percentile": 40.9,
+      "grade": "C"
+     },
+     {
+      "raw": 14,
+      "theta": -0.1114,
+      "ball": 48,
+      "percentile": 45.3,
+      "grade": "C"
+     },
+     {
+      "raw": 15,
+      "theta": 0.0005,
+      "ball": 50,
+      "percentile": 49.4,
+      "grade": "C+"
+     },
+     {
+      "raw": 16,
+      "theta": 0.1085,
+      "ball": 52,
+      "percentile": 53.2,
+      "grade": "C+"
+     },
+     {
+      "raw": 17,
+      "theta": 0.2134,
+      "ball": 53,
+      "percentile": 56.9,
+      "grade": "C+"
+     },
+     {
+      "raw": 18,
+      "theta": 0.3155,
+      "ball": 55,
+      "percentile": 60.5,
+      "grade": "B"
+     },
+     {
+      "raw": 19,
+      "theta": 0.4152,
+      "ball": 57,
+      "percentile": 63.8,
+      "grade": "B"
+     },
+     {
+      "raw": 20,
+      "theta": 0.513,
+      "ball": 58,
+      "percentile": 67.2,
+      "grade": "B"
+     },
+     {
+      "raw": 21,
+      "theta": 0.6091,
+      "ball": 60,
+      "percentile": 70.7,
+      "grade": "B+"
+     },
+     {
+      "raw": 22,
+      "theta": 0.704,
+      "ball": 61,
+      "percentile": 73.9,
+      "grade": "B+"
+     },
+     {
+      "raw": 23,
+      "theta": 0.7977,
+      "ball": 63,
+      "percentile": 76.9,
+      "grade": "B+"
+     },
+     {
+      "raw": 24,
+      "theta": 0.8906,
+      "ball": 64,
+      "percentile": 79.6,
+      "grade": "B+"
+     },
+     {
+      "raw": 25,
+      "theta": 0.9828,
+      "ball": 66,
+      "percentile": 82.0,
+      "grade": "A"
+     },
+     {
+      "raw": 26,
+      "theta": 1.0747,
+      "ball": 67,
+      "percentile": 84.2,
+      "grade": "A"
+     },
+     {
+      "raw": 27,
+      "theta": 1.1664,
+      "ball": 69,
+      "percentile": 86.2,
+      "grade": "A"
+     },
+     {
+      "raw": 28,
+      "theta": 1.2582,
+      "ball": 70,
+      "percentile": 87.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 29,
+      "theta": 1.3502,
+      "ball": 72,
+      "percentile": 89.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 30,
+      "theta": 1.4426,
+      "ball": 73,
+      "percentile": 91.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 31,
+      "theta": 1.5357,
+      "ball": 75,
+      "percentile": 92.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 32,
+      "theta": 1.6297,
+      "ball": 76,
+      "percentile": 93.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 33,
+      "theta": 1.7248,
+      "ball": 78,
+      "percentile": 94.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 34,
+      "theta": 1.8213,
+      "ball": 79,
+      "percentile": 95.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 35,
+      "theta": 1.9194,
+      "ball": 81,
+      "percentile": 96.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 36,
+      "theta": 2.0195,
+      "ball": 82,
+      "percentile": 97.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 37,
+      "theta": 2.122,
+      "ball": 84,
+      "percentile": 97.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 38,
+      "theta": 2.2271,
+      "ball": 86,
+      "percentile": 98.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 39,
+      "theta": 2.3354,
+      "ball": 87,
+      "percentile": 98.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 40,
+      "theta": 2.4474,
+      "ball": 89,
+      "percentile": 98.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 41,
+      "theta": 2.5637,
+      "ball": 91,
+      "percentile": 99.2,
+      "grade": "A+"
+     },
+     {
+      "raw": 42,
+      "theta": 2.685,
+      "ball": 93,
+      "percentile": 99.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 43,
+      "theta": 2.8124,
+      "ball": 95,
+      "percentile": 99.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 44,
+      "theta": 2.9468,
+      "ball": 97,
+      "percentile": 99.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 45,
+      "theta": 3.0899,
+      "ball": 99,
+      "percentile": 99.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 46,
+      "theta": 3.2435,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 47,
+      "theta": 3.4101,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 48,
+      "theta": 3.5934,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 49,
+      "theta": 3.7986,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 4.0335,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 4.3116,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 4.6573,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 5.125,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 5.8861,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 7.142,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   },
+   "normal": {
+    "key": "normal",
+    "label_uz": "O'rtacha guruh",
+    "difficulties": [
+     -0.5572,
+     -2.0734,
+     -1.472,
+     -0.5993,
+     -0.9385,
+     -0.5739,
+     -1.2402,
+     1.0064,
+     -1.7745,
+     -1.4515,
+     -1.0029,
+     -1.1129,
+     -0.032,
+     1.7964,
+     0.0429,
+     -0.5194,
+     -0.6432,
+     -1.3859,
+     -1.1019,
+     -1.0927,
+     -1.0361,
+     0.3305,
+     -0.4768,
+     -1.7532,
+     -0.5154,
+     -0.0267,
+     0.1421,
+     -1.8684,
+     0.1601,
+     -0.2858,
+     -0.4285,
+     0.4593,
+     0.3403,
+     0.2941,
+     -0.2467,
+     0.6053,
+     0.7081,
+     -0.3024,
+     -0.4236,
+     0.7311,
+     1.9841,
+     -0.1065,
+     0.4154,
+     0.8503,
+     0.4055,
+     3.2441,
+     0.7654,
+     1.9109,
+     1.8222,
+     0.9146,
+     1.6186,
+     0.832,
+     1.2138,
+     1.2381,
+     1.4419
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -5.7342,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -4.5039,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -3.7729,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -3.3294,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -3.0034,
+      "ball": 2,
+      "percentile": 0.3,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -2.7416,
+      "ball": 6,
+      "percentile": 0.6,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -2.5203,
+      "ball": 10,
+      "percentile": 0.9,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -2.3268,
+      "ball": 13,
+      "percentile": 1.4,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -2.1536,
+      "ball": 16,
+      "percentile": 1.9,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -1.9957,
+      "ball": 18,
+      "percentile": 2.7,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -1.8499,
+      "ball": 20,
+      "percentile": 3.8,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -1.7136,
+      "ball": 23,
+      "percentile": 5.0,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -1.5851,
+      "ball": 25,
+      "percentile": 6.4,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -1.4631,
+      "ball": 27,
+      "percentile": 7.9,
+      "grade": "—"
+     },
+     {
+      "raw": 14,
+      "theta": -1.3465,
+      "ball": 28,
+      "percentile": 9.7,
+      "grade": "—"
+     },
+     {
+      "raw": 15,
+      "theta": -1.2344,
+      "ball": 30,
+      "percentile": 11.9,
+      "grade": "—"
+     },
+     {
+      "raw": 16,
+      "theta": -1.1262,
+      "ball": 32,
+      "percentile": 13.9,
+      "grade": "—"
+     },
+     {
+      "raw": 17,
+      "theta": -1.0212,
+      "ball": 34,
+      "percentile": 16.1,
+      "grade": "—"
+     },
+     {
+      "raw": 18,
+      "theta": -0.919,
+      "ball": 35,
+      "percentile": 18.9,
+      "grade": "—"
+     },
+     {
+      "raw": 19,
+      "theta": -0.8191,
+      "ball": 37,
+      "percentile": 21.8,
+      "grade": "—"
+     },
+     {
+      "raw": 20,
+      "theta": -0.7211,
+      "ball": 38,
+      "percentile": 24.8,
+      "grade": "—"
+     },
+     {
+      "raw": 21,
+      "theta": -0.6248,
+      "ball": 40,
+      "percentile": 27.9,
+      "grade": "—"
+     },
+     {
+      "raw": 22,
+      "theta": -0.5299,
+      "ball": 42,
+      "percentile": 31.0,
+      "grade": "—"
+     },
+     {
+      "raw": 23,
+      "theta": -0.436,
+      "ball": 43,
+      "percentile": 34.2,
+      "grade": "—"
+     },
+     {
+      "raw": 24,
+      "theta": -0.343,
+      "ball": 45,
+      "percentile": 37.4,
+      "grade": "—"
+     },
+     {
+      "raw": 25,
+      "theta": -0.2506,
+      "ball": 46,
+      "percentile": 40.7,
+      "grade": "C"
+     },
+     {
+      "raw": 26,
+      "theta": -0.1586,
+      "ball": 47,
+      "percentile": 44.2,
+      "grade": "C"
+     },
+     {
+      "raw": 27,
+      "theta": -0.0668,
+      "ball": 49,
+      "percentile": 47.8,
+      "grade": "C"
+     },
+     {
+      "raw": 28,
+      "theta": 0.0251,
+      "ball": 50,
+      "percentile": 51.2,
+      "grade": "C+"
+     },
+     {
+      "raw": 29,
+      "theta": 0.1172,
+      "ball": 52,
+      "percentile": 54.7,
+      "grade": "C+"
+     },
+     {
+      "raw": 30,
+      "theta": 0.2097,
+      "ball": 53,
+      "percentile": 58.3,
+      "grade": "C+"
+     },
+     {
+      "raw": 31,
+      "theta": 0.3029,
+      "ball": 55,
+      "percentile": 61.8,
+      "grade": "B"
+     },
+     {
+      "raw": 32,
+      "theta": 0.397,
+      "ball": 56,
+      "percentile": 65.1,
+      "grade": "B"
+     },
+     {
+      "raw": 33,
+      "theta": 0.4922,
+      "ball": 58,
+      "percentile": 68.4,
+      "grade": "B"
+     },
+     {
+      "raw": 34,
+      "theta": 0.5888,
+      "ball": 59,
+      "percentile": 71.5,
+      "grade": "B"
+     },
+     {
+      "raw": 35,
+      "theta": 0.687,
+      "ball": 61,
+      "percentile": 74.7,
+      "grade": "B+"
+     },
+     {
+      "raw": 36,
+      "theta": 0.7872,
+      "ball": 63,
+      "percentile": 77.6,
+      "grade": "B+"
+     },
+     {
+      "raw": 37,
+      "theta": 0.8897,
+      "ball": 64,
+      "percentile": 80.4,
+      "grade": "B+"
+     },
+     {
+      "raw": 38,
+      "theta": 0.995,
+      "ball": 66,
+      "percentile": 83.1,
+      "grade": "A"
+     },
+     {
+      "raw": 39,
+      "theta": 1.1033,
+      "ball": 68,
+      "percentile": 85.4,
+      "grade": "A"
+     },
+     {
+      "raw": 40,
+      "theta": 1.2154,
+      "ball": 69,
+      "percentile": 87.7,
+      "grade": "A"
+     },
+     {
+      "raw": 41,
+      "theta": 1.3317,
+      "ball": 71,
+      "percentile": 89.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 42,
+      "theta": 1.4531,
+      "ball": 73,
+      "percentile": 91.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 43,
+      "theta": 1.5805,
+      "ball": 75,
+      "percentile": 93.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 44,
+      "theta": 1.7149,
+      "ball": 77,
+      "percentile": 94.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 45,
+      "theta": 1.858,
+      "ball": 80,
+      "percentile": 96.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 46,
+      "theta": 2.0115,
+      "ball": 82,
+      "percentile": 97.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 47,
+      "theta": 2.178,
+      "ball": 85,
+      "percentile": 97.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 48,
+      "theta": 2.3611,
+      "ball": 88,
+      "percentile": 98.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 49,
+      "theta": 2.566,
+      "ball": 91,
+      "percentile": 99.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 2.8005,
+      "ball": 95,
+      "percentile": 99.4,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 3.0779,
+      "ball": 99,
+      "percentile": 99.7,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 3.4227,
+      "ball": 100,
+      "percentile": 99.8,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 3.8889,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 4.6479,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 5.9019,
+      "ball": 100,
+      "percentile": 100.0,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   },
+   "strong": {
+    "key": "strong",
+    "label_uz": "Kuchli guruh",
+    "difficulties": [
+     -1.8153,
+     -3.2649,
+     -2.6535,
+     -1.7548,
+     -2.1804,
+     -1.7727,
+     -2.4442,
+     -0.2926,
+     -2.9143,
+     -2.6983,
+     -2.2955,
+     -2.2805,
+     -1.2348,
+     0.5413,
+     -1.1688,
+     -1.7069,
+     -1.9055,
+     -2.6112,
+     -2.2995,
+     -2.2975,
+     -2.2805,
+     -0.8988,
+     -1.778,
+     -3.0184,
+     -1.6924,
+     -1.2601,
+     -1.1099,
+     -3.0584,
+     -1.034,
+     -1.5407,
+     -1.6551,
+     -0.7675,
+     -0.8945,
+     -0.9048,
+     -1.4524,
+     -0.6094,
+     -0.496,
+     -1.5961,
+     -1.6079,
+     -0.4718,
+     0.797,
+     -1.3122,
+     -0.8233,
+     -0.4092,
+     -0.8121,
+     2.0087,
+     -0.5152,
+     0.6353,
+     0.592,
+     -0.3069,
+     0.4334,
+     -0.3908,
+     -0.0103,
+     0.0402,
+     0.2129
+    ],
+    "rows": [
+     {
+      "raw": 0,
+      "theta": -6.9494,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 1,
+      "theta": -5.7195,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 2,
+      "theta": -4.989,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 3,
+      "theta": -4.546,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 4,
+      "theta": -4.2204,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 5,
+      "theta": -3.9591,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 6,
+      "theta": -3.7382,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 7,
+      "theta": -3.5451,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 8,
+      "theta": -3.3723,
+      "ball": 0,
+      "percentile": 0.0,
+      "grade": "—"
+     },
+     {
+      "raw": 9,
+      "theta": -3.2148,
+      "ball": 0,
+      "percentile": 0.1,
+      "grade": "—"
+     },
+     {
+      "raw": 10,
+      "theta": -3.0693,
+      "ball": 1,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 11,
+      "theta": -2.9333,
+      "ball": 3,
+      "percentile": 0.2,
+      "grade": "—"
+     },
+     {
+      "raw": 12,
+      "theta": -2.8052,
+      "ball": 5,
+      "percentile": 0.4,
+      "grade": "—"
+     },
+     {
+      "raw": 13,
+      "theta": -2.6835,
+      "ball": 7,
+      "percentile": 0.6,
+      "grade": "—"
+     },
+     {
+      "raw": 14,
+      "theta": -2.5672,
+      "ball": 9,
+      "percentile": 0.8,
+      "grade": "—"
+     },
+     {
+      "raw": 15,
+      "theta": -2.4554,
+      "ball": 11,
+      "percentile": 1.1,
+      "grade": "—"
+     },
+     {
+      "raw": 16,
+      "theta": -2.3474,
+      "ball": 12,
+      "percentile": 1.4,
+      "grade": "—"
+     },
+     {
+      "raw": 17,
+      "theta": -2.2427,
+      "ball": 14,
+      "percentile": 1.8,
+      "grade": "—"
+     },
+     {
+      "raw": 18,
+      "theta": -2.1407,
+      "ball": 16,
+      "percentile": 2.2,
+      "grade": "—"
+     },
+     {
+      "raw": 19,
+      "theta": -2.041,
+      "ball": 17,
+      "percentile": 2.8,
+      "grade": "—"
+     },
+     {
+      "raw": 20,
+      "theta": -1.9433,
+      "ball": 19,
+      "percentile": 3.5,
+      "grade": "—"
+     },
+     {
+      "raw": 21,
+      "theta": -1.8472,
+      "ball": 20,
+      "percentile": 4.3,
+      "grade": "—"
+     },
+     {
+      "raw": 22,
+      "theta": -1.7525,
+      "ball": 22,
+      "percentile": 5.1,
+      "grade": "—"
+     },
+     {
+      "raw": 23,
+      "theta": -1.6589,
+      "ball": 23,
+      "percentile": 6.1,
+      "grade": "—"
+     },
+     {
+      "raw": 24,
+      "theta": -1.566,
+      "ball": 25,
+      "percentile": 7.3,
+      "grade": "—"
+     },
+     {
+      "raw": 25,
+      "theta": -1.4738,
+      "ball": 26,
+      "percentile": 8.6,
+      "grade": "—"
+     },
+     {
+      "raw": 26,
+      "theta": -1.382,
+      "ball": 28,
+      "percentile": 10.1,
+      "grade": "—"
+     },
+     {
+      "raw": 27,
+      "theta": -1.2904,
+      "ball": 29,
+      "percentile": 11.8,
+      "grade": "—"
+     },
+     {
+      "raw": 28,
+      "theta": -1.1987,
+      "ball": 31,
+      "percentile": 13.7,
+      "grade": "—"
+     },
+     {
+      "raw": 29,
+      "theta": -1.1068,
+      "ball": 32,
+      "percentile": 15.6,
+      "grade": "—"
+     },
+     {
+      "raw": 30,
+      "theta": -1.0144,
+      "ball": 34,
+      "percentile": 17.7,
+      "grade": "—"
+     },
+     {
+      "raw": 31,
+      "theta": -0.9214,
+      "ball": 35,
+      "percentile": 20.1,
+      "grade": "—"
+     },
+     {
+      "raw": 32,
+      "theta": -0.8275,
+      "ball": 37,
+      "percentile": 22.8,
+      "grade": "—"
+     },
+     {
+      "raw": 33,
+      "theta": -0.7325,
+      "ball": 38,
+      "percentile": 25.7,
+      "grade": "—"
+     },
+     {
+      "raw": 34,
+      "theta": -0.636,
+      "ball": 40,
+      "percentile": 28.6,
+      "grade": "—"
+     },
+     {
+      "raw": 35,
+      "theta": -0.538,
+      "ball": 41,
+      "percentile": 31.6,
+      "grade": "—"
+     },
+     {
+      "raw": 36,
+      "theta": -0.4379,
+      "ball": 43,
+      "percentile": 35.0,
+      "grade": "—"
+     },
+     {
+      "raw": 37,
+      "theta": -0.3356,
+      "ball": 45,
+      "percentile": 38.5,
+      "grade": "—"
+     },
+     {
+      "raw": 38,
+      "theta": -0.2305,
+      "ball": 46,
+      "percentile": 42.3,
+      "grade": "C"
+     },
+     {
+      "raw": 39,
+      "theta": -0.1223,
+      "ball": 48,
+      "percentile": 46.4,
+      "grade": "C"
+     },
+     {
+      "raw": 40,
+      "theta": -0.0104,
+      "ball": 50,
+      "percentile": 50.5,
+      "grade": "C+"
+     },
+     {
+      "raw": 41,
+      "theta": 0.1058,
+      "ball": 52,
+      "percentile": 54.9,
+      "grade": "C+"
+     },
+     {
+      "raw": 42,
+      "theta": 0.227,
+      "ball": 54,
+      "percentile": 59.4,
+      "grade": "C+"
+     },
+     {
+      "raw": 43,
+      "theta": 0.3542,
+      "ball": 56,
+      "percentile": 63.7,
+      "grade": "B"
+     },
+     {
+      "raw": 44,
+      "theta": 0.4886,
+      "ball": 58,
+      "percentile": 68.2,
+      "grade": "B"
+     },
+     {
+      "raw": 45,
+      "theta": 0.6315,
+      "ball": 60,
+      "percentile": 72.8,
+      "grade": "B+"
+     },
+     {
+      "raw": 46,
+      "theta": 0.7848,
+      "ball": 63,
+      "percentile": 77.2,
+      "grade": "B+"
+     },
+     {
+      "raw": 47,
+      "theta": 0.9512,
+      "ball": 65,
+      "percentile": 81.5,
+      "grade": "A"
+     },
+     {
+      "raw": 48,
+      "theta": 1.1341,
+      "ball": 68,
+      "percentile": 85.5,
+      "grade": "A"
+     },
+     {
+      "raw": 49,
+      "theta": 1.3389,
+      "ball": 71,
+      "percentile": 89.1,
+      "grade": "A+"
+     },
+     {
+      "raw": 50,
+      "theta": 1.5732,
+      "ball": 75,
+      "percentile": 92.3,
+      "grade": "A+"
+     },
+     {
+      "raw": 51,
+      "theta": 1.8505,
+      "ball": 80,
+      "percentile": 95.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 52,
+      "theta": 2.195,
+      "ball": 85,
+      "percentile": 97.0,
+      "grade": "A+"
+     },
+     {
+      "raw": 53,
+      "theta": 2.6609,
+      "ball": 93,
+      "percentile": 98.6,
+      "grade": "A+"
+     },
+     {
+      "raw": 54,
+      "theta": 3.4195,
+      "ball": 100,
+      "percentile": 99.5,
+      "grade": "A+"
+     },
+     {
+      "raw": 55,
+      "theta": 4.6731,
+      "ball": 100,
+      "percentile": 99.9,
+      "grade": "A+"
+     }
+    ],
+    "converged": true
+   }
+  },
+  "calibrated_from": 147
  }
 ]
